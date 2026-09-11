@@ -26,6 +26,9 @@ open class FrameLayout : ViewGroup {
 
     open var measureAllChildren: Boolean = false
 
+    /** FrameLayout.foreground（setForegroundGravity 配套）。 */
+    open var foreground: android.graphics.drawable.Drawable? = null
+
     open fun setForegroundGravity(foregroundGravity: Int) {}
 
     /** android.widget.FrameLayout.LayoutParams。 */
