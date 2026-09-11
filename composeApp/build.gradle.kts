@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.objectbox.java)
             implementation(libs.objectbox.kotlin)
             implementation(libs.hnswlib.core)
+            implementation(libs.jieba)  // 中文分词（TextSegmenter 用）
             implementation(libs.reorderable)
             implementation(libs.swipe)
             implementation(project(":objectbox-models"))
