@@ -18,13 +18,13 @@ import java.util.concurrent.CopyOnWriteArrayList
 open class Application : Context(), ComponentCallbacks2 {
 
     interface ActivityLifecycleCallbacks {
-        fun onActivityCreated(activity: Any, savedInstanceState: Bundle?) {}
-        fun onActivityStarted(activity: Any) {}
-        fun onActivityResumed(activity: Any) {}
-        fun onActivityPaused(activity: Any) {}
-        fun onActivityStopped(activity: Any) {}
-        fun onActivitySaveInstanceState(activity: Any, outState: Bundle) {}
-        fun onActivityDestroyed(activity: Any) {}
+        fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+        fun onActivityStarted(activity: Activity) {}
+        fun onActivityResumed(activity: Activity) {}
+        fun onActivityPaused(activity: Activity) {}
+        fun onActivityStopped(activity: Activity) {}
+        fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+        fun onActivityDestroyed(activity: Activity) {}
     }
 
     private val componentCallbacks = CopyOnWriteArrayList<ComponentCallbacks2>()

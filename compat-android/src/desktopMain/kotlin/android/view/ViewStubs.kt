@@ -188,6 +188,12 @@ open class View(open val context: Context) {
     open fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {}
     open fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {}
     open fun onAttachedToWindow() {}
+    // ---- overrides-nothing 簇补齐（app 覆写这些 View 方法）——Nova 注 ----
+    open fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {}
+    open fun computeScroll() {}
+    open fun postInvalidateOnAnimation() {}
+    open fun onCheckIsTextEditor(): Boolean = false
+    open fun onCreateInputConnection(outAttrs: android.view.inputmethod.EditorInfo?): android.view.inputmethod.InputConnection? = null
     open fun onDetachedFromWindow() {}
     open fun getLocationOnScreen(outLocation: IntArray) {
         if (outLocation.size >= 2) { outLocation[0] = 0; outLocation[1] = 0 }

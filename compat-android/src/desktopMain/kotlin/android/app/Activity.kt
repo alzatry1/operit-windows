@@ -88,7 +88,8 @@ open class Activity : ContextWrapper(null), ComponentCallbacks2 {
 
     protected open fun onRestoreInstanceState(savedInstanceState: Bundle) {}
 
-    protected open fun onNewIntent(intent: Intent) {}
+    protected open fun onNewIntent(intent: Intent?) {}
+    open fun onTaskRemoved(rootIntent: Intent?) {}
 
     protected open fun onUserLeaveHint() {}
 
