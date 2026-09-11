@@ -385,33 +385,31 @@ object Gravity {
 
 /** android.view.KeyEvent 轻 stub。 */
 open class KeyEvent(
-    private val action: Int = ACTION_DOWN,
-    private val code: Int = 0,
+    val action: Int = ACTION_DOWN,
+    val keyCode: Int = 0,
 ) {
-    fun getAction(): Int = action
-    fun getKeyCode(): Int = code
-    fun getUnicodeChar(): Int = 0
-    fun getUnicodeChar(metaState: Int): Int = 0
-    fun getDisplayLabel(): Char = ' '
-    fun getNumber(): Char = ' '
-    fun getRepeatCount(): Int = 0
-    fun getModifiers(): Int = 0
-    fun getMetaState(): Int = 0
-    fun isShiftPressed(): Boolean = false
-    fun isCtrlPressed(): Boolean = false
-    fun isAltPressed(): Boolean = false
-    fun isMetaPressed(): Boolean = false
-    fun isCapsLockOn(): Boolean = false
-    fun isNumLockOn(): Boolean = false
-    fun isPrintingKey(): Boolean = false
-    fun isSystem(): Boolean = false
-    fun isLongPress(): Boolean = false
-    fun getEventTime(): Long = android.os.SystemClock.uptimeMillis()
-    fun getDownTime(): Long = android.os.SystemClock.uptimeMillis()
-    fun getDeviceId(): Int = 0
-    fun getSource(): Int = 0
-    fun getScanCode(): Int = 0
-    fun isCanceled(): Boolean = false
+    // 属性式公开（app 用 event.keyCode/action/actionMasked/isShiftPressed 等）——Nova 注
+    val actionMasked: Int get() = action
+    val unicodeChar: Int get() = 0
+    val displayLabel: Char get() = ' '
+    val number: Char get() = ' '
+    val repeatCount: Int get() = 0
+    val modifiers: Int get() = 0
+    val metaState: Int get() = 0
+    val isShiftPressed: Boolean get() = false
+    val isCtrlPressed: Boolean get() = false
+    val isAltPressed: Boolean get() = false
+    val isMetaPressed: Boolean get() = false
+    val isCapsLockOn: Boolean get() = false
+    val isNumLockOn: Boolean get() = false
+    val isPrintingKey: Boolean get() = false
+    val isLongPress: Boolean get() = false
+    val eventTime: Long get() = android.os.SystemClock.uptimeMillis()
+    val downTime: Long get() = android.os.SystemClock.uptimeMillis()
+    val deviceId: Int get() = 0
+    val source: Int get() = 0
+    val scanCode: Int get() = 0
+    val isCanceled: Boolean get() = false
 
     companion object {
         const val ACTION_DOWN = 0

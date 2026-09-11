@@ -42,7 +42,7 @@ open class WebSettings {
     open var minimumFontSize: Int = 8
     open var minimumLogicalFontSize: Int = 8
     open var supportMultipleWindows: Boolean = false
-    open var setSupportZoom: Boolean = true
+    open var supportZoom: Boolean = true
     open var autoZoomEnabled: Boolean = false
     open var allowUniversalAccessFromFileURLs: Boolean = false
     open var allowFileAccessFromFileURLs: Boolean = false
@@ -52,6 +52,35 @@ open class WebSettings {
 
     open fun setGeolocationEnabled(flag: Boolean) { geolocationEnabled = flag }
     open fun getGeolocationEnabled(): Boolean = geolocationEnabled
+
+    // ---- 链式 set 方法（app 用 Java 式 setXxx() 调用；返回值改宿主类规避与属性 setter 的 JVM 冲突）——Nova 注 ----
+    fun setJavaScriptEnabled(v: Boolean): WebSettings = apply { javaScriptEnabled = v }
+    fun setDomStorageEnabled(v: Boolean): WebSettings = apply { domStorageEnabled = v }
+    fun setAllowFileAccess(v: Boolean): WebSettings = apply { allowFileAccess = v }
+    fun setAllowContentAccess(v: Boolean): WebSettings = apply { allowContentAccess = v }
+    fun setSupportZoom(v: Boolean): WebSettings = apply { supportZoom = v }
+    fun setSupportMultipleWindows(v: Boolean): WebSettings = apply { supportMultipleWindows = v }
+    fun setUserAgentString(v: String?): WebSettings = apply { userAgentString = v }
+    fun setCacheMode(v: Int): WebSettings = apply { cacheMode = v }
+    fun setTextZoom(v: Int): WebSettings = apply { textZoom = v }
+    fun setMediaPlaybackRequiresUserGesture(v: Boolean): WebSettings = apply { mediaPlaybackRequiresUserGesture = v }
+    fun setBuiltInZoomControls(v: Boolean): WebSettings = apply { builtInZoomControls = v }
+    fun setDisplayZoomControls(v: Boolean): WebSettings = apply { displayZoomControls = v }
+    fun setUseWideViewPort(v: Boolean): WebSettings = apply { useWideViewPort = v }
+    fun setLoadWithOverviewMode(v: Boolean): WebSettings = apply { loadWithOverviewMode = v }
+    fun setDatabaseEnabled(v: Boolean): WebSettings = apply { databaseEnabled = v }
+    fun setJavaScriptCanOpenWindowsAutomatically(v: Boolean): WebSettings = apply { javaScriptCanOpenWindowsAutomatically = v }
+    fun setLoadsImagesAutomatically(v: Boolean): WebSettings = apply { loadsImagesAutomatically = v }
+    fun setBlockNetworkImage(v: Boolean): WebSettings = apply { blockNetworkImage = v }
+    fun setBlockNetworkLoads(v: Boolean): WebSettings = apply { blockNetworkLoads = v }
+    fun setDefaultTextEncodingName(v: String?): WebSettings = apply { defaultTextEncodingName = v }
+    fun setMixedContentMode(v: Int): WebSettings = apply { mixedContentMode = v }
+    fun setDefaultFontSize(v: Int): WebSettings = apply { defaultFontSize = v }
+    fun setMinimumFontSize(v: Int): WebSettings = apply { minimumFontSize = v }
+    fun setSafeBrowsingEnabled(v: Boolean): WebSettings = apply { safeBrowsingEnabled = v }
+    fun setAutoZoomEnabled(v: Boolean): WebSettings = apply { autoZoomEnabled = v }
+    fun setAllowUniversalAccessFromFileURLs(v: Boolean): WebSettings = apply { allowUniversalAccessFromFileURLs = v }
+    fun setAllowFileAccessFromFileURLs(v: Boolean): WebSettings = apply { allowFileAccessFromFileURLs = v }
 
     companion object {
         const val LOAD_DEFAULT = -1
