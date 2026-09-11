@@ -152,6 +152,9 @@ open class ActivityManager {
 
     class AppTask {
         val taskInfo: Any? = null
+        open fun setExcludeFromRecents(exclude: Boolean) {}
+        open fun moveToFront() {}
+        open fun finishAndRemoveTask() {}
     }
 
     class RecentTaskInfo {

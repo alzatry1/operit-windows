@@ -93,6 +93,11 @@ class StructStat(
 /** android.system.Os：文件系统原语的可行子集。 */
 object Os {
     /** 向进程发信号。桌面映射：正 pid 用 ProcessHandle；负 pid（进程组）尽力而为。 */
+    /** setenv：设置环境变量（桌面 JVM 不支持运行时改环境，no-op）。——Nova 注 */
+    @JvmStatic
+    fun setenv(name: String, value: String, overwrite: Boolean) {
+        // JVM 不提供运行时 setenv；忽略
+    }
     @Throws(ErrnoException::class)
     fun kill(pid: Int, signal: Int) {
         val target = kotlin.math.abs(pid).toLong()

@@ -36,6 +36,12 @@ open class Activity : ContextWrapper(null), ComponentCallbacks2 {
     /** 对应 getIntent()/setIntent()。 */
     open var intent: Intent = Intent()
 
+    /** setIntent 链式方法（app 用 setIntent(newIntent) 方法式调用；与 var intent 属性 setter 冲突，用返回值规避）——Nova 注 */
+    open fun setIntent(newIntent: Intent?): Activity {
+        if (newIntent != null) intent = newIntent
+        return this
+    }
+
     /** 对应 get/setRequestedOrientation()。 */
     open var requestedOrientation: Int = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 

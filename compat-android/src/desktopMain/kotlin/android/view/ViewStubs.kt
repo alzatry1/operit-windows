@@ -198,6 +198,8 @@ open class View(open val context: Context) {
     open fun getGlobalVisibleRect(r: android.graphics.Rect?): Boolean = false
     open fun getLocalVisibleRect(r: android.graphics.Rect?): Boolean = false
     open fun getHitRect(outRect: android.graphics.Rect?) {}
+    /** 在 onMeasure 里调用设置测量尺寸。——Nova 注 */
+    open fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int) {}
     open fun onDetachedFromWindow() {}
     open fun getLocationOnScreen(outLocation: IntArray) {
         if (outLocation.size >= 2) { outLocation[0] = 0; outLocation[1] = 0 }
