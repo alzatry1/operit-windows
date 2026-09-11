@@ -64,6 +64,7 @@ kotlin {
             implementation(libs.jlatexmath)
             implementation(libs.objectbox.java)
             implementation(libs.objectbox.kotlin)
+            implementation(libs.hnswlib.core)
             implementation(libs.reorderable)
             implementation(libs.swipe)
             implementation(project(":objectbox-models"))
