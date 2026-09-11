@@ -146,7 +146,7 @@ open class ClipboardManager(private val context: Context) {
 
     open fun setPrimaryClip(clip: ClipData) {
         memoryClip = clip
-        val text = clip.takeIf { it.getItemCount() > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
+        val text = clip.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
         if (text != null) {
             val cb = awtClipboard
             if (cb != null) {
@@ -158,7 +158,7 @@ open class ClipboardManager(private val context: Context) {
             }
         }
         // 非文本（图片等）记日志
-        if (clip.getItemCount() > 0 && clip.getItemAt(0).text == null && clip.getItemAt(0).uri != null) {
+        if (clip.itemCount > 0 && clip.getItemAt(0).text == null && clip.getItemAt(0).uri != null) {
             Log.d("ClipboardManager", "setPrimaryClip: 非文本内容（uri），已记录内存副本")
         }
         notifyChanged()
@@ -180,7 +180,7 @@ open class ClipboardManager(private val context: Context) {
     open fun hasPrimaryClip(): Boolean = getPrimaryClip() != null
 
     open fun getText(): CharSequence? =
-        getPrimaryClip()?.takeIf { it.getItemCount() > 0 }?.getItemAt(0)?.coerceToText(context)
+        getPrimaryClip()?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)
 
     @Deprecated("deprecated", ReplaceWith("setPrimaryClip(ClipData.newPlainText(null, text))"))
     open fun setText(text: CharSequence?) {

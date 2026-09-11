@@ -40,7 +40,7 @@ class ActivityResultContracts private constructor() {
             intent.data?.let { result.add(it) }
             val clip = intent.clipData
             if (clip != null) {
-                for (i in 0 until clip.getItemCount()) clip.getItemAt(i).uri?.let { result.add(it) }
+                for (i in 0 until clip.itemCount) clip.getItemAt(i).uri?.let { result.add(it) }
             }
             return result
         }
@@ -71,7 +71,7 @@ class ActivityResultContracts private constructor() {
             intent.data?.let { result.add(it) }
             val clip = intent.clipData
             if (clip != null) {
-                for (i in 0 until clip.getItemCount()) clip.getItemAt(i).uri?.let { result.add(it) }
+                for (i in 0 until clip.itemCount) clip.getItemAt(i).uri?.let { result.add(it) }
             }
             return result
         }
@@ -228,7 +228,7 @@ class ActivityResultContracts private constructor() {
             intent.data?.let { result.add(it) }
             val clip = intent.clipData
             if (clip != null) {
-                for (i in 0 until clip.getItemCount()) clip.getItemAt(i).uri?.let { result.add(it) }
+                for (i in 0 until clip.itemCount) clip.getItemAt(i).uri?.let { result.add(it) }
             }
             return result
         }
