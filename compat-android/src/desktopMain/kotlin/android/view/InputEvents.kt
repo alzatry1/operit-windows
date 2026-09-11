@@ -32,9 +32,9 @@ open class MotionEvent(
 
     open val pointerCount: Int = 1
     open val downTime: Long = android.os.SystemClock.uptimeMillis()
-    open val eventTime: Long = android.os.SystemClock.uptimeMillis()
-    open val deviceId: Int = 0
-    open val source: Int = 0
+    override val eventTime: Long = android.os.SystemClock.uptimeMillis()
+    override val deviceId: Int = 0
+    override val source: Int = 0
     open val historySize: Int = 0
     open val pressure: Float = 1.0f
     open val size: Float = 0.0f
