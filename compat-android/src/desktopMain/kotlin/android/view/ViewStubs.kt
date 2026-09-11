@@ -525,6 +525,16 @@ open class Display {
     open fun getDisplayId(): Int = 0
     open fun getName(): String = "Built-in Display"
     open fun getRefreshRate(): Float = 60.0f
+    /** Display.Mode 数组（app 用 display.supportedModes）。——Nova 注 */
+    open val supportedModes: Array<Mode> get() = arrayOf(Mode())
+    open fun getMode(): Mode = Mode()
+
+    open class Mode {
+        open fun getPhysicalWidth(): Int = 1920
+        open fun getPhysicalHeight(): Int = 1080
+        open fun getRefreshRate(): Float = 60.0f
+        open fun getModeId(): Int = 0
+    }
     open fun getState(): Int = STATE_ON
     open fun isValid(): Boolean = true
     open fun getMode(): Mode = Mode(0, metrics.widthPixels, metrics.heightPixels, 60.0f)

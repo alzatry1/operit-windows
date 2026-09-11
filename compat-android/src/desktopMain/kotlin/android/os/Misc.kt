@@ -415,7 +415,7 @@ class ParcelFileDescriptor : Parcelable, Closeable {
 
     fun getFd(): Int = fakeFd
     val fileDescriptor: FileDescriptor? get() = fd
-    fun getStatSize(): Long = try { raf?.length() ?: -1 } catch (e: Exception) { -1 }
+    val statSize: Long get() = try { raf?.length() ?: -1 } catch (e: Exception) { -1 }
     fun canDetectErrors(): Boolean = false
     fun detachFd(): Int = fakeFd
     fun dup(): ParcelFileDescriptor = ParcelFileDescriptor(raf)

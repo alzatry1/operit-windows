@@ -18,6 +18,10 @@ open class ImageReader private constructor(
         fun onImageAvailable(reader: ImageReader)
     }
 
+    private val surfaceInstance = android.view.Surface()
+    /** surface 属性（app 用 reader.surface）。——Nova 注 */
+    open val surface: android.view.Surface get() = surfaceInstance
+
     open fun acquireLatestImage(): Image? {
         val bytes = ByteBuffer.allocateDirect(width * height * 4)
         return Image(width, height, imageFormat, bytes)
