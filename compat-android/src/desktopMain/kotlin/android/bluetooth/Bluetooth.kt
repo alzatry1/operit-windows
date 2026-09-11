@@ -307,22 +307,4 @@ open class BluetoothGattDescriptor(
     }
 }
 
-/** android.bluetooth.BluetoothGattCallback。 */
-open class BluetoothGattCallback {
-    open fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {}
-    open fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {}
-    open fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, status: Int) {}
-    open fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, value: ByteArray?, status: Int) {}
-    open fun onCharacteristicWrite(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, status: Int) {}
-    open fun onCharacteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?) {}
-    open fun onCharacteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, value: ByteArray?) {}
-    open fun onDescriptorRead(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor?, status: Int) {}
-    open fun onDescriptorRead(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor?, value: ByteArray?, status: Int) {}
-    open fun onDescriptorWrite(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor?, status: Int) {}
-    open fun onReadRemoteRssi(gatt: BluetoothGatt?, rssi: Int, status: Int) {}
-    open fun onMtuChanged(gatt: BluetoothGatt?, mtu: Int, status: Int) {}
-    open fun onPhyUpdate(gatt: BluetoothGatt?, txPhy: Int, rxPhy: Int, status: Int) {}
-    open fun onPhyRead(gatt: BluetoothGatt?, txPhy: Int, rxPhy: Int, status: Int) {}
-    open fun onReliableWriteCompleted(gatt: BluetoothGatt?, status: Int) {}
-    open fun onServiceChanged(gatt: BluetoothGatt) {}
-}
+/** android.bluetooth.BluetoothGattCallback 已迁移至 Java 版（java/android/bluetooth/BluetoothGattCallback.java）。——Nova 注 */

@@ -444,7 +444,7 @@ open class ContextWrapper(base: Context?) : Context() {
         get() = base ?: com.ai.assistance.operit.compat.AppGlobals.applicationContext
         set(value) { base = value }
 
-    fun attachBaseContext(base: Context?) {
+    open fun attachBaseContext(base: Context) {
         this.base = base
     }
 
