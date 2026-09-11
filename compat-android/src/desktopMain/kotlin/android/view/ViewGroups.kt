@@ -69,7 +69,7 @@ open class ViewGroup : View, ViewParent {
 
     open fun getChildAt(index: Int): View? = children.getOrNull(index)
 
-    open fun getChildCount(): Int = children.size
+    open val childCount: Int get() = children.size
 
     open fun indexOfChild(child: View?): Int = children.indexOf(child)
 

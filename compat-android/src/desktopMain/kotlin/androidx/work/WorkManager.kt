@@ -171,6 +171,9 @@ abstract class CoroutineWorker(
     val params: WorkerParameters,
 ) : ListenableWorker() {
 
+    /** applicationContext 属性（app 直接访问）。——Nova 注 */
+    val applicationContext: Context get() = appContext
+
     abstract suspend fun doWork(): Result
 
     override val inputData: Data get() = params.inputData
