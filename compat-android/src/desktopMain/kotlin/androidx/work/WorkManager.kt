@@ -199,8 +199,6 @@ abstract class WorkRequest internal constructor(
     internal val backoffPolicy: BackoffPolicy,
     internal val backoffDelayMillis: Long,
 ) {
-    enum class BackoffPolicy { EXPONENTIAL, LINEAR }
-
     abstract class Builder<B : Builder<B, W>, W : WorkRequest> internal constructor(
         internal val workerClass: Class<out ListenableWorker>,
     ) {
