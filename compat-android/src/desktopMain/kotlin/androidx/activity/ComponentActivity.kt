@@ -45,6 +45,14 @@ open class ComponentActivity : Activity(),
 
     override val activityResultRegistry: ActivityResultRegistry get() = resultRegistry
 
+    // ---- registerForActivityResult（app 在 Activity 里直接调）——Nova 注 ----
+    private val nextLocalRequestCode = java.util.concurrent.atomic.AtomicInteger(0)
+    open fun <I, O> registerForActivityResult(
+        contract: androidx.activity.result.contract.ActivityResultContract<I, O>,
+        callback: androidx.activity.result.ActivityResultCallback<O>,
+    ): androidx.activity.result.ActivityResultLauncher<I> =
+        resultRegistry.register("app_rq_${'$'}{nextLocalRequestCode.incrementAndGet()}", contract, callback)
+
     // ---- 生命周期钩子：同步 LifecycleRegistry 状态 ----
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

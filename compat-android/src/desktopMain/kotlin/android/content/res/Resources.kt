@@ -17,6 +17,18 @@ import java.util.Locale
  */
 open class Resources {
 
+    /** Resources.updateConfiguration（桌面版：就地更新 configuration 的可变字段；val 不可重赋）——Nova 注 */
+    open fun updateConfiguration(config: Configuration?, metrics: android.util.DisplayMetrics?) {
+        config?.let { newConfig ->
+            configuration.locales = newConfig.locales
+            configuration.locale = newConfig.locale
+            configuration.fontScale = newConfig.fontScale
+            configuration.uiMode = newConfig.uiMode
+            configuration.screenWidthDp = newConfig.screenWidthDp
+            configuration.screenHeightDp = newConfig.screenHeightDp
+        }
+    }
+
     open class NotFoundException : RuntimeException {
         constructor() : super()
         constructor(name: String?) : super(name)
@@ -172,6 +184,12 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
         }
 
     var locales: LocaleList = LocaleList.getDefault()
+
+    /** Configuration.setLocales（app 用 LocaleListCompat 调）。——Nova 注 */
+    fun setLocales(l: androidx.core.os.LocaleListCompat?) {
+        locales = l?.unwrap() ?: LocaleList.getDefault()
+        locale = if (locales.size() > 0) locales.get(0) else null
+    }
 
     var fontScale: Float = 1.0f
     var mcc: Int = 0

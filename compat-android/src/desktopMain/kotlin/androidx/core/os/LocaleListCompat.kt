@@ -28,7 +28,7 @@ class LocaleListCompat private constructor(
     }
 
     /** 返回平台包装对象（桌面即 android.os.LocaleList）。 */
-    fun unwrap(): Any = delegate
+    fun unwrap(): android.os.LocaleList = delegate
 
     override fun iterator(): Iterator<Locale> = delegate.iterator()
 
