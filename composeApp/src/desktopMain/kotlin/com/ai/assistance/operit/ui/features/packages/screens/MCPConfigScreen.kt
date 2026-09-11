@@ -83,10 +83,10 @@ fun MCPConfigScreen(
 
     // 实例化ViewModel
     val viewModel = remember {
-        MCPViewModel.Factory(mcpRepository, context).create(MCPViewModel::class.java)
+        MCPViewModel.Factory(mcpRepository, context).create(MCPViewModel::class, androidx.lifecycle.viewmodel.CreationExtras.Empty)
     }
     val deployViewModel = remember {
-        MCPDeployViewModel.Factory(context, mcpRepository).create(MCPDeployViewModel::class.java)
+        MCPDeployViewModel.Factory(context, mcpRepository).create(MCPDeployViewModel::class, androidx.lifecycle.viewmodel.CreationExtras.Empty)
     }
 
 
