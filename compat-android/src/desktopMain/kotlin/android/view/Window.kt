@@ -22,6 +22,7 @@ open class WindowManager {
         var format: Int = android.graphics.PixelFormat.OPAQUE
         var gravity: Int = Gravity.NO_GRAVITY
         var softInputMode: Int = 0
+        var layoutInDisplayCutoutMode: Int = 0
         var windowAnimations: Int = 0
         var alpha: Float = 1.0f
         var dimAmount: Float = 0f
