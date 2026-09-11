@@ -640,7 +640,7 @@ open class GLSurfaceView : android.view.SurfaceView {
     open fun onPause() {}
     open fun onResume() {}
     open fun setEGLContextClientVersion(version: Int) {}
-    open fun setPreserveEGLContextOnPause(preserve: Boolean) {}
+    open var preserveEGLContextOnPause: Boolean = false
     open fun setEGLConfigChooser(needDepth: Boolean) {}
     open fun setEGLConfigChooser(red: Int, green: Int, blue: Int, alpha: Int, depth: Int, stencil: Int) {}
     open fun setDebugFlags(flags: Int) {}

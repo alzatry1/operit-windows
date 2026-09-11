@@ -144,43 +144,41 @@ open class ClipboardManager(private val context: Context) {
         }
     }
 
-    open fun setPrimaryClip(clip: ClipData) {
-        memoryClip = clip
-        val text = clip.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
-        if (text != null) {
-            val cb = awtClipboard
-            if (cb != null) {
-                try {
-                    cb.setContents(java.awt.datatransfer.StringSelection(text), null)
-                } catch (t: Throwable) {
-                    Log.w("ClipboardManager", "写入系统剪贴板失败: ${t.message}")
-                }
+    /** primaryClip 属性（app 用 clipboardManager.primaryClip；保留 AWT 剪贴板桥接逻辑）。——Nova 注 */
+    open var primaryClip: ClipData?
+        get() {
+            memoryClip?.let { return it }
+            val cb = awtClipboard ?: return null
+            return try {
+                val text = cb.getData(java.awt.datatransfer.DataFlavor.stringFlavor) as? String
+                text?.let { ClipData.newPlainText("text", it) }
+            } catch (t: Throwable) {
+                null
             }
         }
-        // 非文本（图片等）记日志
-        if (clip.itemCount > 0 && clip.getItemAt(0).text == null && clip.getItemAt(0).uri != null) {
-            Log.d("ClipboardManager", "setPrimaryClip: 非文本内容（uri），已记录内存副本")
+        set(clip) {
+            if (clip == null) return
+            memoryClip = clip
+            val text = clip.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
+            if (text != null) {
+                val cb = awtClipboard
+                if (cb != null) {
+                    try {
+                        cb.setContents(java.awt.datatransfer.StringSelection(text), null)
+                    } catch (t: Throwable) {
+                        Log.w("ClipboardManager", "写入系统剪贴板失败: ${t.message}")
+                    }
+                }
+            }
+            notifyChanged()
         }
-        notifyChanged()
-    }
 
-    open fun getPrimaryClip(): ClipData? {
-        memoryClip?.let { return it }
-        val cb = awtClipboard ?: return null
-        return try {
-            val text = cb.getData(java.awt.datatransfer.DataFlavor.stringFlavor) as? String
-            text?.let { ClipData.newPlainText("text", it) }
-        } catch (t: Throwable) {
-            null
-        }
-    }
+    open fun getPrimaryClipDescription(): ClipDescription? = primaryClip?.getDescription()
 
-    open fun getPrimaryClipDescription(): ClipDescription? = getPrimaryClip()?.getDescription()
-
-    open fun hasPrimaryClip(): Boolean = getPrimaryClip() != null
+    open fun hasPrimaryClip(): Boolean = primaryClip != null
 
     open fun getText(): CharSequence? =
-        getPrimaryClip()?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)
+        primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)
 
     @Deprecated("deprecated", ReplaceWith("setPrimaryClip(ClipData.newPlainText(null, text))"))
     open fun setText(text: CharSequence?) {
