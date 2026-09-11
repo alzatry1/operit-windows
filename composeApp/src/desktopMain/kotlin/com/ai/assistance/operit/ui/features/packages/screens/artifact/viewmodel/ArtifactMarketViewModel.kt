@@ -45,6 +45,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 data class ArtifactPublishDraft(
     val selectedPackageName: String = "",
@@ -751,8 +752,8 @@ class ArtifactMarketViewModel(
         private val context: Context,
         private val scope: ArtifactMarketScope
     ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ArtifactMarketViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(ArtifactMarketViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return ArtifactMarketViewModel(context, scope) as T
             }

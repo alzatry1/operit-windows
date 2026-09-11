@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 class DataRecoveryViewModel(private val context: Context) : ViewModel() {
 
@@ -415,8 +416,8 @@ class DataRecoveryViewModel(private val context: Context) : ViewModel() {
 
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DataRecoveryViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(DataRecoveryViewModel::class.java)) {
                 return DataRecoveryViewModel(LocaleUtils.getLocalizedContext(context.applicationContext)) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

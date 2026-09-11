@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 data class RepoPublishDraft(
     val title: String = "",
@@ -456,8 +457,8 @@ class RepoMarketPublishViewModel(
         private val context: Context,
         private val type: MarketStatsType
     ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(RepoMarketPublishViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(RepoMarketPublishViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return RepoMarketPublishViewModel(context, type) as T
             }

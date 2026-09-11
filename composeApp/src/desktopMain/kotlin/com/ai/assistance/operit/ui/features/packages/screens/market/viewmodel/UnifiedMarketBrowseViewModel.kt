@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 enum class UnifiedMarketListScope {
     ALL,
@@ -334,8 +335,8 @@ class UnifiedMarketBrowseViewModel(
         private val context: Context,
         private val browseScope: UnifiedMarketBrowseScope
     ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UnifiedMarketBrowseViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(UnifiedMarketBrowseViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return UnifiedMarketBrowseViewModel(context, browseScope) as T
             }

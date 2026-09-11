@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 class UnifiedMarketAuthorViewModel(
     private val context: Context,
@@ -97,8 +98,8 @@ class UnifiedMarketAuthorViewModel(
         private val context: Context,
         private val authorId: String
     ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UnifiedMarketAuthorViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(UnifiedMarketAuthorViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return UnifiedMarketAuthorViewModel(context, authorId) as T
             }

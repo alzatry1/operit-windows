@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 /**
  * MCP部署ViewModel
@@ -245,8 +246,8 @@ class MCPDeployViewModel(private val context: Context, private val mcpRepository
     class Factory(private val context: Context, private val mcpRepository: MCPRepository) :
             ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MCPDeployViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(MCPDeployViewModel::class.java)) {
                 return MCPDeployViewModel(context, mcpRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

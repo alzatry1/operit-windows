@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 class AssistantConfigViewModel(
     private val repository: AvatarRepository,
@@ -381,8 +382,8 @@ class AssistantConfigViewModel(
 
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AssistantConfigViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(AssistantConfigViewModel::class.java)) {
                 val modelFactory = AvatarModelFactoryImpl()
                 val repository = AvatarRepository.getInstance(context, modelFactory)
                 return AssistantConfigViewModel(repository, context) as T

@@ -37,6 +37,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 data class TokenActivityUiState(
     val loading: Boolean = true,
@@ -408,7 +409,7 @@ class TokenUsageStatisticsViewModel(
         private val appContext = context.applicationContext
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T =
             TokenUsageStatisticsViewModel(appContext) as T
     }
 

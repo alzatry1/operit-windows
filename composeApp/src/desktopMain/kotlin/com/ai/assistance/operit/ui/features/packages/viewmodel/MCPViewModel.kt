@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import android.net.Uri
 import android.content.Context
 import com.ai.assistance.operit.R
+import kotlin.reflect.KClass
 
 /** ViewModel for MCP 服务器管理，包括安装、卸载等功能 */
 class MCPViewModel(
@@ -235,8 +236,8 @@ class MCPViewModel(
         private val context: Context
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MCPViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(MCPViewModel::class.java)) {
                 return MCPViewModel(repository, context) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

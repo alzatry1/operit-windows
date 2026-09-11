@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 enum class UnifiedMarketManageKind(val types: Set<String>) {
     SCRIPT(setOf(MarketStatsType.SCRIPT.wireValue)),
@@ -245,8 +246,8 @@ class UnifiedMarketManageViewModel(
         private val context: Context,
         private val kind: UnifiedMarketManageKind
     ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UnifiedMarketManageViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(UnifiedMarketManageViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return UnifiedMarketManageViewModel(context, kind) as T
             }

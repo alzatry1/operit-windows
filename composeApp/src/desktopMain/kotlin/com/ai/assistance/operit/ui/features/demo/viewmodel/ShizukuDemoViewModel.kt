@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 /** ViewModel for the ShizukuDemoScreen Delegates most state management to DemoStateManager */
 class ShizukuDemoViewModel(application: Application) : AndroidViewModel(application) {
@@ -202,8 +203,8 @@ class ShizukuDemoViewModel(application: Application) : AndroidViewModel(applicat
     /** ViewModelFactory for creating ShizukuDemoViewModel with dependencies */
     class Factory(private val application: Application) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ShizukuDemoViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(ShizukuDemoViewModel::class.java)) {
                 return ShizukuDemoViewModel(application) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 /** Memory UI State Represents the current state of the Memory screen. */
 data class MemoryUiState(
@@ -971,8 +972,8 @@ class MemoryViewModel(
 /** Factory for creating MemoryViewModel instances with dependencies. */
 class MemoryViewModelFactory(private val context: Context, private val profileId: String) :
         ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MemoryViewModel::class.java)) {
+    override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+        if (modelClass.java.isAssignableFrom(MemoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST") val repository = MemoryRepository(context, profileId)
             return MemoryViewModel(repository, context.applicationContext, profileId) as T
         }

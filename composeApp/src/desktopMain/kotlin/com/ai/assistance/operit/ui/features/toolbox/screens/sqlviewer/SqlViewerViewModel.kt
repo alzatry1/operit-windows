@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.reflect.KClass
 
 class SqlViewerViewModel(private val context: Context) : ViewModel() {
     data class QueryResult(
@@ -171,8 +172,8 @@ class SqlViewerViewModel(private val context: Context) : ViewModel() {
 
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(SqlViewerViewModel::class.java)) {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: androidx.lifecycle.viewmodel.CreationExtras): T {
+            if (modelClass.java.isAssignableFrom(SqlViewerViewModel::class.java)) {
                 return SqlViewerViewModel(context) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
