@@ -59,6 +59,7 @@ lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name
 lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite" }
 collection = { group = "androidx.collection", name = "collection", version.ref = "collection" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }

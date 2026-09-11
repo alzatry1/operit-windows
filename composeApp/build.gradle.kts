@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.datastore.preferences)
             implementation(libs.room.runtime)
+            implementation(libs.kotlin.reflect)
             implementation(libs.sqlite.bundled)
             implementation(libs.collection)
             implementation(libs.annotation)
