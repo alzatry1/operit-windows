@@ -8,7 +8,7 @@ import com.ai.assistance.operit.util.AppLogger
 import com.ai.assistance.operit.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -439,7 +439,7 @@ fun OperitTheme(content: @Composable () -> Unit) {
                                         this.player = player
                                         useController = false
                                         layoutParams =
-                                            ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                                            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                         resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                                         setBackgroundColor(videoBackgroundColor)
                                         setShutterBackgroundColor(videoBackgroundColor)

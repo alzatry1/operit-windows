@@ -2,7 +2,6 @@ package com.ai.assistance.operit.ui.theme
 
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -162,7 +161,7 @@ fun AppBackgroundLayer(
                                     this.player = player
                                     useController = false
                                     layoutParams =
-                                        android.view.ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                                        android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT)
                                     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                                     setBackgroundColor(if (darkTheme) android.graphics.Color.BLACK else android.graphics.Color.WHITE)
                                     setShutterBackgroundColor(if (darkTheme) android.graphics.Color.BLACK else android.graphics.Color.WHITE)

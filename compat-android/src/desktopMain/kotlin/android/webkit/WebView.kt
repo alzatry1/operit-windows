@@ -43,6 +43,10 @@ open class WebSettings {
     open var minimumLogicalFontSize: Int = 8
     open var supportMultipleWindows: Boolean = false
     open var setSupportZoom: Boolean = true
+    open var autoZoomEnabled: Boolean = false
+    open var allowUniversalAccessFromFileURLs: Boolean = false
+    open var allowFileAccessFromFileURLs: Boolean = false
+    open var safeBrowsingEnabled: Boolean = false
 
     private var geolocationEnabled = true
 
@@ -62,8 +66,8 @@ open class WebSettings {
     }
 }
 
-/** android.webkit.WebView：桌面无 WebView 渲染，仅骨架。 */
-open class WebView : View {
+/** android.webkit.WebView：桌面无 WebView 渲染，仅骨架。继承 FrameLayout 以支持 addView/removeAllViews 等容器操作。 */
+open class WebView : android.widget.FrameLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

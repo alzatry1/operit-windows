@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.Image
@@ -240,7 +240,7 @@ internal fun ThemeSettingsBackgroundSection(
                                         player = exoPlayer
                                         useController = false
                                         layoutParams =
-                                            ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                                            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                         resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                                         setBackgroundColor(backgroundColor)
                                         setShutterBackgroundColor(backgroundColor)
