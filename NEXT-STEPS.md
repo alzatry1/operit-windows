@@ -28,12 +28,19 @@ Android 应用 Operit（48万行 Kotlin，Compose）正移植到 Windows（Compo
 - B1a/B1b-1/B1b-2/B2/B3/B4/B6：android 核心、androidx、webview/opengl/sqlite/tts/蓝牙/定位、ObjectBox 真实生成（:objectbox-models 模块）、exoplayer、filament/mlkit/ffmpeg、kyant/fletchmckee/canhub/jlatexmath/DownloadManager/skydoves、coil2→coil3、Room 迁移→SQLiteConnection、Room databaseBuilder 适配 KMP、BuildConfig、R 资源体系（7686 ID + 9 语言）。
 
 ## 剩余工作（按优先级）
-0. **当前水位**：**576 →（B8k 普查）**，B8l-B8r 又推了 8 批（jlatexmath 坐标修正+Builder、scrollTo/runningAppProcesses/setBlurBehindRadius、GLSurfaceView.preserveEGLContextOnPause、ClipboardManager.primaryClip 属性化、MotionEvent.obtain(event)+copyFields、compat 冲突修复、getRunningAppProcesses JVM 冲突、androidx.sqlite 垫片移除）。B8q/B8r 普查在 CI 跑。compat 全量 clean 绿。
+0. **当前水位**：**518 错误（B8w 普查，ui/ 272，overrides-nothing 17）**。累计 3744→518（-86%）。compat 全量 clean 绿。本轮新增修复：getAppTasks()→appTasks 属性（Kotlin 方法不能属性式访问）、View.pivotX/pivotY、WindowManager.LayoutParams.layoutInDisplayCutoutMode、View.isScreenReaderFocusable、ClipboardManager 改 val primaryClip+fun setPrimaryClip（Kotlin 代码不能方法式调用 var 属性 setter）、kotlin-reflect 依赖、androidx.room.withTransaction 自建桥（room-ktx 无桌面 KMP 变体）。仓库：alzatry1/operit-windows master。
 1. **ViewModelProvider.Factory.create 簇（17 处）**：app override `create(modelClass: Class<T>)`，lifecycle-viewmodel KMP 2.9 要 `create(modelClass: KClass<T>, extras: CreationExtras)`。需批量改写 ViewModel 工厂。
 2. **Room openHelper 验证**：B8r 移除 compat androidx.sqlite 垫片后，真 room-runtime→sqlite-framework 应提供 SupportSQLiteOpenHelper，openHelper 链应通。若仍断，查 sqlite-framework 是否在桌面 classpath。
 3. **Room KSP codegen**：composeApp 加 KSP 插件 + room-compiler，生成 `AppDatabase_Impl` 等。
 4. **composedsl 三件套（56 处，B8k 普查）**：ToolPkgComposeDslGeneratedRenderers/Screen/WebView 引用了桌面 Compose 没有的 Material3 adaptive 组件——WideNavigationRail/WideNavigationRailItem/ShortNavigationBarItem/TimePickerDialog/VerticalDragHandle + 照片选择器类型 VisualMediaType/ImageOnly/VideoOnly/ImageAndVideo/getPickImagesMaxLimit。需 stub composable 或降级替代。
 5. **其余 android stub**：VoiceInteractionSession、DisplayManager、MediaCodec、DexClassLoader（插件加载）、work.BackoffPolicy 等，按普查里 Unresolved 频次补。
+6. **疑难簇（库里本该有却不解析，需细查勿盲改）**：
+   - `scrollableArea`（LazyList.kt）：`androidx.compose.foundation.scrollableArea` 是 ExperimentalFoundationApi，可能需 @OptIn 或 CMP foundation 版本不含。查 CMP 1.9.0 foundation 是否有此修饰符。
+   - `preferencesDataStoreFile`（PreferencesHealthManager.kt）：`androidx.datastore.preferences.preferencesDataStoreFile`，datastore-preferences:1.1.7 是依赖。查桌面变体是否含此顶层函数。
+   - `LocalImageLoader`（MessageImageGenerator.kt）：`coil3.compose.LocalImageLoader`，coil3:3.2.0。查 coil3 3.x 是否改名/移包。
+   - `toPx`（LiquidGlass.kt）：`blurRadius.toPx()` 在 backdrop 的 effects 作用域里，该作用域非 Density 接收者 → toPx 无接收者。查 backdrop 垫片的 effect scope 是否应继承 Density。
+   - `ColorProvider`（VoiceAssistantGlanceWidget.kt）：Glance ColorProvider 类已在 compat 建好（typealias+构造），但使用点 61/104 行仍 unresolved——查具体调用形式。
+   - `openHelper/query/moveToNext/moveToFirst`（SqlViewerViewModel 等）：Room 直连根因见第 7 条。
 
 ## 验证 checkpoint 习惯
 每完成一批：compat 编译绿 → 提交推送 → CI 普查 → 记录错误数降幅。当前趋势：3744→1264→1131→1109→1068→1045→1026。
