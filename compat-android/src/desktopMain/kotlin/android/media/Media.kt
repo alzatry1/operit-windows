@@ -203,6 +203,7 @@ open class MediaPlayer {
     open fun getAudioSessionId(): Int = 0
     open fun setAudioSessionId(sessionId: Int) {}
     open fun setVolume(leftVolume: Float, rightVolume: Float) {}
+    open fun setAudioAttributes(attributes: AudioAttributes?) {}
     open fun setLooping(looping: Boolean) {}
     open fun isLooping(): Boolean = false
     open fun setOnCompletionListener(l: OnCompletionListener?) {}
@@ -355,6 +356,7 @@ open class AudioTrack(
     private val mode: Int = 1,
 ) {
     open fun play() {}
+    open fun setAudioAttributes(attributes: AudioAttributes?) {}
     open fun stop() {}
     open fun pause() {}
     open fun flush() {}
