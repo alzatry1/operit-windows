@@ -17,6 +17,14 @@ open class StyledPlayerView : AspectRatioFrameLayout {
     var useController: Boolean = true
     var controllerAutoShow: Boolean = true
     var controllerShowTimeoutMs: Int = 5000
+    private var shutterBackgroundColor: Int = 0
+    private var keepContentOnPlayerReset: Boolean = false
+
+    fun setShutterBackgroundColor(color: Int) { shutterBackgroundColor = color }
+    fun setKeepContentOnPlayerReset(keep: Boolean) { keepContentOnPlayerReset = keep }
+    fun setShowBuffering(showBuffering: Int) {}
+    fun setShowNextButton(show: Boolean) {}
+    fun setShowPreviousButton(show: Boolean) {}
 
     fun showController() {}
 

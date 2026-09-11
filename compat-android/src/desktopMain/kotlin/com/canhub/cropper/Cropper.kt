@@ -26,7 +26,7 @@ class CropImage {
 
 /** 裁剪选项（Parcelable 占位，链式 setter）。 */
 open class CropImageOptions : Parcelable {
-    var guidelines: Int = 0
+    var guidelines: CropImageView.Guidelines = CropImageView.Guidelines.OFF
     var outputCompressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG
     var outputCompressQuality: Int = 90
     var outputRequestWidth: Int = 0
@@ -36,15 +36,15 @@ open class CropImageOptions : Parcelable {
     var aspectRatioY: Int = 1
     var multiTouchEnabled: Boolean = false
     var cropShape: Int = 0
+    var toolbarColor: Int = 0
+    var toolbarTitleColor: Int = 0
+    var activityTitle: CharSequence? = null
+    var cropMenuCropButtonTitle: CharSequence? = null
+    var showCropOverlay: Boolean = true
+    var showProgressBar: Boolean = true
 
     override fun describeContents(): Int = 0
     override fun writeToParcel(dest: android.os.Parcel, flags: Int) {}
-
-    companion object {
-        const val GUIDELINES_OFF = 0
-        const val GUIDELINES_ON_TOUCH = 1
-        const val GUIDELINES_ON = 2
-    }
 }
 
 /** 契约入参：uri + options。 */
@@ -53,7 +53,7 @@ class CropImageContractOptions(
     val options: CropImageOptions,
 ) {
     // 链式委托到 options
-    fun setGuidelines(v: Int): CropImageContractOptions = apply { options.guidelines = v }
+    fun setGuidelines(v: CropImageView.Guidelines): CropImageContractOptions = apply { options.guidelines = v }
     fun setOutputCompressFormat(f: Bitmap.CompressFormat): CropImageContractOptions = apply { options.outputCompressFormat = f }
     fun setOutputCompressQuality(q: Int): CropImageContractOptions = apply { options.outputCompressQuality = q }
     fun setOutputRequestWidth(w: Int): CropImageContractOptions = apply { options.outputRequestWidth = w }
@@ -75,6 +75,8 @@ class CropImageContract : ActivityResultContract<CropImageContractOptions, CropI
 
 /** CropImageView 视图垫片。 */
 open class CropImageView(context: Context) : View(context) {
+    enum class Guidelines { OFF, ON_TOUCH, ON }
+
     fun setImageUriAsync(uri: Uri?) {}
     fun getCroppedImage(): Bitmap? = null
     fun clearImage() {}
