@@ -355,6 +355,27 @@ open class AudioTrack(
     private val bufferSizeInBytes: Int = 0,
     private val mode: Int = 1,
 ) {
+    /** android.media.AudioTrack.Builder（桌面编译形状）。——Nova 注 */
+    class Builder {
+        private var audioAttributes: AudioAttributes? = null
+        private var audioFormat: AudioFormat? = null
+        private var bufferSizeInBytes: Int = 0
+        private var transferMode: Int = MODE_STREAM
+        private var sessionId: Int = 0
+        fun setAudioAttributes(attributes: AudioAttributes?): Builder = apply { audioAttributes = attributes }
+        fun setAudioFormat(format: AudioFormat?): Builder = apply { audioFormat = format }
+        fun setBufferSizeInBytes(size: Int): Builder = apply { bufferSizeInBytes = size }
+        fun setTransferMode(mode: Int): Builder = apply { transferMode = mode }
+        fun setSessionId(id: Int): Builder = apply { sessionId = id }
+        fun build(): AudioTrack = AudioTrack(
+            sampleRateInHz = audioFormat?.sampleRate ?: 44100,
+            channelConfig = audioFormat?.channelMask ?: 12,
+            audioFormat = audioFormat?.encoding ?: 2,
+            bufferSizeInBytes = bufferSizeInBytes,
+            mode = transferMode,
+        )
+    }
+
     open fun play() {}
     open fun setAudioAttributes(attributes: AudioAttributes?) {}
     open fun stop() {}
@@ -389,7 +410,25 @@ open class AudioTrack(
 }
 
 /** android.media.AudioFormat 常量。 */
-object AudioFormat {
+class AudioFormat(
+    val encoding: Int = ENCODING_DEFAULT,
+    val sampleRate: Int = 44100,
+    val channelMask: Int = CHANNEL_OUT_STEREO,
+) {
+    /** android.media.AudioFormat.Builder。 */
+    class Builder {
+        private var encoding: Int = ENCODING_PCM_16BIT
+        private var sampleRate: Int = 44100
+        private var channelMask: Int = CHANNEL_OUT_STEREO
+        fun setEncoding(encoding: Int): Builder = apply { this.encoding = encoding }
+        fun setSampleRate(sampleRate: Int): Builder = apply { this.sampleRate = sampleRate }
+        fun setChannelMask(channelMask: Int): Builder = apply { this.channelMask = channelMask }
+        fun setChannelIndexMask(channelIndexMask: Int): Builder = apply { this.channelMask = channelIndexMask }
+        fun build(): AudioFormat = AudioFormat(encoding, sampleRate, channelMask)
+    }
+
+    companion object {
+
     const val ENCODING_INVALID = 0
     const val ENCODING_DEFAULT = 1
     const val ENCODING_PCM_16BIT = 2
@@ -435,6 +474,8 @@ object AudioFormat {
     const val CHANNEL_IN_BACK = 32
     const val CHANNEL_IN_MONO = 16
     const val CHANNEL_IN_STEREO = 12
+
+}
 }
 
 /** android.media.MediaMetadataRetriever 轻 stub。 */
