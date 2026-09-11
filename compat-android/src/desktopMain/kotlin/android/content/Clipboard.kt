@@ -67,7 +67,7 @@ class ClipData : android.os.Parcelable {
     fun getDescription(): ClipDescription = description
     fun addItem(item: Item) { items.add(item) }
     fun addItem(resolver: ContentResolver, item: Item) { items.add(item) }
-    fun getItemCount(): Int = items.size
+    val itemCount: Int get() = items.size
     fun getItemAt(index: Int): Item = items[index]
     fun clearItems() { items.clear() }
 

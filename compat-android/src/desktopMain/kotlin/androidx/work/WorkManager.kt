@@ -107,6 +107,9 @@ class Constraints private constructor(
 abstract class ListenableWorker {
     abstract fun startWork(): Result
 
+    /** inputData 属性（真身 getInputData()）。——Nova 注 */
+    open val inputData: Data get() = Data.EMPTY
+
     /** Result：success/failure/retry。 */
     class Result private constructor(
         internal val kind: Kind,
@@ -169,6 +172,8 @@ abstract class CoroutineWorker(
 ) : ListenableWorker() {
 
     abstract suspend fun doWork(): Result
+
+    override val inputData: Data get() = params.inputData
 
     override fun startWork(): Result {
         return kotlinx.coroutines.runBlocking {
