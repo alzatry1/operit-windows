@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.objectbox.java)
             implementation(libs.objectbox.kotlin)
             implementation(libs.reorderable)
+            implementation(libs.swipe)
             implementation(project(":objectbox-models"))
             implementation("io.objectbox:objectbox-windows:5.3.0")
             implementation(libs.onnxruntime)
