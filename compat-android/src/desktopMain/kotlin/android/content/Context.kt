@@ -373,7 +373,6 @@ open class Context {
         const val LAYOUT_INFLATER_SERVICE = "layout_inflater"
         const val ACCOUNT_SERVICE = "account"
         const val ACTIVITY_SERVICE = "activity"
-        const val INPUT_METHOD_SERVICE = "input_method"
         const val ALARM_SERVICE = "alarm"
         const val NOTIFICATION_SERVICE = "notification"
         const val ACCESSIBILITY_SERVICE = "accessibility"
