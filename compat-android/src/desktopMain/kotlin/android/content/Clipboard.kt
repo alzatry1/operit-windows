@@ -184,9 +184,9 @@ open class ClipboardManager(private val context: Context) {
     open fun getText(): CharSequence? =
         primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)
 
-    @Deprecated("deprecated", ReplaceWith("primaryClip = ClipData.newPlainText(null, text)"))
+    @Deprecated("deprecated", ReplaceWith("setPrimaryClip(ClipData.newPlainText(null, text))"))
     open fun setText(text: CharSequence?) {
-        primaryClip = ClipData.newPlainText("text", text ?: "")
+        setPrimaryClip(ClipData.newPlainText("text", text ?: ""))
     }
 
     open fun clearPrimaryClip() {
