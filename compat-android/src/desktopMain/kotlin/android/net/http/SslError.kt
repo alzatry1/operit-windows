@@ -4,11 +4,10 @@ package android.net.http
 open class SslError(
     private val error: Int = SSL_INVALID,
     private val certificate: Any? = null,
-    private val url: String = "",
+    val url: String = "",
 ) {
-    fun getPrimaryError(): Int = error
+    val primaryError: Int get() = error
     fun getCertificate(): Any? = certificate
-    fun getUrl(): String = url
     fun addError(err: Int): Boolean = false
     fun hasError(err: Int): Boolean = err == error
     override fun toString(): String = "SslError{primary=$error, url=$url}"
