@@ -74,6 +74,9 @@ class WindowInsetsControllerCompat(
 ) {
 
     var systemBarsBehavior: Int = BEHAVIOR_SHOW_BARS_BY_TOUCH
+    /** 导航栏/状态栏亮色图标开关（桌面无系统栏，仅保存）。——Nova 注 */
+    var isAppearanceLightStatusBars: Boolean = false
+    var isAppearanceLightNavigationBars: Boolean = false
 
     fun show(types: Int) {
         android.util.Log.d("WindowInsetsController", "show($types) no-op")

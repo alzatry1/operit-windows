@@ -39,6 +39,7 @@ open class View(open val context: Context) {
     open var isFocusable: Boolean = false
     open var isFocusableInTouchMode: Boolean = false
     open var isScreenReaderFocusable: Boolean = false
+    open var isHapticFeedbackEnabled: Boolean = true
     open var accessibilityDelegate: AccessibilityDelegate? = null
     open var isSelected: Boolean = false
     open var isPressed: Boolean = false
