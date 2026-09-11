@@ -110,8 +110,8 @@ open class ScrollView : FrameLayout {
     open var isSmoothScrollingEnabled: Boolean = true
     open var maxScrollAmount: Int = 0
 
-    open fun scrollTo(x: Int, y: Int) {}
-    open fun scrollBy(x: Int, y: Int) {}
+    override fun scrollTo(x: Int, y: Int) {}
+    override fun scrollBy(x: Int, y: Int) {}
     open fun smoothScrollTo(x: Int, y: Int) {}
     open fun smoothScrollBy(dx: Int, dy: Int) {}
     open fun fullScroll(direction: Int): Boolean = false
