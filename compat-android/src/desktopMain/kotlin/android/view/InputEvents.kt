@@ -21,6 +21,9 @@ open class MotionEvent(
     private val yField: Float = 0f,
 ) : InputEvent() {
 
+    /** 拷贝本事件（obtain(event) 用）。——Nova 注 */
+    open fun copyFields(): MotionEvent = MotionEvent(actionField, xField, yField)
+
     open val action: Int get() = actionField
     open val actionMasked: Int get() = actionField and ACTION_MASK
     open val actionIndex: Int get() = (actionField and ACTION_POINTER_INDEX_MASK) shr ACTION_POINTER_INDEX_SHIFT
@@ -122,6 +125,8 @@ open class MotionEvent(
 
         @JvmStatic
         fun obtain(): MotionEvent = MotionEvent()
+        /** 拷贝现有 MotionEvent。——Nova 注 */
+        fun obtain(event: MotionEvent?): MotionEvent = event?.copyFields() ?: MotionEvent()
 
         @JvmStatic
         fun obtain(downTime: Long, eventTime: Long, action: Int, x: Float, y: Float, metaState: Int): MotionEvent =
