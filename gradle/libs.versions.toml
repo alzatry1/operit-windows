@@ -79,6 +79,7 @@ zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" 
 zxing-javase = { group = "com.google.zxing", name = "javase", version.ref = "zxing" }
 poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
 poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poi" }
+poi-scratchpad = { group = "org.apache.poi", name = "poi-scratchpad", version.ref = "poi" }
 pdfbox = { group = "org.apache.pdfbox", name = "pdfbox", version.ref = "pdfbox" }
 junrar = { group = "com.github.junrar", name = "junrar", version.ref = "junrar" }
 hnswlib-core = { group = "com.github.jelmerk", name = "hnswlib-core", version.ref = "hnswlib" }

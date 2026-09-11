@@ -73,6 +73,7 @@ kotlin {
             implementation(libs.onnxruntime)
             implementation(libs.poi)
             implementation(libs.poi.ooxml)
+            implementation(libs.poi.scratchpad)  // HWPFDocument(.doc) 在这个里
             implementation(libs.mcp.sdk.client)
             // B3 补齐：terminal/subpack 依赖（与 android-src 坐标对齐）
             implementation("com.jcraft:jsch:0.1.55")

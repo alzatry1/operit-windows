@@ -194,6 +194,9 @@ open class View(open val context: Context) {
     open fun postInvalidateOnAnimation() {}
     open fun onCheckIsTextEditor(): Boolean = false
     open fun onCreateInputConnection(outAttrs: android.view.inputmethod.EditorInfo?): android.view.inputmethod.InputConnection? = null
+    open fun findFocus(): View? = null
+    open fun clearFocus() {}
+    open fun requestFocus(): Boolean = false
     open fun onDetachedFromWindow() {}
     open fun getLocationOnScreen(outLocation: IntArray) {
         if (outLocation.size >= 2) { outLocation[0] = 0; outLocation[1] = 0 }
