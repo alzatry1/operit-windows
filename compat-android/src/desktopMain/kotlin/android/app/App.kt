@@ -242,7 +242,7 @@ open class ActivityManager {
     }
     open fun getProcessMemoryInfo(pids: IntArray): Array<android.os.Debug.MemoryInfo> =
         Array(pids.size) { android.os.Debug.MemoryInfo() }
-    open fun getAppTasks(): List<AppTask> = emptyList()
+    open val appTasks: List<AppTask> get() = emptyList()
     /** runningAppProcesses 属性（app 用 activityManager.runningAppProcesses）。——Nova 注 */
     open val runningAppProcesses: List<RunningAppProcessInfo> get() = emptyList()
     open fun getRunningServices(maxNum: Int): List<RunningServiceInfo> = emptyList()

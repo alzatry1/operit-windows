@@ -49,6 +49,8 @@ open class View(open val context: Context) {
     open var scaleX: Float = 1f
     open var scaleY: Float = 1f
     open var rotation: Float = 0f
+    open var pivotX: Float = 0f
+    open var pivotY: Float = 0f
     open var elevation: Float = 0f
     open var x: Float = 0f
     open var y: Float = 0f
