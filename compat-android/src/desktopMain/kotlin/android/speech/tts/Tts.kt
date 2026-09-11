@@ -50,6 +50,10 @@ open class TextToSpeech {
     open fun speak(text: CharSequence?, queueMode: Int, params: Bundle?): Int =
         speak(text, queueMode, params, null)
 
+    /** 旧式 speak（app 传 HashMap）。——Nova 注 */
+    open fun speak(text: CharSequence?, queueMode: Int, params: HashMap<String, String>?): Int =
+        speak(text, queueMode, null as Bundle?, null)
+
     open fun speak(text: CharSequence?, queueMode: Int, params: Bundle?, utteranceId: String?): Int {
         if (shutdown) return ERROR
         android.util.Log.d("TextToSpeech", "speak(queueMode=$queueMode, id=$utteranceId): ${text?.take(40)}")
@@ -104,7 +108,9 @@ open class TextToSpeech {
     open fun playEarcon(earcon: String?, queueMode: Int, params: Bundle?, utteranceId: String?): Int = SUCCESS
     open fun playSilence(durationInMs: Long, queueMode: Int, params: Bundle?): Int = SUCCESS
 
-    open fun getVoices(): Set<Any> = emptySet()
+    /** voices 属性（app 用 tts.voices）——Nova 注 */
+    open val voices: Set<Voice> get() = emptySet()
+    open fun setVoice(voice: Voice?): Int = SUCCESS
     open fun getFeatures(locale: Locale?): Set<String> = emptySet()
     open fun isLanguageAvailable(loc: Locale?): Int = LANG_AVAILABLE
 
@@ -149,21 +155,25 @@ open class TextToSpeech {
     }
 }
 
-/** android.speech.tts.UtteranceProgressListener。 */
-abstract class UtteranceProgressListener {
-    abstract fun onStart(utteranceId: String?)
-    abstract fun onDone(utteranceId: String?)
-
-    @Deprecated("deprecated")
-    abstract fun onError(utteranceId: String?)
-
-    open fun onError(utteranceId: String?, errorCode: Int) {
-        @Suppress("DEPRECATION")
-        onError(utteranceId)
+/** android.speech.tts.Voice 垫片。——Nova 注 */
+open class Voice(
+    open val name: String,
+    open val locale: java.util.Locale,
+    open val quality: Int = QUALITY_NORMAL,
+    open val latency: Int = LATENCY_NORMAL,
+    open val isNetworkConnectionRequired: Boolean = false,
+    open val features: Set<String> = emptySet(),
+) {
+    companion object {
+        const val QUALITY_VERY_HIGH = 400
+        const val QUALITY_HIGH = 300
+        const val QUALITY_NORMAL = 200
+        const val QUALITY_LOW = 100
+        const val QUALITY_VERY_LOW = 0
+        const val LATENCY_VERY_LOW = 200
+        const val LATENCY_LOW = 300
+        const val LATENCY_NORMAL = 400
+        const val LATENCY_HIGH = 500
+        const val LATENCY_VERY_HIGH = 600
     }
-
-    open fun onStop(utteranceId: String?, interrupted: Boolean) {}
-    open fun onBeginSynthesis(utteranceId: String?, sampleRateInHz: Int, audioFormat: Int, channelCount: Int) {}
-    open fun onAudioAvailable(utteranceId: String?, audio: ByteArray?) {}
-    open fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {}
 }
