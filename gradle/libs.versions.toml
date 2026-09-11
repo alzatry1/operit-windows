@@ -35,7 +35,7 @@ logback = "1.5.18"
 json = "20250517"
 itextpdf = "5.5.13.3"
 kxml2 = "2.3.0"
-jlatexmath = "0.2.0"
+jlatexmath = "1.0.7"
 objectbox = "5.3.0"
 onnxruntime = "1.20.0"
 reorderable = "2.5.1"
@@ -89,7 +89,7 @@ logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "l
 json-jvm = { group = "org.json", name = "json", version.ref = "json" }
 itextpdf = { group = "com.itextpdf", name = "itextpdf", version.ref = "itextpdf" }
 kxml2 = { group = "net.sf.kxml", name = "kxml2", version.ref = "kxml2" }
-jlatexmath = { group = "ru.noties", name = "jlatexmath-android", version.ref = "jlatexmath" }
+jlatexmath = { group = "org.scilab.forge", name = "jlatexmath", version.ref = "jlatexmath" }
 objectbox-java = { group = "io.objectbox", name = "objectbox-java", version.ref = "objectbox" }
 objectbox-kotlin = { group = "io.objectbox", name = "objectbox-kotlin", version.ref = "objectbox" }
 onnxruntime = { group = "com.microsoft.onnxruntime", name = "onnxruntime", version.ref = "onnxruntime" }

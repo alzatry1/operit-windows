@@ -32,7 +32,24 @@ class JLatexMathDrawable private constructor(private val latex: String) : Drawab
         const val ALIGN_RIGHT = 2
 
         @JvmStatic
-        fun builder(latex: String): JLatexMathDrawable = JLatexMathDrawable(latex)
+        fun builder(latex: String): Builder = Builder(latex)
+    }
+
+    /** ru.noties.jlatexmath.JLatexMathDrawable.Builder（app 用 Builder 链式配置 + build()）。——Nova 注 */
+    class Builder(latex: String) {
+        private val delegate = JLatexMathDrawable(latex)
+        fun textSize(px: Float): Builder = apply { delegate.textSize(px) }
+        fun padding(px: Int): Builder = apply { delegate.padding(px) }
+        fun background(color: Int): Builder = apply { delegate.background(color) }
+        fun align(align: Int): Builder = apply { delegate.align(align) }
+        fun color(color: Int): Builder = apply { delegate.color(color) }
+        fun build(): JLatexMathDrawable = delegate
+        // buildCacheKey 可能需要读配置
+        val textSizeValue: Float get() = delegate.textSizePx
+        val paddingValue: Int get() = delegate.paddingPx
+        val colorValue: Int get() = delegate.textColor
+        val alignValue: Int get() = delegate.alignMode
+        val backgroundValue: Int get() = delegate.backgroundColor
     }
 
     fun textSize(px: Float): JLatexMathDrawable = apply { textSizePx = px; cachedBitmap = null }
