@@ -64,64 +64,8 @@ open class WebResourceResponse {
     }
 }
 
-/** android.webkit.WebViewClient：全 open 钩子。 */
-open class WebViewClient {
+/** android.webkit.WebViewClient 已迁移至 Java 版（java/android/webkit/WebViewClient.java），平台类型支持可空/非空 override。——Nova 注 */
 
-    open fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean = false
-
-    @Deprecated("deprecated")
-    open fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean = false
-
-    open fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {}
-
-    open fun onPageFinished(view: WebView?, url: String?) {}
-
-    open fun onLoadResource(view: WebView?, url: String?) {}
-
-    open fun onPageCommitVisible(view: WebView?, url: String?) {}
-
-    open fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? = null
-
-    @Deprecated("deprecated")
-    open fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? = null
-
-    @Deprecated("deprecated")
-    open fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {}
-
-    open fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {}
-
-    open fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {}
-
-    open fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: android.net.http.SslError?) {}
-
-    open fun onReceivedClientCertRequest(view: WebView?, request: ClientCertRequest?) {}
-
-    open fun onReceivedHttpAuthRequest(view: WebView?, handler: HttpAuthHandler?, host: String?, realm: String?) {}
-
-    open fun onFormResubmission(view: WebView?, dontResend: Message?, resend: Message?) {}
-
-    open fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {}
-
-    open fun onScaleChanged(view: WebView?, oldScale: Float, newScale: Float) {}
-
-    open fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean = false
-
-    open fun onUnhandledKeyEvent(view: WebView?, event: KeyEvent?) {}
-
-    open fun onRenderProcessGone(view: WebView?, detail: RenderProcessGoneDetail?): Boolean = false
-
-    open fun onSafeBrowsingHit(view: WebView?, request: WebResourceRequest?, threatType: Int, callback: SafeBrowsingResponse?) {}
-
-    open fun onReceivedLoginRequest(view: WebView?, realm: String?, account: String?, args: String?) {}
-
-    companion object {
-        const val SAFE_BROWSING_THREAT_UNKNOWN = 0
-        const val SAFE_BROWSING_THREAT_MALWARE = 1
-        const val SAFE_BROWSING_THREAT_PHISHING = 2
-        const val SAFE_BROWSING_THREAT_UNWANTED_SOFTWARE = 3
-        const val SAFE_BROWSING_THREAT_BILLING = 4
-    }
-}
 
 /** android.webkit.WebChromeClient：全 open 钩子。 */
 open class WebChromeClient {
