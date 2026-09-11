@@ -619,7 +619,7 @@ object Matrix {
 }
 
 /** android.opengl.GLSurfaceView：编译级 stub。 */
-open class GLSurfaceView : View {
+open class GLSurfaceView : android.view.SurfaceView {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
