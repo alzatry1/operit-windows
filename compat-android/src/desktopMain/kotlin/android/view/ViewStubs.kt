@@ -198,8 +198,6 @@ open class View(open val context: Context) {
     open fun getGlobalVisibleRect(r: android.graphics.Rect?): Boolean = false
     open fun getLocalVisibleRect(r: android.graphics.Rect?): Boolean = false
     open fun getHitRect(outRect: android.graphics.Rect?) {}
-    open fun clearFocus() {}
-    open fun requestFocus(): Boolean = false
     open fun onDetachedFromWindow() {}
     open fun getLocationOnScreen(outLocation: IntArray) {
         if (outLocation.size >= 2) { outLocation[0] = 0; outLocation[1] = 0 }

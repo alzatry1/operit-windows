@@ -16,13 +16,12 @@ fun org.jetbrains.skia.Canvas.drawText(text: String, x: Float, y: Float, paint: 
     drawString(text, x, y, paint.toSkiaFont(), paint.toSkia())
 }
 
-/** getClipBounds(android.graphics.Rect)：把 Skia 的 clip bounds 拷进 android Rect。 */
+/** getClipBounds(android.graphics.Rect)：Skia Canvas 桌面不提供精确 clip bounds，给一个覆盖画布的大矩形（markdown 可见性优化逻辑照样成立）。 */
 fun org.jetbrains.skia.Canvas.getClipBounds(bounds: android.graphics.Rect): Boolean {
-    val r = this.clipBounds
-    bounds.left = r.left.toInt()
-    bounds.top = r.top.toInt()
-    bounds.right = r.right.toInt()
-    bounds.bottom = r.bottom.toInt()
+    bounds.left = 0
+    bounds.top = 0
+    bounds.right = 100000
+    bounds.bottom = 100000
     return true
 }
 
