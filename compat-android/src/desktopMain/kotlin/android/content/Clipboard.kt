@@ -144,8 +144,8 @@ open class ClipboardManager(private val context: Context) {
         }
     }
 
-    /** primaryClip 属性（app 用 clipboardManager.primaryClip；保留 AWT 剪贴板桥接逻辑）。——Nova 注 */
-    open var primaryClip: ClipData?
+    /** primaryClip 只读属性（app 用 clipboardManager.primaryClip 读；val 只生成 getter，不与下面方法冲突）。——Nova 注 */
+    open val primaryClip: ClipData?
         get() {
             memoryClip?.let { return it }
             val cb = awtClipboard ?: return null
@@ -156,22 +156,26 @@ open class ClipboardManager(private val context: Context) {
                 null
             }
         }
-        set(clip) {
-            if (clip == null) return
-            memoryClip = clip
-            val text = clip.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
-            if (text != null) {
-                val cb = awtClipboard
-                if (cb != null) {
-                    try {
-                        cb.setContents(java.awt.datatransfer.StringSelection(text), null)
-                    } catch (t: Throwable) {
-                        Log.w("ClipboardManager", "写入系统剪贴板失败: ${t.message}")
-                    }
+
+    /** setPrimaryClip 方法（app 用 clipboardManager.setPrimaryClip(clip) 方法式调用写）。——Nova 注 */
+    open fun setPrimaryClip(clip: ClipData) {
+        memoryClip = clip
+        val text = clip.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()
+        if (text != null) {
+            val cb = awtClipboard
+            if (cb != null) {
+                try {
+                    cb.setContents(java.awt.datatransfer.StringSelection(text), null)
+                } catch (t: Throwable) {
+                    Log.w("ClipboardManager", "写入系统剪贴板失败: ${t.message}")
                 }
             }
-            notifyChanged()
         }
+        if (clip.itemCount > 0 && clip.getItemAt(0).text == null && clip.getItemAt(0).uri != null) {
+            Log.d("ClipboardManager", "setPrimaryClip: 非文本内容（uri），已记录内存副本")
+        }
+        notifyChanged()
+    }
 
     open fun getPrimaryClipDescription(): ClipDescription? = primaryClip?.getDescription()
 
