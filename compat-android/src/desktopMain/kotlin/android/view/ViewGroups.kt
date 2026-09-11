@@ -17,6 +17,7 @@ interface ViewParent {
     fun clearChildFocus(child: View?) {}
     fun focusableViewAvailable(v: View?) {}
     fun bringChildToFront(child: View?) {}
+    fun requestSendAccessibilityEvent(child: View?, event: android.view.accessibility.AccessibilityEvent?): Boolean = false
 }
 
 /** android.view.ViewGroup。 */
@@ -26,6 +27,10 @@ open class ViewGroup : View, ViewParent {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val children = mutableListOf<View>()
+
+    /** ViewGroup.requestSendAccessibilityEvent：桌面无无障碍分发，返回 false。 */
+    override fun requestSendAccessibilityEvent(child: View?, event: android.view.accessibility.AccessibilityEvent?): Boolean = false
+    open fun onRequestSendAccessibilityEvent(child: View?, event: android.view.accessibility.AccessibilityEvent?): Boolean = false
 
     open fun addView(child: View?) {
         if (child != null) children.add(child)

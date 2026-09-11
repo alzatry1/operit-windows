@@ -10,7 +10,7 @@ import android.os.IBinder
  */
 open class VoiceInteractionService : Service() {
 
-    override fun onBind(intent: Intent): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? = null
 
     /** 服务准备就绪时回调。 */
     open fun onReady() {}

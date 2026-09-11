@@ -137,7 +137,7 @@ open class Rect : Parcelable {
     }
     constructor(r: Rect?) { if (r != null) set(r) }
 
-    fun isEmpty(): Boolean = left >= right || top >= bottom
+    val isEmpty: Boolean get() = left >= right || top >= bottom
     fun width(): Int = right - left
     fun height(): Int = bottom - top
     fun centerX(): Int = (left + right) shr 1
@@ -238,7 +238,7 @@ open class RectF : Parcelable {
     constructor(r: RectF?) { if (r != null) set(r) }
     constructor(r: Rect) { set(r) }
 
-    fun isEmpty(): Boolean = left >= right || top >= bottom
+    val isEmpty: Boolean get() = left >= right || top >= bottom
     fun width(): Float = right - left
     fun height(): Float = bottom - top
     fun centerX(): Float = (left + right) * 0.5f
@@ -462,7 +462,7 @@ class Region : Parcelable {
     fun setPath(path: Path, clip: Region): Boolean = true
     fun getBounds(): Rect = Rect(bounds)
     fun getBounds(r: Rect): Boolean { r.set(bounds); return true }
-    fun isEmpty(): Boolean = bounds.isEmpty()
+    fun isEmpty(): Boolean = bounds.isEmpty
     fun isRect(): Boolean = true
     fun isComplex(): Boolean = false
     fun contains(x: Int, y: Int): Boolean = bounds.contains(x, y)
@@ -654,7 +654,7 @@ class Matrix {
     }
 
     fun setRectToRect(src: RectF, dst: RectF, stf: ScaleToFit): Boolean {
-        if (src.isEmpty()) { reset(); return false }
+        if (src.isEmpty) { reset(); return false }
         val sx = dst.width() / src.width()
         val sy = dst.height() / src.height()
         when (stf) {

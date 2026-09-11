@@ -72,7 +72,7 @@ open class View(open val context: Context) {
     open val scrollY: Int get() = 0
 
     open val resources: android.content.res.Resources get() = context.resources
-    val handler: Handler? get() = Handler(Looper.getMainLooper())
+    private val viewHandler: Handler get() = Handler(Looper.getMainLooper())
     open val rootView: View get() = this
     open val display: Display? get() = context.display
     open val windowToken: IBinder? get() = null
@@ -90,7 +90,7 @@ open class View(open val context: Context) {
 
     /** 布局参数（ViewGroup.LayoutParams 在 ViewGroups.kt）。 */
     open var layoutParams: ViewGroup.LayoutParams? = null
-    open val importantForAccessibility: Int get() = IMPORTANT_FOR_ACCESSIBILITY_AUTO
+    open var importantForAccessibility: Int = IMPORTANT_FOR_ACCESSIBILITY_AUTO
     open val systemUiVisibility: Int get() = 0
     open val layoutDirection: Int get() = LAYOUT_DIRECTION_LTR
     open val textDirection: Int get() = TEXT_DIRECTION_LTR
@@ -130,10 +130,10 @@ open class View(open val context: Context) {
     open fun measure(widthMeasureSpec: Int, heightMeasureSpec: Int) {}
     open fun layout(l: Int, t: Int, r: Int, b: Int) {}
 
-    open fun post(action: Runnable): Boolean = handler!!.post(action)
-    open fun postDelayed(action: Runnable, delayMillis: Long): Boolean = handler!!.postDelayed(action, delayMillis)
+    open fun post(action: Runnable): Boolean = viewHandler.post(action)
+    open fun postDelayed(action: Runnable, delayMillis: Long): Boolean = viewHandler.postDelayed(action, delayMillis)
     open fun removeCallbacks(action: Runnable): Boolean {
-        handler?.removeCallbacks(action)
+        viewHandler.removeCallbacks(action)
         return true
     }
 
@@ -168,9 +168,18 @@ open class View(open val context: Context) {
     open fun clearAnimation() {}
     open fun animate(): ViewPropertyAnimator = ViewPropertyAnimator()
     open fun setKeepScreenOn(keepScreenOn: Boolean) {}
-    open fun setImportantForAccessibility(mode: Int) {}
     open fun sendAccessibilityEvent(eventType: Int) {}
     open fun onCreateDrawableState(extraSpace: Int): IntArray = IntArray(extraSpace)
+
+    open fun onInitializeAccessibilityNodeInfo(info: android.view.accessibility.AccessibilityNodeInfo) {}
+    open fun onInitializeAccessibilityEvent(event: android.view.accessibility.AccessibilityEvent) {}
+
+    /** View.getAccessibilityNodeProvider / setAccessibilityNodeProvider。 */
+    open var accessibilityNodeProvider: android.view.accessibility.AccessibilityNodeProvider? = null
+    open fun dispatchHoverEvent(event: MotionEvent): Boolean = false
+    open fun dispatchGenericMotionEvent(event: MotionEvent): Boolean = false
+    open fun startActionMode(callback: ActionMode.Callback): ActionMode? = null
+    open fun startActionMode(callback: ActionMode.Callback, type: Int): ActionMode? = null
 
     // ---- P3-B2 增补 ----
     open fun onTouchEvent(event: MotionEvent): Boolean = false

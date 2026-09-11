@@ -78,7 +78,7 @@ abstract class Service : ContextWrapper(null), ComponentCallbacks2 {
 
 
     /** 被系统调用绑定。 */
-    abstract fun onBind(intent: Intent): IBinder?
+    abstract fun onBind(intent: Intent?): IBinder?
 
     open fun onUnbind(intent: Intent): Boolean = false
     open fun onRebind(intent: Intent) {}
@@ -528,7 +528,7 @@ class NotificationChannel(
     private var name: CharSequence?,
     private var importance: Int,
 ) {
-    private var description: String? = null
+    var description: String? = null
     private var group: String? = null
     private var showBadge = true
     private var lightsEnabled = false
@@ -544,8 +544,6 @@ class NotificationChannel(
     fun getId(): String = id
     fun getName(): CharSequence? = name
     fun setName(name: CharSequence?) { this.name = name }
-    fun getDescription(): String? = description
-    fun setDescription(description: String?) { this.description = description }
     fun getImportance(): Int = importance
     fun setImportance(importance: Int) { this.importance = importance }
     fun getGroup(): String? = group
@@ -811,7 +809,7 @@ open class AlarmManager {
 /** android.app.IntentService（已废弃）：桌面 stub。 */
 @Deprecated("Deprecated in Java")
 abstract class IntentService(name: String) : Service() {
-    override fun onBind(intent: Intent): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null) {

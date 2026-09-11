@@ -10,8 +10,8 @@ import android.os.IInterface
  */
 interface ITerminalCallback : IInterface {
 
-    fun onCommandExecutionUpdate(event: CommandExecutionEvent?)
-    fun onSessionDirectoryChanged(event: SessionDirectoryEvent?)
+    fun onCommandExecutionUpdate(event: CommandExecutionEvent)
+    fun onSessionDirectoryChanged(event: SessionDirectoryEvent)
 
     abstract class Stub : Binder(), ITerminalCallback {
 

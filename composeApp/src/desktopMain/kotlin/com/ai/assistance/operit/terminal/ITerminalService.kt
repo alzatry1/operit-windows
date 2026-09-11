@@ -11,10 +11,10 @@ import android.os.IInterface
  */
 interface ITerminalService : IInterface {
 
-    fun createSession(): String?
-    fun switchToSession(sessionId: String?)
-    fun closeSession(sessionId: String?)
-    fun sendCommand(command: String?): String?
+    fun createSession(): String
+    fun switchToSession(sessionId: String)
+    fun closeSession(sessionId: String)
+    fun sendCommand(command: String): String
     fun sendInterruptSignal()
     fun registerCallback(callback: ITerminalCallback?)
     fun unregisterCallback(callback: ITerminalCallback?)

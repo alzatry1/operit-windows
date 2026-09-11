@@ -31,9 +31,9 @@ open class ReturnCode(val value: Int) {
     }
 }
 
-/** 会话输出。 */
+/** 会话输出。returnCode 非空（对齐真实 FFmpegKit 的平台类型语义）。 */
 open class FFmpegSession(
-    val returnCode: ReturnCode?,
+    val returnCode: ReturnCode,
     val output: String?,
     val allLogs: List<Log> = emptyList(),
     val failStackTrace: String? = null,
@@ -54,7 +54,8 @@ open class MediaInformation(
     val bitrate: String? = null,
     val size: String? = null,
     val filename: String? = null,
-    val streams: List<StreamInformation> = emptyList()
+    val streams: List<StreamInformation> = emptyList(),
+    val allProperties: org.json.JSONObject? = null
 )
 
 /** 流信息（视频/音频轨）。 */
@@ -65,7 +66,8 @@ open class StreamInformation(
     val width: String? = null,
     val height: String? = null,
     val sampleRate: String? = null,
-    val channels: String? = null
+    val channels: String? = null,
+    val allProperties: org.json.JSONObject? = null
 )
 
 /** FFmpegKit 主入口。 */

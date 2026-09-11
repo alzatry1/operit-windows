@@ -239,7 +239,7 @@ open class GradientDrawable : Drawable() {
 
     override fun draw(canvas: Canvas) {
         val b = RectF(bounds)
-        if (b.isEmpty()) return
+        if (b.isEmpty) return
 
         val fillPaint = Paint().apply {
             isAntiAlias = true

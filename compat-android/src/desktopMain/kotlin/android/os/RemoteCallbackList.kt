@@ -32,7 +32,7 @@ open class RemoteCallbackList<E : IInterface> {
         return callbacks.size
     }
 
-    fun getBroadcastItem(index: Int): E? = callbacks.getOrNull(index)
+    fun getBroadcastItem(index: Int): E = callbacks[index]
 
     fun finishBroadcast() {
         broadcasting = false

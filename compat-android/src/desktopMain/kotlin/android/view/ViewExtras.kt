@@ -255,4 +255,14 @@ interface ActionMode {
         fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean
         fun onDestroyActionMode(mode: ActionMode)
     }
+
+    /** ActionMode.Callback2：带内容矩形的回调（浮动选择菜单）。 */
+    abstract class Callback2 : Callback {
+        open fun onGetContentRect(mode: ActionMode, view: android.view.View, outRect: android.graphics.Rect) {}
+    }
+
+    companion object {
+        const val TYPE_PRIMARY = 0
+        const val TYPE_FLOATING = 1
+    }
 }

@@ -73,7 +73,7 @@ object ViewCompat {
 
     @JvmStatic
     fun setImportantForAccessibility(view: View, mode: Int) {
-        view.setImportantForAccessibility(mode)
+        view.importantForAccessibility = mode
     }
 
     @JvmStatic

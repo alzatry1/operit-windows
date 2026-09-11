@@ -41,7 +41,7 @@ open class StatusBarNotification {
 /** android.service.notification.NotificationListenerService。 */
 open class NotificationListenerService : android.app.Service() {
 
-    override fun onBind(intent: Intent): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? = null
 
     open fun onListenerConnected() {}
     open fun onListenerDisconnected() {}
