@@ -27,7 +27,7 @@ zxing = "3.5.3"
 poi = "5.2.3"
 pdfbox = "3.0.3"
 junrar = "7.5.5"
-hnswlib = "0.0.46"
+hnswlib = "1.2.1"
 coil3 = "3.2.0"
 jieba = "1.0.2"
 slf4j = "2.0.16"
@@ -81,7 +81,7 @@ poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
 poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poi" }
 pdfbox = { group = "org.apache.pdfbox", name = "pdfbox", version.ref = "pdfbox" }
 junrar = { group = "com.github.junrar", name = "junrar", version.ref = "junrar" }
-hnswlib-core = { group = "com.github.jelmerk", name = "hnswlib-core-jdk17", version.ref = "hnswlib" }
+hnswlib-core = { group = "com.github.jelmerk", name = "hnswlib-core", version.ref = "hnswlib" }
 jieba = { group = "com.huaban", name = "jieba-analysis", version.ref = "jieba" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
