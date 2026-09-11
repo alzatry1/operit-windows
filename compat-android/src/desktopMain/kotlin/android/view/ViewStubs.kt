@@ -195,6 +195,9 @@ open class View(open val context: Context) {
     open fun onCheckIsTextEditor(): Boolean = false
     open fun onCreateInputConnection(outAttrs: android.view.inputmethod.EditorInfo?): android.view.inputmethod.InputConnection? = null
     open fun findFocus(): View? = null
+    open fun getGlobalVisibleRect(r: android.graphics.Rect?): Boolean = false
+    open fun getLocalVisibleRect(r: android.graphics.Rect?): Boolean = false
+    open fun getHitRect(outRect: android.graphics.Rect?) {}
     open fun clearFocus() {}
     open fun requestFocus(): Boolean = false
     open fun onDetachedFromWindow() {}

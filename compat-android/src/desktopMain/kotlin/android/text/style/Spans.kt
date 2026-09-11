@@ -274,7 +274,7 @@ open class SubscriptSpan() : MetricAffectingSpan(), ParcelableSpan {
 
 /** android.text.style.URLSpan：点击尝试打开浏览器。 */
 open class URLSpan() : ClickableSpan(), ParcelableSpan {
-    private var url: String? = null
+    var url: String? = null
 
     constructor(url: String?) : this() { this.url = url }
     constructor(src: android.os.Parcel) : this() { url = src.readString() }

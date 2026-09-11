@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.features.tokenstats
 
+import com.ai.assistance.operit.compat.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable

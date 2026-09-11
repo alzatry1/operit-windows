@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.common.markdown
 
+import com.ai.assistance.operit.compat.*
 import android.graphics.Canvas as AndroidCanvas
 import android.graphics.Paint
 import android.graphics.Typeface

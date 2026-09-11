@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.common.markdown
 
+import com.ai.assistance.operit.compat.*
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.StaticLayout

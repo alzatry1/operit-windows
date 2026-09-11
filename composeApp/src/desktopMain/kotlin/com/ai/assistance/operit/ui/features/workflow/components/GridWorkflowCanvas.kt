@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.features.workflow.components
 
+import com.ai.assistance.operit.compat.*
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background

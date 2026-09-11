@@ -1,5 +1,6 @@
 package com.ai.assistance.operit.ui.features.tokenstats
 
+import com.ai.assistance.operit.compat.*
 import android.graphics.Paint
 import android.os.SystemClock
 import androidx.compose.animation.Crossfade
