@@ -74,6 +74,13 @@ open class EditorInfo {
         const val IME_FLAG_NAVIGATE_NEXT = 0x00000002
         const val IME_FLAG_NO_PERSONALIZED_LEARNING = 0x01000000
         const val IME_NULL = 0x00000000
+        // TYPE_* 输入类型常量
+        const val TYPE_CLASS_TEXT = 0x00000001
+        const val TYPE_TEXT_FLAG_MULTI_LINE = 0x00020000
+        const val TYPE_CLASS_NUMBER = 0x00000002
+        const val TYPE_CLASS_PHONE = 0x00000003
+        const val TYPE_CLASS_DATETIME = 0x00000004
+        const val TYPE_NULL = 0x00000000
     }
 }
 

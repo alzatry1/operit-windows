@@ -114,7 +114,8 @@ class NetworkCapabilities : Parcelable {
 /** android.net.ConnectivityManager：桌面恒有网。 */
 open class ConnectivityManager {
     open fun getActiveNetworkInfo(): NetworkInfo? = defaultNetworkInfo
-    open fun getActiveNetwork(): Network = Network(1)
+    /** activeNetwork 属性（app 用 connectivityManager.activeNetwork）——Nova 注 */
+    open val activeNetwork: Network? get() = Network(1)
     open fun getNetworkInfo(networkType: Int): NetworkInfo? = defaultNetworkInfo
     open fun getAllNetworkInfo(): Array<NetworkInfo> = arrayOf(defaultNetworkInfo)
     open fun getNetworkInfo(network: Network): NetworkInfo = defaultNetworkInfo
