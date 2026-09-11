@@ -167,6 +167,8 @@ open class AccessibilityNodeInfo {
     open fun getBoundsInWindow(outBounds: Rect) {}
 
     open fun getChild(index: Int): AccessibilityNodeInfo? = null
+    open fun setParent(parent: android.view.View?) {}
+    open fun setParent(parent: android.view.View?, virtualDescendantId: Int) {}
     open fun addChild(child: android.view.View?) {}
     open fun addChild(child: android.view.View?, virtualDescendantId: Int) {}
     open fun removeChild(child: android.view.View?): Boolean = false

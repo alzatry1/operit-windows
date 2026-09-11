@@ -138,9 +138,10 @@ open class WebView : android.widget.FrameLayout {
     open fun clearCache(includeDiskFiles: Boolean) {}
     open fun clearFormData() {}
     open fun clearSslPreferences() {}
-    open fun getUrl(): String? = null
-    open fun getOriginalUrl(): String? = null
-    open fun getTitle(): String? = null
+    open val url: String? get() = null
+    open val originalUrl: String? get() = null
+    open val title: String? get() = null
+    open val scale: Float get() = 1f
     open fun onResume() {}
     open fun onPause() {}
     open fun pauseTimers() {}
