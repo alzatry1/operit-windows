@@ -244,6 +244,8 @@ open class ActivityManager {
         Array(pids.size) { android.os.Debug.MemoryInfo() }
     open fun getAppTasks(): List<AppTask> = emptyList()
     open fun getRunningAppProcesses(): List<RunningAppProcessInfo> = emptyList()
+    /** runningAppProcesses 属性（app 用 activityManager.runningAppProcesses）——Nova 注 */
+    open val runningAppProcesses: List<RunningAppProcessInfo> get() = getRunningAppProcesses()
     open fun getRunningServices(maxNum: Int): List<RunningServiceInfo> = emptyList()
     open fun getRunningTasks(maxNum: Int): List<RunningTaskInfo> = emptyList()
     open fun killBackgroundProcesses(packageName: String) { Log.d("ActivityManager", "killBackgroundProcesses($packageName) no-op") }

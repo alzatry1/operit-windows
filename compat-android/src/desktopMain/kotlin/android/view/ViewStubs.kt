@@ -200,6 +200,10 @@ open class View(open val context: Context) {
     open fun getHitRect(outRect: android.graphics.Rect?) {}
     /** 在 onMeasure 里调用设置测量尺寸。——Nova 注 */
     open fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int) {}
+    open fun scrollTo(x: Int, y: Int) {}
+    open fun scrollBy(x: Int, y: Int) {}
+    open val scrollX: Int get() = 0
+    open val scrollY: Int get() = 0
     open fun onDetachedFromWindow() {}
     open fun getLocationOnScreen(outLocation: IntArray) {
         if (outLocation.size >= 2) { outLocation[0] = 0; outLocation[1] = 0 }

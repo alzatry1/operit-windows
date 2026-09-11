@@ -16,7 +16,9 @@ open class WindowManager {
         var y: Int = 0
         var type: Int = 0
         var flags: Int = 0
-        var layoutInDisplayCutoutMode: Int = 0
+        /** setBlurBehindRadius（悬浮窗毛玻璃模糊半径）。——Nova 注 */
+        open fun setBlurBehindRadius(blurBehindRadius: Int) {}
+        open fun getBlurBehindRadius(): Int = 0
         var format: Int = android.graphics.PixelFormat.OPAQUE
         var gravity: Int = Gravity.NO_GRAVITY
         var softInputMode: Int = 0
