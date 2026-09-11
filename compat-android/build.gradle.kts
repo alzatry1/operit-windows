@@ -24,6 +24,7 @@ kotlin {
             implementation(libs.slf4j.api)
             implementation(libs.gson)
             implementation(libs.json.jvm)
+            implementation(libs.jlatexmath)
             implementation(libs.pdfbox)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.9.4")
