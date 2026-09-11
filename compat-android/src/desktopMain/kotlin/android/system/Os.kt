@@ -59,6 +59,13 @@ object OsConstants {
     const val POLLERR = 8
     const val SOL_SOCKET = 1
     const val SO_REUSEADDR = 2
+    const val SO_RCVTIMEO = 20
+    const val SO_SNDTIMEO = 21
+    const val SHUT_RD = 0
+    const val SHUT_WR = 1
+    const val SHUT_RDWR = 2
+    const val SOCK_CLOEXEC = 0x80000
+    const val MSG_DONTWAIT = 0x40
     const val AF_INET = 2
     const val AF_INET6 = 10
     const val AF_UNIX = 1
@@ -176,4 +183,103 @@ object Os {
         val version: String = "11",
         val machine: String = "x86_64",
     )
+
+    // ============ Socket API（LocalWebServer 的本地 HTTP 服务器用）——Nova 注 ============
+    // 桌面实现：FileDescriptor → java.net 套接字 注册表。
+    private val socketRegistry = java.util.concurrent.ConcurrentHashMap<java.io.FileDescriptor, Any>()
+
+    @Throws(ErrnoException::class)
+    fun socket(domain: Int, type: Int, protocol: Int): java.io.FileDescriptor {
+        val fd = java.io.FileDescriptor()
+        socketRegistry[fd] = SocketState() // 未绑定状态
+        return fd
+    }
+
+    /** 内部 socket 状态：未绑定 / ServerSocket（监听）/ Socket（连接）。 */
+    private class SocketState {
+        var server: java.net.ServerSocket? = null
+        var socket: java.net.Socket? = null
+        var soTimeout: Int = 0
+    }
+
+    private fun state(fd: java.io.FileDescriptor): SocketState =
+        socketRegistry[fd] as? SocketState ?: throw ErrnoException("socket", 9 /* EBADF */)
+
+    @Throws(ErrnoException::class)
+    fun bind(fd: java.io.FileDescriptor, address: java.net.InetAddress?, port: Int) {
+        val st = state(fd)
+        try {
+            val server = java.net.ServerSocket()
+            server.reuseAddress = true
+            server.bind(java.net.InetSocketAddress(address, port))
+            st.server = server
+        } catch (e: Exception) { throw ErrnoException("bind", 98 /* EADDRINUSE */, e) }
+    }
+
+    @Throws(ErrnoException::class)
+    fun listen(fd: java.io.FileDescriptor, backlog: Int) { /* ServerSocket 在 bind 时即监听 */ }
+
+    @Throws(ErrnoException::class)
+    fun accept(fd: java.io.FileDescriptor, address: java.net.InetSocketAddress?): java.io.FileDescriptor {
+        val st = state(fd)
+        val server = st.server ?: throw ErrnoException("accept", 22)
+        return try {
+            val conn = server.accept()
+            if (st.soTimeout > 0) conn.soTimeout = st.soTimeout
+            val cfd = java.io.FileDescriptor()
+            val cst = SocketState(); cst.socket = conn; cst.soTimeout = st.soTimeout
+            socketRegistry[cfd] = cst
+            cfd
+        } catch (e: Exception) { throw ErrnoException("accept", 11 /* EAGAIN */, e) }
+    }
+
+    @Throws(ErrnoException::class)
+    fun read(fd: java.io.FileDescriptor, buffer: ByteArray, offset: Int, length: Int): Int {
+        val conn = state(fd).socket ?: throw ErrnoException("read", 32 /* EPIPE */)
+        return try { conn.getInputStream().read(buffer, offset, length) } catch (e: java.net.SocketTimeoutException) { throw ErrnoException("read", 11, e) } catch (e: Exception) { throw ErrnoException("read", 5, e) }
+    }
+
+    @Throws(ErrnoException::class)
+    fun write(fd: java.io.FileDescriptor, buffer: ByteArray, offset: Int, length: Int): Int {
+        val conn = state(fd).socket ?: throw ErrnoException("write", 32)
+        return try { conn.getOutputStream().write(buffer, offset, length); length } catch (e: Exception) { throw ErrnoException("write", 32, e) }
+    }
+
+    fun close(fd: java.io.FileDescriptor) {
+        socketRegistry.remove(fd)?.let { (it as? SocketState)?.let { s -> runCatching { s.server?.close(); s.socket?.close() } } }
+    }
+
+    fun shutdown(fd: java.io.FileDescriptor, how: Int) {
+        state(fd).socket?.let { s ->
+            runCatching {
+                if (how == OsConstants.SHUT_RD || how == OsConstants.SHUT_RDWR) s.shutdownInput()
+                if (how == OsConstants.SHUT_WR || how == OsConstants.SHUT_RDWR) s.shutdownOutput()
+            }
+        }
+    }
+
+    fun getsockname(fd: java.io.FileDescriptor): java.net.SocketAddress? {
+        val st = state(fd)
+        return st.server?.localSocketAddress ?: st.socket?.localSocketAddress
+    }
+
+    fun setsockoptInt(fd: java.io.FileDescriptor, level: Int, option: Int, value: Int) {
+        state(fd).let { st ->
+            if (option == OsConstants.SO_REUSEADDR) { st.server?.reuseAddress = value != 0; st.socket?.reuseAddress = value != 0 }
+            if (option == OsConstants.SO_RCVTIMEO) { st.soTimeout = value; st.socket?.soTimeout = value }
+        }
+    }
+
+    fun setsockoptTimeval(fd: java.io.FileDescriptor, level: Int, option: Int, timeval: StructTimeval?) {
+        val ms = timeval?.toMillis()?.toInt() ?: 0
+        state(fd).let { st -> st.soTimeout = ms; st.socket?.soTimeout = ms }
+    }
+}
+
+/** android.system.StructTimeval（setsockopt SO_RCVTIMEO 用）。——Nova 注 */
+class StructTimeval(val tv_sec: Long, val tv_usec: Long) {
+    fun toMillis(): Long = tv_sec * 1000 + tv_usec / 1000
+    companion object {
+        @JvmStatic fun fromMillis(millis: Long): StructTimeval = StructTimeval(millis / 1000, (millis % 1000) * 1000)
+    }
 }
