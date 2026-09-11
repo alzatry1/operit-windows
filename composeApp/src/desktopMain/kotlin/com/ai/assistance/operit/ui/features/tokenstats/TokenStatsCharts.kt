@@ -60,6 +60,7 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.ceil
 import kotlin.math.log10
 import kotlin.math.pow
+import android.graphics.drawText
 
 /**
  * 统计图表（信息架构重构版）：纯 Compose Canvas，不引入图表依赖。

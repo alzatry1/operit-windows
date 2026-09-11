@@ -67,6 +67,7 @@ import java.util.Locale
 import kotlin.math.abs
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
+import android.graphics.drawText
 
 /**
  * 活跃记录卡（信息架构重构版，设计规范 §6.5）：

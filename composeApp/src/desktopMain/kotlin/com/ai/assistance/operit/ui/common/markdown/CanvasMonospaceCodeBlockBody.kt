@@ -52,6 +52,7 @@ import com.ai.assistance.operit.ui.features.chat.webview.workspace.editor.editor
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.ceil
+import android.graphics.drawText
 
 private data class CodeBlockMetrics(
     val charWidth: Float,

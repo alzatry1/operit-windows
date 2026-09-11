@@ -66,6 +66,8 @@ import android.view.Gravity
 import android.widget.TextView
 import ru.noties.jlatexmath.JLatexMathDrawable
 import kotlin.math.floor
+import android.graphics.drawText
+import android.graphics.drawLine
 
 private const val TAG = "CanvasMarkdownRenderer"
 private const val MAX_CANVAS_HEIGHT_PX = 250_000f

@@ -46,6 +46,7 @@ import com.ai.assistance.operit.data.model.ParameterValue
 import com.ai.assistance.operit.data.model.WorkflowNode
 import com.ai.assistance.operit.data.model.WorkflowNodeConnection
 import kotlin.math.roundToInt
+import android.graphics.drawText
 
 // 画布配置常量
 private val CANVAS_WIDTH = 4000.dp

@@ -23,3 +23,15 @@ fun org.jetbrains.skia.Canvas.drawText(text: CharSequence, start: Int, end: Int,
 fun org.jetbrains.skia.Canvas.drawText(text: CharArray, index: Int, count: Int, x: Float, y: Float, paint: Paint) {
     asAndroidCanvas().drawText(text, index, count, x, y, paint)
 }
+
+fun org.jetbrains.skia.Canvas.drawLine(startX: Float, startY: Float, stopX: Float, stopY: Float, paint: Paint) {
+    asAndroidCanvas().drawLine(startX, startY, stopX, stopY, paint)
+}
+
+fun org.jetbrains.skia.Canvas.drawRect(left: Float, top: Float, right: Float, bottom: Float, paint: Paint) {
+    asAndroidCanvas().drawRect(left, top, right, bottom, paint)
+}
+
+fun org.jetbrains.skia.Canvas.drawCircle(cx: Float, cy: Float, radius: Float, paint: Paint) {
+    asAndroidCanvas().drawCircle(cx, cy, radius, paint)
+}
