@@ -107,13 +107,7 @@ abstract class BroadcastReceiver {
     }
 }
 
-/** android.content.ServiceConnection。 */
-interface ServiceConnection {
-    fun onServiceConnected(name: ComponentName, service: android.os.IBinder)
-    fun onServiceDisconnected(name: ComponentName)
-    fun onBindingDied(name: ComponentName) {}
-    fun onNullBinding(name: ComponentName) {}
-}
+/** android.content.ServiceConnection 已迁移至 Java 版（java/android/content/ServiceConnection.java）。——Nova 注 */
 
 /** android.content.ActivityNotFoundException。 */
 class ActivityNotFoundException : RuntimeException {
