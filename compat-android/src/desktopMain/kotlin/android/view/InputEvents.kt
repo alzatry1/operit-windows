@@ -32,6 +32,10 @@ open class MotionEvent(
 
     open val pointerCount: Int = 1
     open val downTime: Long = android.os.SystemClock.uptimeMillis()
+    open val eventTime: Long = android.os.SystemClock.uptimeMillis()
+    open val deviceId: Int = 0
+    open val source: Int = 0
+    open val historySize: Int = 0
     open val pressure: Float = 1.0f
     open val size: Float = 0.0f
     open val toolType: Int = TOOL_TYPE_FINGER
@@ -43,6 +47,14 @@ open class MotionEvent(
     open val actionButton: Int = 0
 
     open fun getX(pointerIndex: Int): Float = xField
+    open fun getHistoricalX(pointerIndex: Int, pos: Int): Float = xField
+    open fun getHistoricalY(pointerIndex: Int, pos: Int): Float = yField
+    open fun getHistoricalPressure(pointerIndex: Int, pos: Int): Float = pressure
+    open fun getHistoricalSize(pointerIndex: Int, pos: Int): Float = size
+    open fun getHistoricalEventTime(pointerIndex: Int, pos: Int): Long = eventTime
+    open fun getHistoricalEventTime(pos: Int): Long = eventTime
+    open fun getHistoricalX(pos: Int): Float = xField
+    open fun getHistoricalY(pos: Int): Float = yField
     open fun getY(pointerIndex: Int): Float = yField
     open fun getPointerId(pointerIndex: Int): Int = 0
     open fun getPressure(pointerIndex: Int): Float = pressure
