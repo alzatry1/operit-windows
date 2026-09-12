@@ -39,6 +39,8 @@ class DownloadManager(private val context: Context) {
         /** DownloadManager.Request.addRequestHeader（自定义请求头，如 User-Agent）。——Nova 注 */
         val headers: MutableMap<String, String> = LinkedHashMap()
         fun addRequestHeader(name: String, value: String): Request = apply { headers[name] = value }
+        /** DownloadManager.Request.setMimeType（下载内容 MIME 类型）。——Nova 注 */
+        fun setMimeType(mimeType: String?): Request = apply {}
         fun setAllowedOverMetered(b: Boolean): Request = apply {}
         fun setAllowedOverRoaming(b: Boolean): Request = apply {}
 

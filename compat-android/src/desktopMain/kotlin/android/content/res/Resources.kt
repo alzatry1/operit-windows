@@ -190,6 +190,10 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
         locales = l?.unwrap() ?: LocaleList.getDefault()
         locale = if (locales.size() > 0) locales.get(0) else null
     }
+    /** Configuration.setLocale（单个 Locale，已废弃但 app 兼容分支用）。——Nova 注 */
+    fun setLocale(l: java.util.Locale?) {
+        locale = l
+    }
 
     var fontScale: Float = 1.0f
     var mcc: Int = 0

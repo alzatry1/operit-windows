@@ -166,6 +166,8 @@ open class View(open val context: Context) {
     open fun setMinimumWidth(minWidth: Int) {}
     /** View.setMinWidth/setMinHeight（TextView 风格的便捷写法）。——Nova 注 */
     open fun setMinWidth(minWidth: Int) {}
+    /** View.setLayerType(layerType, paint)：设置渲染层（桌面 no-op）。——Nova 注 */
+    open fun setLayerType(layerType: Int, paint: android.graphics.Paint?) {}
     open fun setMinHeight(minHeight: Int) {}
     open fun setMinimumHeight(minHeight: Int) {}
     open fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {}
@@ -239,6 +241,10 @@ open class View(open val context: Context) {
         const val VISIBLE = 0
         const val INVISIBLE = 4
         const val GONE = 8
+        /** View 渲染层类型（桌面无硬件加速层概念，仅存值）。——Nova 注 */
+        const val LAYER_TYPE_NONE = 0
+        const val LAYER_TYPE_SOFTWARE = 1
+        const val LAYER_TYPE_HARDWARE = 2
         const val OVER_SCROLL_ALWAYS = 0
         const val OVER_SCROLL_IF_CONTENT_SCROLLS = 1
         const val OVER_SCROLL_NEVER = 2
