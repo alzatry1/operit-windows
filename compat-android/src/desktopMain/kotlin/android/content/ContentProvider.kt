@@ -23,7 +23,7 @@ abstract class ContentProvider : ContentInterface {
 
     fun requireContext(): Context = context ?: throw IllegalStateException("ContentProvider not attached")
 
-    fun attachInfo(context: Context?, info: android.content.pm.ProviderInfo?) {
+    open fun attachInfo(context: Context?, info: android.content.pm.ProviderInfo?) {
         this.context = context
         onCreate()
     }

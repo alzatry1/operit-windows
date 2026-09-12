@@ -488,6 +488,15 @@ class ParcelFileDescriptor : Parcelable, Closeable {
             return ParcelFileDescriptor(raf)
         }
 
+        /** ParcelFileDescriptor.OnCloseListener（关闭回调，SAM）。——Nova 注 */
+        fun interface OnCloseListener {
+            fun onClose(e: java.io.IOException?)
+        }
+
+        /** open(file, mode, handler, listener) 重载（真实 Android 4 参；桌面委托 2 参）。——Nova 注 */
+        @JvmStatic
+        fun open(file: File, mode: Int, handler: android.os.Handler?, listener: OnCloseListener?): ParcelFileDescriptor = open(file, mode)
+
         @JvmStatic
         fun adoptFd(fd: Int): ParcelFileDescriptor = ParcelFileDescriptor(null)
 

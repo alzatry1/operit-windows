@@ -286,7 +286,7 @@ abstract class DocumentsProvider : ContentProvider() {
     @Throws(FileNotFoundException::class)
     open fun moveDocument(
         sourceDocumentId: String, sourceParentDocumentId: String, targetParentDocumentId: String,
-    ): String = throw FileNotFoundException("Move not supported")
+    ): String? = throw FileNotFoundException("Move not supported")
 
     open fun isChildDocument(parentDocumentId: String, documentId: String): Boolean = false
 
