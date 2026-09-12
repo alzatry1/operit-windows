@@ -2,7 +2,6 @@ package com.ai.assistance.operit.ui.floating.voice
 
 import android.content.Intent
 import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
 import com.ai.assistance.operit.util.AppLogger
 import com.ai.assistance.operit.R
 import android.view.View
@@ -58,7 +57,7 @@ class SpeechInteractionManager(
     val speechService = SpeechServiceFactory.getInstance(context)
     val voiceService
         get() = VoiceServiceFactory.getInstance(context)
-    private val inputMethodManager = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+    private val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     // 暴露 Flow 给外部使用
     val volumeLevelFlow get() = speechService.volumeLevelFlow
