@@ -12,8 +12,8 @@ class ComponentName : Parcelable, Cloneable, Comparable<ComponentName> {
     private val pkg: String
     private val cls: String
 
-    constructor(pkg: String, cls: String) {
-        this.pkg = pkg; this.cls = cls
+    constructor(pkg: String?, cls: String?) {
+        this.pkg = pkg ?: ""; this.cls = cls ?: ""
     }
 
     constructor(context: Context, cls: Class<*>) : this(context.packageName, cls.name)

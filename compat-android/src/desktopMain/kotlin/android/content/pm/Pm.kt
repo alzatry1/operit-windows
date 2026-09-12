@@ -503,7 +503,8 @@ class InstrumentationInfo : PackageItemInfo() {
 /** android.content.pm.ResolveInfo。 */
 open class ResolveInfo : Parcelable {
     var activityInfo: ActivityInfo? = null
-    var serviceInfo: ServiceInfo? = null
+    /** serviceInfo：真实 Android 是平台类型字段，app 直接非空解引用。改非空（无赋值/空检查冲突）。——Nova 注 */
+    var serviceInfo: ServiceInfo = ServiceInfo()
     var providerInfo: ProviderInfo? = null
     var resolvePackageName: String? = null
     var labelRes: Int = 0
