@@ -455,6 +455,9 @@ open class KeyEvent(
         const val KEYCODE_ENDCALL = 6
         const val KEYCODE_0 = 7
         const val KEYCODE_9 = 16
+        /** 字母键 A-Z。——Nova 注 */
+        const val KEYCODE_A = 29
+        const val KEYCODE_Y = 53
         const val KEYCODE_STAR = 17
         const val KEYCODE_POUND = 18
         const val KEYCODE_DPAD_UP = 19

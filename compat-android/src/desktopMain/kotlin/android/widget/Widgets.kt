@@ -179,6 +179,8 @@ open class TextView : View {
     open var isSingleLine: Boolean = false
     open var autoLinkMask: Int = 0
     open var linksClickable: Boolean = true
+    /** TextView.movementMethod（链接/滚动移动方法，桌面仅存值）。——Nova 注 */
+    open var movementMethod: android.text.method.MovementMethod? = null
 
     open val paint: TextPaint get() = TextPaint()
 
