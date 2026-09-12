@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.unit.Density
 
 /**
  * com.kyant.backdrop 液态玻璃特效库的桌面编译级垫片。
@@ -25,7 +26,13 @@ class BackdropScope internal constructor() {
 }
 
 /** effects 配置块作用域。 */
-class BackdropEffectsScope {
+/**
+ * BackdropEffectsScope 实现 Density：真实库里 effects 块运行在带 Density 的作用域，
+ * 让 `12.dp.toPx()` / `blurRadius.toPx()` 这类调用有 Density 接收者。——Nova 注
+ */
+class BackdropEffectsScope : Density {
+    override val density: Float = 1f
+    override val fontScale: Float = 1f
     /** 供 vibrancy/blur/lens 等扩展注册。 */
     internal val applied = mutableListOf<Any>()
 }
