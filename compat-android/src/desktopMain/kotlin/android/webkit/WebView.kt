@@ -84,6 +84,10 @@ open class WebSettings {
 
     companion object {
         const val LOAD_DEFAULT = -1
+        /** WebSettings.getDefaultUserAgent（桌面给个桌面 UA 字符串）。——Nova 注 */
+        @JvmStatic
+        fun getDefaultUserAgent(context: android.content.Context?): String =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
         const val LOAD_NORMAL = 0
         const val LOAD_CACHE_ELSE_NETWORK = 1
         const val LOAD_NO_CACHE = 2

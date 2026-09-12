@@ -371,6 +371,8 @@ abstract class WorkManager {
     abstract fun cancelAllWorkByTag(tag: String): Operation
     abstract fun cancelUniqueWork(uniqueWorkName: String): Operation
     abstract fun getWorkInfoByIdFlow(id: UUID): Flow<WorkInfo>
+    /** WorkManager.getWorkInfosForUniqueWork：按唯一工作名取 WorkInfo 列表。——Nova 注 */
+    abstract fun getWorkInfosForUniqueWork(uniqueWorkName: String): androidx.concurrent.futures.ListenableFuture<List<WorkInfo>>
     abstract fun pruneWork(): Operation
 
     companion object {
@@ -430,6 +432,9 @@ internal class DesktopWorkManager(private val context: Context) : WorkManager() 
     override fun cancelUniqueWork(uniqueWorkName: String): Operation = Operation.SUCCESS
 
     override fun getWorkInfoByIdFlow(id: UUID): Flow<WorkInfo> = flowOf()
+    /** DesktopWorkManager.getWorkInfosForUniqueWork override：桌面无实际任务队列，返回空列表。——Nova 注 */
+    override fun getWorkInfosForUniqueWork(uniqueWorkName: String): androidx.concurrent.futures.ListenableFuture<List<WorkInfo>> =
+        androidx.concurrent.futures.ListenableFuture(emptyList())
 
     override fun pruneWork(): Operation = Operation.SUCCESS
 
