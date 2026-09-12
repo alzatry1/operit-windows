@@ -1534,9 +1534,9 @@ open class StandardSystemOperationTools(private val context: Context) {
 
                                         @Deprecated("Deprecated in Java")
                                         override fun onStatusChanged(
-                                                provider: String,
+                                                provider: String?,
                                                 status: Int,
-                                                extras: android.os.Bundle
+                                                extras: android.os.Bundle?
                                         ) {
                                             // 不需要处理
                                         }
