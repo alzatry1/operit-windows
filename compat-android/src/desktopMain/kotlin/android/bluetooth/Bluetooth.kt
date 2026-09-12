@@ -81,6 +81,9 @@ class BluetoothDevice(val address: String = "00:00:00:00:00:00") {
     val alias: String? get() = null
 
     fun createBond(): Boolean = false
+    /** BluetoothDevice.createRfcommSocketToServiceRecord（SPP 串口套接字，桌面返回 null）。——Nova 注 */
+    open fun createRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket? = null
+    open fun createInsecureRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket? = null
 
     fun connectGatt(context: Context?, autoConnect: Boolean, callback: BluetoothGattCallback?): BluetoothGatt =
         BluetoothGatt(callback)
@@ -188,6 +191,8 @@ open class BluetoothGatt internal constructor(private val callback: BluetoothGat
     open fun getService(uuid: UUID?): BluetoothGattService? = null
     open fun readCharacteristic(characteristic: BluetoothGattCharacteristic?): Boolean = false
     open fun writeCharacteristic(characteristic: BluetoothGattCharacteristic?): Boolean = false
+    /** BluetoothGatt.writeCharacteristic(characteristic, value, writeType)：API 33+ 新签名，返回状态码。——Nova 注 */
+    open fun writeCharacteristic(characteristic: BluetoothGattCharacteristic?, value: ByteArray?, writeType: Int): Int = GATT_SUCCESS
     open fun setCharacteristicNotification(characteristic: BluetoothGattCharacteristic?, enable: Boolean): Boolean = false
     open fun readDescriptor(descriptor: BluetoothGattDescriptor?): Boolean = false
     open fun writeDescriptor(descriptor: BluetoothGattDescriptor?): Boolean = false
