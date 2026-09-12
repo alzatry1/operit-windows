@@ -150,13 +150,15 @@ class StatFs {
     fun getBlockSize(): Int = 4096
     /** StatFs.blockSizeLong（块大小，桌面恒 4096；Kotlin 类需真属性才能被 statFs.blockSizeLong 访问）。——Nova 注 */
     val blockSizeLong: Long get() = 4096L
-    fun getBlockCount(): Int = (getBlockCountLong() / 1).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
-    fun getBlockCountLong(): Long = totalSpace() / 4096
+    /** StatFs.blockCountLong（总块数，Kotlin 类需真属性才能被 statFs.blockCountLong 访问）。——Nova 注 */
+    val blockCountLong: Long get() = totalSpace() / 4096
+    fun getBlockCount(): Int = (blockCountLong).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
     fun getFreeBlocks(): Int = (getFreeBlocksLong()).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
     fun getFreeBlocksLong(): Long = freeSpace() / 4096
     fun getFreeBytes(): Long = freeSpace()
-    fun getAvailableBlocks(): Int = (getAvailableBlocksLong()).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
-    fun getAvailableBlocksLong(): Long = usableSpace() / 4096
+    /** StatFs.availableBlocksLong（可用块数）。——Nova 注 */
+    val availableBlocksLong: Long get() = usableSpace() / 4096
+    fun getAvailableBlocks(): Int = (availableBlocksLong).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
     fun getAvailableBytes(): Long = usableSpace()
     fun getTotalBytes(): Long = totalSpace()
     fun getUsedBytes(): Long = totalSpace() - freeSpace()
