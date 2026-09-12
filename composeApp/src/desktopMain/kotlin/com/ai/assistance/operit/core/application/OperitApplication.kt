@@ -552,7 +552,7 @@ class OperitApplication : Application(), SingletonImageLoader.Factory, WorkConfi
                 val config = Configuration()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     val localeList = LocaleUtils.createPlatformLocaleList(locale)
-                    config.setLocales(localeList)
+                    config.locales = localeList
                 } else {
                     config.locale = locale
                 }

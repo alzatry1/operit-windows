@@ -196,7 +196,7 @@ object LocaleUtils {
                 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     val localeList = createPlatformLocaleList(localeToSet)
-                    config.setLocales(localeList)
+                    config.locales = localeList
                 } else {
                     config.locale = localeToSet
                 }
