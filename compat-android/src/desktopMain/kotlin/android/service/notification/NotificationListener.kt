@@ -14,9 +14,11 @@ open class StatusBarNotification {
     open var packageName: String? = null
     open var id: Int = 0
     open var tag: String? = null
-    open var key: String? = null
+    /** key：真实 Android getKey() 非空（平台类型），app 非空用。——Nova 注 */
+    open var key: String = ""
     open var postTime: Long = 0L
-    open var notification: Notification? = null
+    /** notification：真实 Android getNotification() 非空（平台类型），app 非空用。——Nova 注 */
+    open var notification: Notification = Notification()
     open var isOngoing: Boolean = false
     open var isClearable: Boolean = true
     open var userId: Int = 0
