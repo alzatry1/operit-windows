@@ -190,6 +190,11 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
         locales = l?.unwrap() ?: LocaleList.getDefault()
         locale = if (locales.size() > 0) locales.get(0) else null
     }
+    /** Configuration.setLocales(LocaleList)（真实 Android 签名，app 传 android.os.LocaleList）。——Nova 注 */
+    fun setLocales(l: LocaleList?) {
+        locales = l ?: LocaleList.getDefault()
+        locale = if (locales.size() > 0) locales.get(0) else null
+    }
     /** Configuration.setLocale（单个 Locale 方法式调用；哑参数避开与 var locale 合成 setter 的 JVM 签名冲突）。——Nova 注 */
     fun setLocale(l: java.util.Locale?, ignored: Unit = Unit) {
         locale = l
