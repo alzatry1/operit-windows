@@ -12,8 +12,9 @@ open class SVG {
     var documentWidth: Float = 0f
     var documentHeight: Float = 0f
 
-    fun setDocumentWidth(width: Float) { documentWidth = width }
-    fun setDocumentHeight(height: Float) { documentHeight = height }
+    /** SVG.setDocumentWidth（哑参数避开与 var documentWidth 合成 setter 的 JVM 冲突）。——Nova 注 */
+    fun setDocumentWidth(width: Float, ignored: Unit = Unit) { documentWidth = width }
+    fun setDocumentHeight(height: Float, ignored: Unit = Unit) { documentHeight = height }
     fun setDocumentViewBox(left: Float, top: Float, width: Float, height: Float) {}
 
     /** SVG.renderToPicture（桌面占位，返回空 Picture）。 */
