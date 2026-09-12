@@ -70,6 +70,8 @@ open class TextToSpeech {
     open fun stop(): Int = SUCCESS
     open fun shutdown() { shutdown = true }
     open val isSpeaking: Boolean = false
+    /** TextToSpeech.availableLanguages（可用语言集，桌面恒空集）。——Nova 注 */
+    open val availableLanguages: Set<Locale> get() = emptySet()
 
     open fun setLanguage(loc: Locale?): Int {
         language = loc

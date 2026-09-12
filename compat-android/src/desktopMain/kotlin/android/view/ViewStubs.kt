@@ -233,7 +233,9 @@ open class View(open val context: Context) {
     open fun performHapticFeedback(hint: Int): Boolean = false
     open fun performHapticFeedback(hint: Int, flags: Int): Boolean = false
     open fun setBackgroundColor(color: Int) {}
-    open fun setBackground(background: android.graphics.drawable.Drawable?) {}
+    /** View.background（背景 Drawable；app 用 view.background = drawable 属性语法）。——Nova 注 */
+    open var background: android.graphics.drawable.Drawable? = null
+    open fun setBackground(background: android.graphics.drawable.Drawable?, ignored: Unit = Unit) { this.background = background }
     @Deprecated("deprecated")
     open fun setBackgroundDrawable(background: android.graphics.drawable.Drawable?) {}
     open fun setBackgroundResource(resid: Int) {}
