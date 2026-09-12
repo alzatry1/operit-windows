@@ -81,9 +81,9 @@ class BluetoothDevice(val address: String = "00:00:00:00:00:00") {
     val alias: String? get() = null
 
     fun createBond(): Boolean = false
-    /** BluetoothDevice.createRfcommSocketToServiceRecord（SPP 串口套接字，桌面返回 null）。——Nova 注 */
-    open fun createRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket? = null
-    open fun createInsecureRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket? = null
+    /** BluetoothDevice.createRfcommSocketToServiceRecord（真实 Android 返回非空；桌面返回空 socket）。——Nova 注 */
+    open fun createRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket = android.bluetooth.BluetoothSocket()
+    open fun createInsecureRfcommSocketToServiceRecord(uuid: java.util.UUID?): android.bluetooth.BluetoothSocket = android.bluetooth.BluetoothSocket()
 
     fun connectGatt(context: Context?, autoConnect: Boolean, callback: BluetoothGattCallback?): BluetoothGatt =
         BluetoothGatt(callback)
@@ -164,7 +164,7 @@ interface BluetoothProfile {
 /** android.bluetooth.BluetoothSocket。 */
 open class BluetoothSocket {
     open val isConnected: Boolean = false
-    open val remoteDevice: BluetoothDevice? = null
+    open val remoteDevice: BluetoothDevice = BluetoothDevice()
     open val inputStream: InputStream = ByteArrayInputStream(ByteArray(0))
     open val outputStream: OutputStream = ByteArrayOutputStream()
 
@@ -229,7 +229,7 @@ open class BluetoothGattCharacteristic(
     open var value: ByteArray? = null
     open var writeType: Int = WRITE_TYPE_DEFAULT
     open val instanceId: Int = 0
-    open val service: BluetoothGattService? = null
+    open val service: BluetoothGattService = BluetoothGattService()
     open val descriptors: List<BluetoothGattDescriptor> = emptyList()
 
     open fun getDescriptor(uuid: UUID?): BluetoothGattDescriptor? = null
