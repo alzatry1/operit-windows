@@ -178,7 +178,7 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
 
     var locale: Locale? = Locale.getDefault()
         get() = if (field == null && locales.size() > 0) locales.get(0) else field
-        private set(value) {
+        internal set(value) {
             field = value
             locales = if (value != null) LocaleList.of(value) else LocaleList.getDefault()
         }
