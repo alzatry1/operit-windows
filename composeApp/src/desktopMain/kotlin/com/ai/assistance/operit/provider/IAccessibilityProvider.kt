@@ -16,8 +16,8 @@ interface IAccessibilityProvider : android.os.IInterface {
     fun findFocusedNodeId(): String?
     fun setTextOnNode(nodeId: String?, text: String?): Boolean
     fun takeScreenshot(path: String?, format: String?): Boolean
-    fun isAccessibilityServiceEnabled(): Boolean
-    fun getCurrentActivityName(): String?
+    val isAccessibilityServiceEnabled: Boolean
+    val currentActivityName: String?
 
     /** AIDL Stub：asInterface 把 IBinder 转成接口代理。桌面返回空实现。 */
     abstract class Stub : android.os.Binder(), IAccessibilityProvider {
@@ -29,8 +29,8 @@ interface IAccessibilityProvider : android.os.IInterface {
         override fun findFocusedNodeId(): String? = null
         override fun setTextOnNode(nodeId: String?, text: String?): Boolean = false
         override fun takeScreenshot(path: String?, format: String?): Boolean = false
-        override fun isAccessibilityServiceEnabled(): Boolean = false
-        override fun getCurrentActivityName(): String? = null
+        override val isAccessibilityServiceEnabled: Boolean = false
+        override val currentActivityName: String? = null
         override fun asBinder(): IBinder = this
 
         companion object {
