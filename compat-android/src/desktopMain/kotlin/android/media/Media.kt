@@ -189,6 +189,8 @@ open class AudioManager {
 open class MediaPlayer {
     open fun setDataSource(path: String?) {}
     open fun setDataSource(context: android.content.Context?, uri: android.net.Uri?) {}
+    /** MediaPlayer.setDataSource(FileDescriptor)。——Nova 注 */
+    open fun setDataSource(fd: java.io.FileDescriptor?) {}
     open fun prepare() {}
     open fun prepareAsync() {}
     open fun start() {}
@@ -197,7 +199,8 @@ open class MediaPlayer {
     open fun release() {}
     open fun reset() {}
     open fun seekTo(msec: Int) {}
-    open fun isPlaying(): Boolean = false
+    /** MediaPlayer.isPlaying（真实 Android 是 isPlaying() Java 方法，app 用属性形式）。转属性。——Nova 注 */
+    open val isPlaying: Boolean get() = false
     open fun getCurrentPosition(): Int = 0
     open fun getDuration(): Int = 0
     open fun getAudioSessionId(): Int = 0
