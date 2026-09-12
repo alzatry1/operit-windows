@@ -188,6 +188,13 @@ object MediaStore {
         }
     }
 
+    /** MediaStore.Downloads（下载目录内容提供者）。——Nova 注 */
+    object Downloads {
+        @JvmField val EXTERNAL_CONTENT_URI: Uri = Uri.parse("content://media/external/downloads")
+        @JvmField val INTERNAL_CONTENT_URI: Uri = Uri.parse("content://media/internal/downloads")
+        @JvmField val CONTENT_URI: Uri = EXTERNAL_CONTENT_URI
+    }
+
     /** Video。 */
     object Video {
         interface VideoColumns {

@@ -28,6 +28,15 @@ open class ViewGroup : View, ViewParent {
 
     private val children = mutableListOf<View>()
 
+    /** ViewGroup.descendantFocusability（焦点分发策略）。——Nova 注 */
+    open var descendantFocusability: Int = FOCUS_BEFORE_DESCENDANTS
+
+    companion object {
+        const val FOCUS_BEFORE_DESCENDANTS = 0x20000
+        const val FOCUS_AFTER_DESCENDANTS = 0x40000
+        const val FOCUS_BLOCK_DESCENDANTS = 0x60000
+    }
+
     /** ViewGroup.requestSendAccessibilityEvent：桌面无无障碍分发，返回 false。 */
     override fun requestSendAccessibilityEvent(child: View?, event: android.view.accessibility.AccessibilityEvent?): Boolean = false
     open fun onRequestSendAccessibilityEvent(child: View?, event: android.view.accessibility.AccessibilityEvent?): Boolean = false
