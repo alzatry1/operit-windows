@@ -8,7 +8,7 @@ import android.os.IBinder
  * ——Nova 注
  */
 interface IAccessibilityProvider : android.os.IInterface {
-    fun getUiHierarchy(): String?
+    val uiHierarchy: String?
     fun performClick(x: Int, y: Int): Boolean
     fun performLongPress(x: Int, y: Int): Boolean
     fun performGlobalAction(actionId: Int): Boolean
@@ -21,7 +21,7 @@ interface IAccessibilityProvider : android.os.IInterface {
 
     /** AIDL Stub：asInterface 把 IBinder 转成接口代理。桌面返回空实现。 */
     abstract class Stub : android.os.Binder(), IAccessibilityProvider {
-        override fun getUiHierarchy(): String? = null
+        override val uiHierarchy: String? = null
         override fun performClick(x: Int, y: Int): Boolean = false
         override fun performLongPress(x: Int, y: Int): Boolean = false
         override fun performGlobalAction(actionId: Int): Boolean = false
