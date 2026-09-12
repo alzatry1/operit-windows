@@ -522,7 +522,7 @@ internal class WebSessionBrowserHost(
             setTextColor(AndroidColor.WHITE)
             textSize = 14f
             gravity = Gravity.CENTER
-            setIncludeFontPadding(false)
+            includeFontPadding = false  // compat 为 var 属性（原 Android 是 setIncludeFontPadding 方法）
             setMinWidth(0)
             setMinHeight(dp(38))
             setPadding(dp(14), 0, dp(14), 0)
