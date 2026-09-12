@@ -12,6 +12,11 @@ import android.util.DisplayMetrics
  * View 仅提供编译所需的骨架（无参 getter 以 Kotlin 属性声明，与迁移代码的属性调用风格一致），
  * 完整 View 体系在 B1b 实装。
  */
+/** No-op ViewParent（桌面无 View 树，所有方法空操作）。——Nova 注 */
+private object NoOpViewParent : ViewParent {
+    override fun requestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+}
+
 open class View(open val context: Context) {
     constructor(context: Context, attrs: AttributeSet?) : this(context)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context)
@@ -99,8 +104,8 @@ open class View(open val context: Context) {
     open val drawableState: IntArray get() = IntArray(0)
     open val viewTreeObserver: ViewTreeObserver get() = ViewTreeObserver()
 
-    /** 父容器（桌面无 View 树，默认 null）。 */
-    open val parent: ViewParent? get() = null
+    /** 父容器（桌面无 View 树，返回 no-op ViewParent，requestDisallowInterceptTouchEvent 等空操作）。——Nova 注 */
+    open val parent: ViewParent get() = NoOpViewParent
 
     /** 布局参数（ViewGroup.LayoutParams 在 ViewGroups.kt）。 */
     open var layoutParams: ViewGroup.LayoutParams? = null
