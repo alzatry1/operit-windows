@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.PickVisualMediaRequest.VisualMediaType
 
 /**
  * androidx.activity.result.contract.ActivityResultContracts：全部内建 contract。
