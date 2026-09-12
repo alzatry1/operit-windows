@@ -84,9 +84,6 @@ open class WebSettings {
 
     companion object {
         const val LOAD_DEFAULT = -1
-        /** WebView.setWebContentsDebuggingEnabled（调试开关，桌面 no-op）。——Nova 注 */
-        @JvmStatic
-        fun setWebContentsDebuggingEnabled(enabled: Boolean) {}
         const val LOAD_NORMAL = 0
         const val LOAD_CACHE_ELSE_NETWORK = 1
         const val LOAD_NO_CACHE = 2
@@ -110,6 +107,12 @@ open class WebView : android.widget.FrameLayout {
      *  故 set* fun 额外带一个默认参数（Unit）以区分签名。 */
     open var webViewClient: WebViewClient? = null
     open var webChromeClient: WebChromeClient? = null
+
+    companion object {
+        /** WebView.setWebContentsDebuggingEnabled（调试开关，桌面 no-op）。——Nova 注 */
+        @JvmStatic
+        fun setWebContentsDebuggingEnabled(enabled: Boolean) {}
+    }
 
     @Suppress("UNUSED_PARAMETER")
     open fun setWebViewClient(client: WebViewClient?, ignored: Unit = Unit) { webViewClient = client }
