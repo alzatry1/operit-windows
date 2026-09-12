@@ -37,6 +37,8 @@ open class View(open val context: Context) {
     open var isClickable: Boolean = false
     /** View.clipToPadding（子内容是否裁剪到 padding 内，桌面仅存值）。——Nova 注 */
     open var clipToPadding: Boolean = true
+    /** View.clipChildren（子 View 是否裁剪到边界内，桌面仅存值）。——Nova 注 */
+    open var clipChildren: Boolean = true
     /** View 滚动条/嵌套滚动开关（桌面仅存值）。——Nova 注 */
     open var isVerticalScrollBarEnabled: Boolean = true
     open var isHorizontalScrollBarEnabled: Boolean = false
