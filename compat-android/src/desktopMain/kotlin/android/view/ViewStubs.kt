@@ -455,7 +455,9 @@ open class KeyEvent(
         const val KEYCODE_ENDCALL = 6
         const val KEYCODE_0 = 7
         const val KEYCODE_9 = 16
-        /** 字母键（KEYCODE_A 已存在于下方常量区，此处仅补缺的）。——Nova 注 */
+        /** 字母键（KEYCODE_A 等已存在于下方常量区，此处仅补缺的）。——Nova 注 */
+        const val KEYCODE_Q = 45
+        const val KEYCODE_X = 52
         const val KEYCODE_Y = 53
         const val KEYCODE_STAR = 17
         const val KEYCODE_POUND = 18
