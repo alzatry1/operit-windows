@@ -8,7 +8,7 @@ import android.bluetooth.BluetoothDevice
 
 /** android.bluetooth.le.ScanResult。 */
 open class ScanResult(
-    val device: BluetoothDevice? = null,
+    val device: BluetoothDevice = BluetoothDevice(),
     val rssi: Int = 0,
     val timestampNanos: Long = 0,
 ) {
