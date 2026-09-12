@@ -76,7 +76,8 @@ open class ViewGroup : View, ViewParent {
         children.clear()
     }
 
-    open fun getChildAt(index: Int): View? = children.getOrNull(index)
+    /** getChildAt：真实 Android 返回非空 View（OOB 抛 IndexOutOfBoundsException）。——Nova 注 */
+    open fun getChildAt(index: Int): View = children[index]
 
     open val childCount: Int get() = children.size
 

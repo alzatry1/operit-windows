@@ -31,7 +31,8 @@ open class Bitmap internal constructor(
 
     val width: Int get() = skiaBitmap.imageInfo.width
     val height: Int get() = skiaBitmap.imageInfo.height
-    val config: Config? get() = bitmapConfig
+    /** config：真实 Android getConfig() 非空（平台类型），app 非空用；未设置时兑底 ARGB_8888。——Nova 注 */
+    val config: Config get() = bitmapConfig ?: Config.ARGB_8888
     private var _hasAlpha: Boolean = true
     /** Bitmap.hasAlpha()（真实 Android 是方法；app 用 bitmap.hasAlpha() 调用）。——Nova 注 */
     fun hasAlpha(): Boolean = _hasAlpha
