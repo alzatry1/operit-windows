@@ -49,7 +49,8 @@ class PowerManager {
             if (!refCounted || --count <= 0) { held = false; count = 0.coerceAtLeast(count) }
         }
 
-        @Synchronized fun isHeld(): Boolean = held
+        /** WakeLock.isHeld（真实 Android 是 is 前缀 Java 方法，映射为属性；app 用 wakeLock?.isHeld）。——Nova 注 */
+        val isHeld: Boolean @Synchronized get() = held
         fun setReferenceCounted(value: Boolean) { refCounted = value }
         fun setWorkSource(ws: Any?) {}
         override fun toString(): String = "WakeLock{$tag, held=$held}"

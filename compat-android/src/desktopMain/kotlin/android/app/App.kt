@@ -647,15 +647,15 @@ class PendingIntent private constructor(
         const val FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT = 0x01000000
 
         @JvmStatic
-        fun getActivity(context: Context?, requestCode: Int, intent: Intent): PendingIntent =
+        fun getActivity(context: Context?, requestCode: Int, intent: Intent?): PendingIntent =
             PendingIntent(requestCode, intent, 0, TYPE_ACTIVITY)
 
         @JvmStatic
-        fun getActivity(context: Context?, requestCode: Int, intent: Intent, flags: Int): PendingIntent =
+        fun getActivity(context: Context?, requestCode: Int, intent: Intent?, flags: Int): PendingIntent =
             PendingIntent(requestCode, intent, flags, TYPE_ACTIVITY)
 
         @JvmStatic
-        fun getActivity(context: Context?, requestCode: Int, intent: Intent, flags: Int, options: Bundle?): PendingIntent =
+        fun getActivity(context: Context?, requestCode: Int, intent: Intent?, flags: Int, options: Bundle?): PendingIntent =
             PendingIntent(requestCode, intent, flags, TYPE_ACTIVITY)
 
         @JvmStatic
