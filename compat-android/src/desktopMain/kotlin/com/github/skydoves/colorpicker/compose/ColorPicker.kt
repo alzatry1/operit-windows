@@ -60,6 +60,9 @@ fun AlphaSlider(
     modifier: Modifier = Modifier,
     controller: ColorPickerController,
     onColorChanged: ((ColorEnvelope) -> Unit)? = null,
+    /** 真实库的棋格背景色参数（桌面 stub 收下但不渲染）。——Nova 注 */
+    tileOddColor: Color = Color.White,
+    tileEvenColor: Color = Color.LightGray,
 ) {}
 
 @Composable
