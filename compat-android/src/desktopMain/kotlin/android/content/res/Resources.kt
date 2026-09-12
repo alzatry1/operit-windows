@@ -176,7 +176,8 @@ open class Resources {
 /** android.content.res.Configuration。 */
 open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configuration> {
 
-    var locale: Locale? = Locale.getDefault()
+    /** locale：真实 Android 是平台类型（app 非空用），默认 Locale.getDefault()，从不被赋 null。——Nova 注 */
+    var locale: Locale = Locale.getDefault()
         get() = if (field == null && locales.size() > 0) locales.get(0) else field
         set(value) {
             field = value
@@ -188,11 +189,11 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
     /** Configuration.setLocales（app 用 LocaleListCompat 调）。——Nova 注 */
     fun setLocales(l: androidx.core.os.LocaleListCompat?) {
         locales = l?.unwrap() ?: LocaleList.getDefault()
-        locale = if (locales.size() > 0) locales.get(0) else null
+        locale = if (locales.size() > 0) locales.get(0) else Locale.getDefault()
     }
     /** Configuration.setLocale（单个 Locale 方法式调用；哑参数避开与 var locale 合成 setter 的 JVM 签名冲突）。——Nova 注 */
     fun setLocale(l: java.util.Locale?, ignored: Unit = Unit) {
-        locale = l
+        locale = l ?: Locale.getDefault()
     }
 
     var fontScale: Float = 1.0f

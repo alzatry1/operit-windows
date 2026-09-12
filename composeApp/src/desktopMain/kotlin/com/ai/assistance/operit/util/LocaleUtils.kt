@@ -83,7 +83,7 @@ object LocaleUtils {
         // Keep this override sparse so window size and orientation continue to update.
         return Configuration().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                setLocales(createPlatformLocaleList(locale))
+                locales = createPlatformLocaleList(locale)
             } else {
                 @Suppress("DEPRECATION")
                 setLocale(locale)
