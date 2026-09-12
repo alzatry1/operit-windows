@@ -335,3 +335,6 @@ open class CursorWrapper(protected val mCursor: Cursor) : Cursor {
     override fun respond(extras: Bundle): Bundle = mCursor.respond(extras)
     fun getWrappedCursor(): Cursor = mCursor
 }
+
+/** Cursor.columnNames 属性映射（真实 Android Cursor 是 Java 接口，getColumnNames() 映射为属性）。——Nova 注 */
+val Cursor.columnNames: Array<String> get() = this.getColumnNames()

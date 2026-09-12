@@ -2,6 +2,7 @@ package com.ai.assistance.operit.ui.features.toolbox.screens.sqlviewer
 
 import android.content.Context
 import android.database.Cursor
+import android.database.columnNames
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope

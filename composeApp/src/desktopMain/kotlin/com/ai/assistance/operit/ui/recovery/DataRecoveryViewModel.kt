@@ -2,6 +2,7 @@ package com.ai.assistance.operit.ui.recovery
 
 import android.content.Context
 import android.database.Cursor
+import android.database.columnNames
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
