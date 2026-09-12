@@ -36,6 +36,9 @@ class DownloadManager(private val context: Context) {
         fun setDescription(d: CharSequence?): Request = apply { description = d }
         fun setNotificationVisibility(v: Int): Request = apply { notificationVisibility = v }
         fun setAllowedNetworkTypes(types: Int): Request = apply { allowedNetworkTypes = types }
+        /** DownloadManager.Request.addRequestHeader（自定义请求头，如 User-Agent）。——Nova 注 */
+        val headers: MutableMap<String, String> = LinkedHashMap()
+        fun addRequestHeader(name: String, value: String): Request = apply { headers[name] = value }
         fun setAllowedOverMetered(b: Boolean): Request = apply {}
         fun setAllowedOverRoaming(b: Boolean): Request = apply {}
     }
