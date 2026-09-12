@@ -278,7 +278,8 @@ interface IBinder {
     fun queryLocalInterface(descriptor: String): IInterface? = null
     fun getInterfaceDescriptor(): String? = null
     fun pingBinder(): Boolean = true
-    fun isBinderAlive(): Boolean = true
+    /** IBinder.isBinderAlive（真实 Android 是 isBinderAlive() Java 方法，app 用属性形式）。转属性。——Nova 注 */
+    val isBinderAlive: Boolean get() = true
     fun dump(fd: FileDescriptor, args: Array<String>?) {}
     fun dumpAsync(fd: FileDescriptor, args: Array<String>?) {}
     fun shellCommand(`in`: java.io.FileDescriptor?, out: java.io.FileDescriptor?, err: java.io.FileDescriptor?, args: Array<String>?, receiver: ResultReceiver?) {}
@@ -323,7 +324,7 @@ open class Binder : IBinder {
     override fun queryLocalInterface(descriptor: String): IInterface? =
         if (this.descriptor == null || this.descriptor == descriptor) owner else null
     override fun pingBinder(): Boolean = true
-    override fun isBinderAlive(): Boolean = true
+    override val isBinderAlive: Boolean get() = true
     override fun dump(fd: FileDescriptor, args: Array<String>?) {}
     override fun linkToDeath(recipient: IBinder.DeathRecipient, flags: Int) {}
     override fun unlinkToDeath(recipient: IBinder.DeathRecipient, flags: Int): Boolean = true
