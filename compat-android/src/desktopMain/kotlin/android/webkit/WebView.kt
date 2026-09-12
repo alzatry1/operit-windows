@@ -13,7 +13,7 @@ import android.view.View
  */
 
 /** android.webkit.ValueCallback。 */
-interface ValueCallback<T> {
+fun interface ValueCallback<T> {
     fun onReceiveValue(value: T?)
 }
 

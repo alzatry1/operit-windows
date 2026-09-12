@@ -24,7 +24,7 @@ open class View(open val context: Context) {
         fun onViewAttachedToWindow(v: View)
         fun onViewDetachedFromWindow(v: View)
     }
-    interface OnLayoutChangeListener {
+    fun interface OnLayoutChangeListener {
         fun onLayoutChange(
             v: View, left: Int, top: Int, right: Int, bottom: Int,
             oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int,

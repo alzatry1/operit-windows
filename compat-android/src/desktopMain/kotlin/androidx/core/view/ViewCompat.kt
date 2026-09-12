@@ -11,7 +11,7 @@ object ViewCompat {
 
     private val nextGeneratedId = AtomicInteger(1)
 
-    interface OnApplyWindowInsetsListener {
+    fun interface OnApplyWindowInsetsListener {
         fun onApplyWindowInsets(v: View, insets: WindowInsetsCompat): WindowInsetsCompat
     }
 
