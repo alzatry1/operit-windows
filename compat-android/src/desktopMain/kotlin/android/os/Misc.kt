@@ -373,9 +373,8 @@ open class Binder : IBinder {
 }
 
 /** android.os.LocaleList：包装 Locale 列表。 */
-class LocaleList private constructor(private val locales: Array<Locale>) : Iterable<Locale>, Parcelable {
-    /** LocaleList(Locale...) vararg 构造（真实 Android 公开）。——Nova 注 */
-    constructor(vararg locales: Locale) : this(arrayOf(*locales))
+class LocaleList(vararg localeArgs: Locale) : Iterable<Locale>, Parcelable {
+    private val locales: Array<Locale> = arrayOf(*localeArgs)
     fun get(index: Int): Locale = locales[index]
     fun size(): Int = locales.size
     fun isEmpty(): Boolean = locales.isEmpty()
@@ -389,16 +388,16 @@ class LocaleList private constructor(private val locales: Array<Locale>) : Itera
     override fun toString(): String = locales.joinToString(",", "[", "]")
 
     companion object {
-        @JvmField val EMPTY = LocaleList(emptyArray())
-        @Volatile private var default = LocaleList(arrayOf(Locale.getDefault()))
+        @JvmField val EMPTY = LocaleList()
+        @Volatile private var default = LocaleList(Locale.getDefault())
 
         @JvmStatic fun getDefault(): LocaleList = default
         @JvmStatic fun getAdjustedDefault(): LocaleList = default
         @JvmStatic fun setDefault(locales: LocaleList) { default = locales }
-        @JvmStatic fun of(vararg locales: Locale): LocaleList = LocaleList(arrayOf(*locales))
+        @JvmStatic fun of(vararg locales: Locale): LocaleList = LocaleList(*locales)
         @JvmStatic fun forLanguageTags(list: String?): LocaleList {
             if (list.isNullOrBlank()) return EMPTY
-            return LocaleList(list.split(",").map { Locale.forLanguageTag(it.trim()) }.toTypedArray())
+            return LocaleList(*list.split(",").map { Locale.forLanguageTag(it.trim()) }.toTypedArray())
         }
         @JvmStatic fun matchesLanguageAndScript(supported: Locale, desired: Locale): Boolean = true
     }
