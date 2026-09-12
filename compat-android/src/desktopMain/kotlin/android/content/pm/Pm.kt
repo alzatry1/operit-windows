@@ -644,7 +644,7 @@ open class PackageManager {
 
     @Throws(NameNotFoundException::class)
     open fun getPackageInfo(versionedPackage: VersionedPackage, flags: Int): PackageInfo =
-        getPackageInfo(versionedPackage.packageName, flags)
+        getPackageInfo(versionedPackage.getPackageName(), flags)
 
     open fun getInstalledPackages(flags: Int): List<PackageInfo> = emptyList()
     open fun getInstalledPackages(flags: PackageInfoFlags): List<PackageInfo> = emptyList()
