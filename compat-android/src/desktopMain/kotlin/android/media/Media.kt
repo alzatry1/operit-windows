@@ -328,7 +328,8 @@ open class AudioRecord(
     open fun read(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int): Int = 0
     /** AudioRecord.recordingState（录音状态；Kotlin 类需真属性才能被 record.recordingState 访问）。——Nova 注 */
     open val recordingState: Int get() = RECORDSTATE_STOPPED
-    open fun getState(): Int = STATE_INITIALIZED
+    /** AudioRecord.state（真实 Android getState() 是 Java getter，映射为属性；app 用 audioRecord.state）。——Nova 注 */
+    open val state: Int get() = STATE_INITIALIZED
     open fun getSampleRate(): Int = sampleRateInHz
     open fun getChannelCount(): Int = 1
     open fun getAudioFormat(): Int = audioFormat
