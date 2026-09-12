@@ -39,6 +39,8 @@ open class Context {
     // ---- 应用/包 ----
     open val applicationContext: Context
         get() = delegate?.applicationContext ?: AppGlobals.applicationContext
+    /** Context.getApplicationContext()（app 用 Java 式方法调用；哑参数避开与 val applicationContext 合成 getter 的 JVM 冲突）。——Nova 注 */
+    open fun getApplicationContext(ignored: Unit = Unit): Context = applicationContext
 
     open val packageName: String
         get() = delegate?.packageName ?: AppGlobals.PACKAGE_NAME

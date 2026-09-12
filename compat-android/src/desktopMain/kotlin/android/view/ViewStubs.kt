@@ -237,6 +237,8 @@ open class View(open val context: Context) {
     open fun setSystemUiVisibility(visibility: Int) {}
     /** View.windowVisibility（所在窗口可见性，桌面恒 VISIBLE；Kotlin 类需真正的属性才能被 view.windowVisibility 访问）。——Nova 注 */
     open val windowVisibility: Int get() = VISIBLE
+    /** View.drawingTime（上次绘制时间戳 ms，桌面恒 0）。——Nova 注 */
+    open val drawingTime: Long get() = 0L
     open fun setWillNotDraw(willNotDraw: Boolean) {}
     open fun isInEditMode(): Boolean = false
     open fun setLayoutParams(params: ViewGroup.LayoutParams?, @Suppress("UNUSED_PARAMETER") ignored: Unit = Unit) {
