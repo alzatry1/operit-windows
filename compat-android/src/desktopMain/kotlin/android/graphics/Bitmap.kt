@@ -87,6 +87,11 @@ open class Bitmap internal constructor(
         try { skiaBitmap.erase(color) } catch (e: Throwable) { /* ignore */ }
     }
 
+    /** Bitmap.copyPixelsFromBuffer：桌面 Skia 桥不接底层 buffer，存为 no-op。——Nova 注 */
+    fun copyPixelsFromBuffer(src: java.nio.Buffer) {
+        // 桌面端虚拟显示截帧走 PixelCopy/Skia readPixels，不走 buffer 直拷
+    }
+
     fun setPixelsInternal(pixels: IntArray) {
         setPixels(pixels, 0, width, 0, 0, width, height)
     }

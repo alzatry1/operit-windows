@@ -133,6 +133,11 @@ open class WebView : android.widget.FrameLayout {
     open fun goBack() {}
     open fun goForward() {}
     open fun canGoBack(): Boolean = false
+    /** WebView.copyBackForwardList：浏览历史栈。桌面 webview 为占位实现。——Nova 注 */
+    open fun copyBackForwardList(): WebBackForwardList = WebBackForwardList()
+    /** WebView.addRequestHeader（已废弃 API，桌面 no-op）。——Nova 注 */
+    open fun addRequestHeader(url: String, additionalHttpHeaders: Map<String, String>) {}
+    open fun addRequestHeader(url: String, name: String, value: String) {}
     open fun canGoForward(): Boolean = false
     open fun clearHistory() {}
     open fun clearCache(includeDiskFiles: Boolean) {}

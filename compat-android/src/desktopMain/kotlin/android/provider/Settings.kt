@@ -60,6 +60,7 @@ class Settings private constructor() {
         const val DATE_FORMAT = "date_format"
         const val ACCELEROMETER_ROTATION = "accelerometer_rotation"
         const val FONT_SCALE = "font_scale"
+        const val ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION = "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION"
         const val NEXT_ALARM_FORMATTED = "next_alarm_formatted"
         const val ALARM_ALERT = "alarm_alert"
         const val RINGTONE = "ringtone"

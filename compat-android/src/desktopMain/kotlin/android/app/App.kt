@@ -30,6 +30,9 @@ open class Application : Context(), ComponentCallbacks2 {
     private val componentCallbacks = CopyOnWriteArrayList<ComponentCallbacks2>()
     private val lifecycleCallbacks = CopyOnWriteArrayList<ActivityLifecycleCallbacks>()
 
+    /** Application.attachBaseContext（子类 override 用）。桌面无基础上下文切换，仅记录。——Nova 注 */
+    open fun attachBaseContext(base: Context) {}
+
     override val applicationContext: Context
         get() = this
 
@@ -106,7 +109,8 @@ abstract class Service : ContextWrapper(null), ComponentCallbacks2 {
     open fun stopForeground(removeNotification: Boolean) {}
     open fun stopForeground(flags: Int) {}
 
-    open fun getApplication(): Application = applicationContext as Application
+    /** Service.application 属性（app 用 this.application）。——Nova 注 */
+    open val application: Application get() = applicationContext as Application
 
     companion object {
         const val START_STICKY_COMPATIBILITY = 0
