@@ -90,6 +90,8 @@ fun TimePickerDialog(
     confirmButton: (@Composable () -> Unit)? = null,
     modifier: Modifier = Modifier,
     dismissButton: (@Composable () -> Unit)? = null,
+    shape: Shape? = null,
+    containerColor: Color = Color.Unspecified,
     title: (@Composable () -> Unit)? = null,
     modeToggleButton: (@Composable () -> Unit)? = null,
     content: (@Composable () -> Unit)? = null,
