@@ -9,6 +9,9 @@ import android.os.IBinder
  */
 interface IShizukuService {
 
+    /** IShizukuService.asBinder（AIDL 的 binder 引用，桌面 stub 返回 null）。——Nova 注 */
+    fun asBinder(): IBinder? = null
+
     fun newProcess(cmd: Array<String>?, env: Array<String>?, dir: String?): Any? = null
 
     fun getUid(): Int = -1

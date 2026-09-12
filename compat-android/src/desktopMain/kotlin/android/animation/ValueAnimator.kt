@@ -28,6 +28,8 @@ open class ValueAnimator : Animator {
     var interpolator: Any? = null
     var animatedValue: Any? = null
         private set
+    /** ValueAnimator.animatedFraction（动画进度 0-1；桌面占位）。——Nova 注 */
+    open var animatedFraction: Float = 0f
 
     private val updateListeners = mutableListOf<AnimatorUpdateListener>()
     private val listeners = mutableListOf<AnimatorListener>()
