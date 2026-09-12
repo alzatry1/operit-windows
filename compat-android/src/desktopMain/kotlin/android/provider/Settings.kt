@@ -177,6 +177,8 @@ class Settings private constructor() {
 
     companion object {
         const val ACTION_SETTINGS = "android.settings.SETTINGS"
+        /** Settings.ACTION_VOICE_INPUT_SETTINGS（语音输入设置，桌面占位）。——Nova 注 */
+        const val ACTION_VOICE_INPUT_SETTINGS = "android.settings.VOICE_INPUT_SETTINGS"
         const val ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION = "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION"
         const val ACTION_DISPLAY_SETTINGS = "android.settings.DISPLAY_SETTINGS"
         const val ACTION_SOUND_SETTINGS = "android.settings.SOUND_SETTINGS"
