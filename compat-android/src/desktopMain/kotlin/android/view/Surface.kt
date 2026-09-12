@@ -12,7 +12,8 @@ import android.util.AttributeSet
 
 /** android.view.Surface。 */
 open class Surface {
-    open fun isValid(): Boolean = true
+    /** Surface.isValid（真实 Android isValid() 是 is 前缀 Java 方法，映射为属性；app 用 surface.isValid）。——Nova 注 */
+    open val isValid: Boolean = true
     open fun lockCanvas(inOutDirty: Rect?): Canvas? = null
     open fun lockHardwareCanvas(): Canvas? = null
     open fun unlockCanvasAndPost(canvas: Canvas?) {}
