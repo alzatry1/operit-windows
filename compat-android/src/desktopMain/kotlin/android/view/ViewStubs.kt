@@ -35,6 +35,10 @@ open class View(open val context: Context) {
     open var alpha: Float = 1f
     open var isEnabled: Boolean = true
     open var isClickable: Boolean = false
+    /** View 滚动条/嵌套滚动开关（桌面仅存值）。——Nova 注 */
+    open var isVerticalScrollBarEnabled: Boolean = true
+    open var isHorizontalScrollBarEnabled: Boolean = false
+    open var isNestedScrollingEnabled: Boolean = false
     open var isLongClickable: Boolean = false
     open var isFocusable: Boolean = false
     open var isFocusableInTouchMode: Boolean = false
