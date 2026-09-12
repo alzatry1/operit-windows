@@ -269,7 +269,7 @@ open class Geocoder {
     open fun getFromLocation(latitude: Double, longitude: Double, maxResults: Int): List<Address> = emptyList()
 
     open fun getFromLocation(latitude: Double, longitude: Double, maxResults: Int, listener: GeocodeListener) {
-        listener.onGeocode(emptyList())
+        listener.onGeocode(mutableListOf())
     }
 
     open fun getFromLocationName(locationName: String?, maxResults: Int): List<Address> = emptyList()
