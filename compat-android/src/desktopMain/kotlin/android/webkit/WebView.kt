@@ -140,6 +140,9 @@ open class WebView : android.widget.FrameLayout {
     open fun stopLoading() {}
     open fun goBack() {}
     open fun goForward() {}
+    /** WebView.goBackOrForward(steps)：按步数前进/后退浏览历史（桌面 no-op）。——Nova 注 */
+    open fun goBackOrForward(steps: Int) {}
+    open fun canGoBackOrForward(steps: Int): Boolean = false
     open fun canGoBack(): Boolean = false
     /** WebView.copyBackForwardList：浏览历史栈。桌面 webview 为占位实现。——Nova 注 */
     open fun copyBackForwardList(): WebBackForwardList = WebBackForwardList()
