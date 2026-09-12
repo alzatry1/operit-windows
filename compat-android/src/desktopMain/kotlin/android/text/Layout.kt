@@ -141,6 +141,12 @@ abstract class Layout protected constructor(
     open fun draw(c: Canvas, highlight: android.graphics.Path?, highlightPaint: Paint?, cursorOffsetVertical: Int) =
         draw(c)
 
+    /** skia.Canvas 重载：app 直接传 canvas.nativeCanvas（Compose Desktop 底层）。包装成 android.graphics.Canvas 委托。——Nova 注 */
+    open fun draw(c: org.jetbrains.skia.Canvas?) {
+        if (c == null) return
+        draw(android.graphics.Canvas(c))
+    }
+
     companion object {
         const val DIR_LEFT_TO_RIGHT = 1
         const val DIR_RIGHT_TO_LEFT = -1
@@ -185,7 +191,7 @@ abstract class Layout protected constructor(
 open class StaticLayout : Layout {
 
     private val lineStarts: IntArray
-    private val lineCount: Int
+    private val mLineCount: Int
     private val lineHeightPx: Int
     private val topPad: Int
     private val bottomPad: Int
@@ -234,7 +240,7 @@ open class StaticLayout : Layout {
         // 限高截断（maxLines）
         val finalStarts = if (maxLines in 1 until starts.size) starts.subList(0, maxLines).toList() else starts
         this.lineStarts = finalStarts.toIntArray()
-        this.lineCount = lineStarts.size
+        this.mLineCount = lineStarts.size
     }
 
     constructor(
@@ -248,7 +254,7 @@ open class StaticLayout : Layout {
         ellipsize: TextUtils.TruncateAt?, ellipsizedWidth: Int,
     ) : this(source, paint, width, align, spacingmult, spacingadd, includepad, ellipsize, ellipsizedWidth, Int.MAX_VALUE)
 
-    override fun getLineCount(): Int = lineCount
+    override fun getLineCount(): Int = mLineCount
     override fun getLineTop(line: Int): Int = topPad + line * lineHeightPx
     override fun getLineStart(line: Int): Int = if (line in lineStarts.indices) lineStarts[line] else text.length
     override fun getParagraphDirection(line: Int): Int = DIR_LEFT_TO_RIGHT

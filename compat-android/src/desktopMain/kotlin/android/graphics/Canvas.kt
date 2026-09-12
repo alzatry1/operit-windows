@@ -12,6 +12,11 @@ open class Canvas {
 
     constructor()
 
+    /** 包一个现有 skia.Canvas（app 把 canvas.nativeCanvas 传给要 android.graphics.Canvas 的 API）。——Nova 注 */
+    constructor(skiaCanvas: org.jetbrains.skia.Canvas) {
+        this.skiaCanvas = skiaCanvas
+    }
+
     constructor(bitmap: Bitmap) {
         this.bitmap = bitmap
         this.skiaCanvas = try {

@@ -242,6 +242,12 @@ internal fun selectedTextWithInlineCodeMarkers(
     }
 }
 
+/** skia.Canvas 重载：app 直接传 canvas.nativeCanvas。包装成 android.graphics.Canvas 委托。——Nova 注 */
+internal fun drawInlineCodeBackgrounds(
+    layout: StaticLayout,
+    canvas: org.jetbrains.skia.Canvas,
+) = drawInlineCodeBackgrounds(layout, Canvas(canvas))
+
 internal fun drawInlineCodeBackgrounds(
     layout: StaticLayout,
     canvas: Canvas,

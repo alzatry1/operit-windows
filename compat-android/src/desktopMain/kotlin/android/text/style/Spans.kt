@@ -274,12 +274,12 @@ open class SubscriptSpan() : MetricAffectingSpan(), ParcelableSpan {
 
 /** android.text.style.URLSpan：点击尝试打开浏览器。 */
 open class URLSpan() : ClickableSpan(), ParcelableSpan {
-    var url: String? = null
+    var url: String = ""
 
-    constructor(url: String?) : this() { this.url = url }
-    constructor(src: android.os.Parcel) : this() { url = src.readString() }
+    constructor(url: String?) : this() { this.url = url ?: "" }
+    constructor(src: android.os.Parcel) : this() { url = src.readString() ?: "" }
 
-    fun getURL(): String? = url
+    fun getURL(): String = url
 
     override fun onClick(widget: View) {
         val u = url ?: return
