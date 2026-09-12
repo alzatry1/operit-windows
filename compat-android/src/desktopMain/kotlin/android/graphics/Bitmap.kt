@@ -32,10 +32,10 @@ open class Bitmap internal constructor(
     val width: Int get() = skiaBitmap.imageInfo.width
     val height: Int get() = skiaBitmap.imageInfo.height
     val config: Config? get() = bitmapConfig
-    var hasAlpha: Boolean = true
-        private set
-
-    fun setHasAlpha(hasAlpha: Boolean) { this.hasAlpha = hasAlpha }
+    private var _hasAlpha: Boolean = true
+    /** Bitmap.hasAlpha()（真实 Android 是方法；app 用 bitmap.hasAlpha() 调用）。——Nova 注 */
+    fun hasAlpha(): Boolean = _hasAlpha
+    fun setHasAlpha(hasAlpha: Boolean) { _hasAlpha = hasAlpha }
 
     private var recycled = false
     val isRecycled: Boolean get() = recycled
