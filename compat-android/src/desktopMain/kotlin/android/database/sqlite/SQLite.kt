@@ -33,7 +33,7 @@ class SQLiteAbortException : SQLiteException {
 }
 
 /** android.database.sqlite.SQLiteDatabase。 */
-open class SQLiteDatabase {
+open class SQLiteDatabase : AutoCloseable {
 
     fun interface CursorFactory {
         fun newCursor(db: SQLiteDatabase, masterQuery: SQLiteCursorDriver?, editTable: String?, query: SQLiteQuery?): Cursor
@@ -42,7 +42,7 @@ open class SQLiteDatabase {
     interface SQLiteCursorDriver
     interface SQLiteQuery
 
-    private var path: String? = null
+    var path: String? = null
     private var open = true
     private var version = 0
     private var inTransaction = false
@@ -68,7 +68,7 @@ open class SQLiteDatabase {
     open fun yieldIfContendedSafely(): Boolean = true
     open fun yieldIfContendedSafely(sleepAfterYieldDelayMillis: Long): Boolean = true
 
-    open fun close() { open = false }
+    open override fun close() { open = false }
     open fun isDatabaseIntegrityOk(): Boolean = true
 
     open fun execSQL(sql: String) {}

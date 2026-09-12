@@ -374,6 +374,8 @@ open class Binder : IBinder {
 
 /** android.os.LocaleList：包装 Locale 列表。 */
 class LocaleList private constructor(private val locales: Array<Locale>) : Iterable<Locale>, Parcelable {
+    /** LocaleList(Locale...) vararg 构造（真实 Android 公开）。——Nova 注 */
+    constructor(vararg locales: Locale) : this(arrayOf(*locales))
     fun get(index: Int): Locale = locales[index]
     fun size(): Int = locales.size
     fun isEmpty(): Boolean = locales.isEmpty()
