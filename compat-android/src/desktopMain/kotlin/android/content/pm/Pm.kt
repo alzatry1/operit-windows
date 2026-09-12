@@ -12,7 +12,8 @@ import com.ai.assistance.operit.compat.AppGlobals
 /** android.content.pm.PackageItemInfo：各 info 的基类。 */
 open class PackageItemInfo() {
     var name: String? = null
-    var packageName: String? = null
+    /** packageName：真实 Android 是非空 public 字段，app 多处非空用。——Nova 注 */
+    var packageName: String = ""
     var labelRes: Int = 0
     var nonLocalizedLabel: CharSequence? = null
     var icon: Int = 0
