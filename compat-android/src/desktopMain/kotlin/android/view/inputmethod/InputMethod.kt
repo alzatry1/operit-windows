@@ -116,6 +116,10 @@ interface InputConnection {
     fun getSelectedText(flags: Int): CharSequence? = null
     fun getCursorCapsMode(reqModes: Int): Int = 0
     fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean = false
+    /** InputConnection.deleteSurroundingTextInCodePoints（按码点删，桌面同字符）。——Nova 注 */
+    fun deleteSurroundingTextInCodePoints(beforeLength: Int, afterLength: Int): Boolean = false
+    /** InputConnection.getExtractedText（取全文，桌面返回空 ExtractedText）。——Nova 注 */
+    fun getExtractedText(request: ExtractedTextRequest?, flags: Int): ExtractedText = ExtractedText()
     fun setComposingText(text: CharSequence?, newCursorPosition: Int): Boolean = false
     fun setComposingRegion(start: Int, end: Int): Boolean = false
     fun finishComposingText(): Boolean = false
