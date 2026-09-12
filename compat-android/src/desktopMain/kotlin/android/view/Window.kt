@@ -23,6 +23,9 @@ open class WindowManager {
         var gravity: Int = Gravity.NO_GRAVITY
         var softInputMode: Int = 0
         var layoutInDisplayCutoutMode: Int = 0
+        /** LayoutParams.preferredRefreshRate（首选刷新率，桌面仅存值）。——Nova 注 */
+        var preferredRefreshRate: Float = 0f
+        var preferredDisplayModeId: Int = 0
         var windowAnimations: Int = 0
         var alpha: Float = 1.0f
         var dimAmount: Float = 0f

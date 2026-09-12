@@ -323,7 +323,8 @@ open class AudioRecord(
     open fun release() {}
     open fun read(audioData: ByteArray, offsetInBytes: Int, sizeInBytes: Int): Int = 0
     open fun read(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int): Int = 0
-    open fun getRecordingState(): Int = RECORDSTATE_STOPPED
+    /** AudioRecord.recordingState（录音状态；Kotlin 类需真属性才能被 record.recordingState 访问）。——Nova 注 */
+    open val recordingState: Int get() = RECORDSTATE_STOPPED
     open fun getState(): Int = STATE_INITIALIZED
     open fun getSampleRate(): Int = sampleRateInHz
     open fun getChannelCount(): Int = 1
@@ -387,6 +388,8 @@ open class AudioTrack(
     open fun write(audioData: ByteArray, offsetInBytes: Int, sizeInBytes: Int, writeMode: Int): Int = sizeInBytes
     open fun write(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int): Int = sizeInShorts
     open fun getPlayState(): Int = PLAYSTATE_STOPPED
+    /** AudioTrack.playbackHeadPosition（播放头帧位置；Kotlin 类需真属性才能被 track.playbackHeadPosition 访问）。——Nova 注 */
+    open val playbackHeadPosition: Int get() = 0
     open fun getState(): Int = STATE_INITIALIZED
     open fun getSampleRate(): Int = sampleRateInHz
     open fun setStereoVolume(leftGain: Float, rightGain: Float): Int = SUCCESS
