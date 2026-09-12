@@ -19,6 +19,8 @@ open class Engine {
 open class TransformManager {
     open fun getInstance(entity: Int): Int = if (entity != 0) 1 else 0
     open fun setTransform(instance: Int, matrix: FloatArray) {}
+    /** TransformManager.getTransform(instance, out)：读回变换矩阵（桌面占位，返回传入数组）。——Nova 注 */
+    open fun getTransform(instance: Int, out: FloatArray): FloatArray = out
     open fun setParent(instance: Int, parent: Int) {}
     open fun destroy(instance: Int) {}
 }
