@@ -21,6 +21,9 @@ interface WebResourceRequest {
     val hasGesture: Boolean
     val method: String
     val requestHeaders: Map<String, String>?
+
+    /** hasGesture() 方法形式（真实 Android 是 Java 方法，app 有一处用带括号调用）。委托属性。——Nova 注 */
+    fun hasGesture(): Boolean = hasGesture
 }
 
 /** android.webkit.WebResourceError。 */
