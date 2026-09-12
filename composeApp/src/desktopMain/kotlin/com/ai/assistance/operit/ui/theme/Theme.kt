@@ -8,7 +8,6 @@ import com.ai.assistance.operit.util.AppLogger
 import com.ai.assistance.operit.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme

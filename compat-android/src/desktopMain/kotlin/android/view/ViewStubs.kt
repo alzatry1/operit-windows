@@ -253,7 +253,8 @@ open class View(open val context: Context) {
     /** View.drawingTime（上次绘制时间戳 ms，桌面恒 0）。——Nova 注 */
     open val drawingTime: Long get() = 0L
     open fun setWillNotDraw(willNotDraw: Boolean) {}
-    open fun isInEditMode(): Boolean = false
+    /** View.isInEditMode（真实 Android 是 is 前缀 Java 方法，映射为属性）。——Nova 注 */
+    open val isInEditMode: Boolean = false
     open fun setLayoutParams(params: ViewGroup.LayoutParams?, @Suppress("UNUSED_PARAMETER") ignored: Unit = Unit) {
         layoutParams = params
     }
