@@ -170,6 +170,8 @@ open class TextView : View {
     open var currentHintTextColor: Int = 0xFF808080.toInt()
     open var lineHeight: Int = 0
     open var gravity: Int = Gravity.START or Gravity.TOP
+    /** TextView.includeFontPadding（字体上下内边距）。——Nova 注 */
+    open var includeFontPadding: Boolean = true
     open var maxLines: Int = Int.MAX_VALUE
     open var minLines: Int = 1
     open var typeface: Typeface? = null
