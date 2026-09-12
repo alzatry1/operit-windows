@@ -1,6 +1,7 @@
 package com.github.skydoves.colorpicker.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
@@ -18,11 +19,14 @@ class ColorEnvelope(
 
 /** 取色器控制器。 */
 class ColorPickerController {
-    var selectedColor: androidx.compose.runtime.MutableState<Color>? = null
+    private val _selectedColor = androidx.compose.runtime.mutableStateOf(Color.White)
+    /** 选中色（非空 State，app 用 `by controller.selectedColor` 委托）。——Nova 注 */
+    val selectedColor: androidx.compose.runtime.State<Color> get() = _selectedColor
     internal var onColorChanged: ((ColorEnvelope) -> Unit)? = null
 
     fun setWheelImageBitmap(bitmap: android.graphics.Bitmap?) {}
     fun selectByColor(color: Color, fromUser: Boolean) {
+        _selectedColor.value = color
         onColorChanged?.invoke(ColorEnvelope(color, "#%08X".format(color.value.toInt()), fromUser))
     }
 }
@@ -64,3 +68,14 @@ fun BrightnessSlider(
     controller: ColorPickerController,
     onColorChanged: ((ColorEnvelope) -> Unit)? = null,
 ) {}
+
+/** AlphaTile：选中色预览块（app 传入 controller）。——Nova 注 */
+@Composable
+fun AlphaTile(
+    modifier: Modifier = Modifier,
+    controller: ColorPickerController = rememberColorPickerController(),
+) {
+    androidx.compose.foundation.layout.Box(
+        modifier.background(controller.selectedColor.value)
+    )
+}
