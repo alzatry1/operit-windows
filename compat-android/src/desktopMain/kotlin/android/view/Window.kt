@@ -200,6 +200,8 @@ open class Window(open val context: Context) {
     open fun setSoftInputMode(mode: Int) {
         attributes.softInputMode = mode
     }
+    /** Window.setSustainedPerformanceMode（持续性能模式，桌面 no-op）。——Nova 注 */
+    open fun setSustainedPerformanceMode(enable: Boolean) {}
 
     open fun setType(type: Int) {
         attributes.type = type

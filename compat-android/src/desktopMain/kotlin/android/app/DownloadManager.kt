@@ -41,6 +41,13 @@ class DownloadManager(private val context: Context) {
         fun addRequestHeader(name: String, value: String): Request = apply { headers[name] = value }
         fun setAllowedOverMetered(b: Boolean): Request = apply {}
         fun setAllowedOverRoaming(b: Boolean): Request = apply {}
+
+        companion object {
+            const val VISIBILITY_VISIBLE = 0
+            const val VISIBILITY_VISIBLE_NOTIFY_COMPLETED = 1
+            const val VISIBILITY_HIDDEN = 2
+            const val VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION = 3
+        }
     }
 
     class Query {

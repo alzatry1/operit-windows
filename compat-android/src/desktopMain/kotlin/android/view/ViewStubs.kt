@@ -32,6 +32,8 @@ open class View(open val context: Context) {
     }
 
     open var visibility: Int = VISIBLE
+    /** View.windowVisibility（所在窗口可见性，桌面恒 VISIBLE）。——Nova 注 */
+    open var windowVisibility: Int = VISIBLE
     open var alpha: Float = 1f
     open var isEnabled: Boolean = true
     open var isClickable: Boolean = false
@@ -164,6 +166,9 @@ open class View(open val context: Context) {
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findViewById(id: Int): T? = null
     open fun setMinimumWidth(minWidth: Int) {}
+    /** View.setMinWidth/setMinHeight（TextView 风格的便捷写法）。——Nova 注 */
+    open fun setMinWidth(minWidth: Int) {}
+    open fun setMinHeight(minHeight: Int) {}
     open fun setMinimumHeight(minHeight: Int) {}
     open fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {}
     open fun announceForAccessibility(text: CharSequence?) {}
