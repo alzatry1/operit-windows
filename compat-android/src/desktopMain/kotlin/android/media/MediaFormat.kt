@@ -22,6 +22,13 @@ open class MediaFormat {
     open fun containsKey(name: String): Boolean = map.containsKey(name)
 
     companion object {
+        /** MediaFormat.createVideoFormat(mime, width, height)：构造视频格式。——Nova 注 */
+        @JvmStatic
+        fun createVideoFormat(mime: String?, width: Int, height: Int): MediaFormat = MediaFormat().apply {
+            setString(KEY_MIME, mime)
+            setInteger(KEY_WIDTH, width)
+            setInteger(KEY_HEIGHT, height)
+        }
         const val KEY_MIME = "mime"
         const val KEY_SAMPLE_RATE = "sample-rate"
         const val KEY_CHANNEL_COUNT = "channel-count"
