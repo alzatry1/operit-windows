@@ -243,6 +243,8 @@ open class Intent() : Parcelable, Cloneable {
         const val ACTION_CREATE_SHORTCUT = "android.intent.action.CREATE_SHORTCUT"
         const val ACTION_CHOOSER = "android.intent.action.CHOOSER"
         const val ACTION_GET_CONTENT = "android.intent.action.GET_CONTENT"
+        /** Intent.ACTION_MEDIA_SCANNER_SCAN_FILE（触发媒体扫描，桌面占位）。——Nova 注 */
+        const val ACTION_MEDIA_SCANNER_SCAN_FILE = "android.intent.action.MEDIA_SCANNER_SCAN_FILE"
         const val ACTION_DIAL = "android.intent.action.DIAL"
         const val ACTION_CALL = "android.intent.action.CALL"
         const val ACTION_SEND = "android.intent.action.SEND"
