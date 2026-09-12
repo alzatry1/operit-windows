@@ -167,7 +167,7 @@ class FloatingChatService : Service(), FloatingWindowCallback {
         }
     }
 
-    override fun onBind(intent: Intent): IBinder = binder
+    override fun onBind(intent: Intent?): IBinder = binder
 
     private fun handleServiceCrash(thread: Thread, throwable: Throwable) {
         try {

@@ -15,6 +15,9 @@ open class VoiceInteractionSessionService : android.app.Service() {
 
 open class VoiceInteractionSession(protected val context: Context) {
     open fun show(args: Bundle?, flags: Int) {}
+    /** VoiceInteractionSession.onShow(args, showFlags)：会话显示回调。——Nova 注 */
+    open fun onShow(args: Bundle?, showFlags: Int) {}
+    open fun onHide() {}
     open fun hide() {}
     open fun setContentView(view: View?) {}
     open fun onCreate() {}
