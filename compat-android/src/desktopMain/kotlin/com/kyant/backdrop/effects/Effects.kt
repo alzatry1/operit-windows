@@ -16,6 +16,6 @@ fun BackdropEffectsScope.lens(refractionHeight: Float, refractionAmount: Float) 
     applied.add("lens:$refractionHeight,$refractionAmount")
 }
 
-fun BackdropEffectsScope.lens(refractionHeight: Float, refractionAmount: Float, chromaticAberration: Float) {
+fun BackdropEffectsScope.lens(refractionHeight: Float, refractionAmount: Float, chromaticAberration: Boolean) {
     applied.add("lens:$refractionHeight,$refractionAmount,$chromaticAberration")
 }
