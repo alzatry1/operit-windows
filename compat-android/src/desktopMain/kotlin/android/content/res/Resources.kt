@@ -177,6 +177,7 @@ open class Resources {
 open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configuration> {
 
     var locale: Locale? = Locale.getDefault()
+        private set
         get() = if (field == null && locales.size() > 0) locales.get(0) else field
         set(value) {
             field = value
@@ -193,6 +194,7 @@ open class Configuration : android.os.Parcelable, Cloneable, Comparable<Configur
     /** Configuration.setLocale（单个 Locale，已废弃但 app 兼容分支用）。——Nova 注 */
     fun setLocale(l: java.util.Locale?) {
         locale = l
+        locales = if (l != null) LocaleList.of(l) else LocaleList.getDefault()
     }
 
     var fontScale: Float = 1.0f
