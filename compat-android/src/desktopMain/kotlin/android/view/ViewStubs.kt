@@ -460,7 +460,9 @@ open class KeyEvent(
         const val KEYCODE_X = 52
         const val KEYCODE_Y = 53
         const val KEYCODE_V = 50
+        const val KEYCODE_C = 31
         const val KEYCODE_PASTE = 279
+        const val KEYCODE_NUMPAD_ENTER = 160
         const val KEYCODE_STAR = 17
         const val KEYCODE_POUND = 18
         const val KEYCODE_DPAD_UP = 19
