@@ -120,8 +120,8 @@ private fun inlineCodeBackgroundColor(textColor: Color): Int {
 private class InlineCodeStyleSpan(
     private val textScale: Float,
 ) : MetricAffectingSpan() {
-    override fun updateDrawState(textPaint: android.text.TextPaint) {
-        applyStyle(textPaint)
+    override fun updateDrawState(textPaint: android.text.TextPaint?) {
+        textPaint?.let { applyStyle(it) }
     }
 
     override fun updateMeasureState(textPaint: android.text.TextPaint) {
