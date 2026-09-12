@@ -32,8 +32,6 @@ open class View(open val context: Context) {
     }
 
     open var visibility: Int = VISIBLE
-    /** View.windowVisibility（所在窗口可见性，桌面恒 VISIBLE）。——Nova 注 */
-    open var windowVisibility: Int = VISIBLE
     open var alpha: Float = 1f
     open var isEnabled: Boolean = true
     open var isClickable: Boolean = false
