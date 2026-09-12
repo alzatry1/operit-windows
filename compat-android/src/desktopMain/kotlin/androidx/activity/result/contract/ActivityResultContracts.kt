@@ -204,13 +204,12 @@ class ActivityResultContracts private constructor() {
 
     /** Photo Picker 单选。 */
     open class PickVisualMedia : ActivityResultContract<PickVisualMediaRequest, Uri?>() {
-        /** Photo Picker 媒体类型约束（真实 AndroidX 嵌套在 PickVisualMedia 内）。——Nova 注 */
-        sealed class VisualMediaType {
-            object ImageOnly : VisualMediaType()
-            object VideoOnly : VisualMediaType()
-            object ImageAndVideo : VisualMediaType()
-            data class SingleMimeType(val mimeType: String) : VisualMediaType()
-        }
+        /** Photo Picker 媒体类型约束（真实 AndroidX 里子类型是 PickVisualMedia 直接成员）。——Nova 注 */
+        sealed class VisualMediaType
+        object ImageOnly : VisualMediaType()
+        object VideoOnly : VisualMediaType()
+        object ImageAndVideo : VisualMediaType()
+        data class SingleMimeType(val mimeType: String) : VisualMediaType()
 
         override fun createIntent(context: Context, input: PickVisualMediaRequest): Intent =
             Intent("android.provider.action.PICK_IMAGES")
