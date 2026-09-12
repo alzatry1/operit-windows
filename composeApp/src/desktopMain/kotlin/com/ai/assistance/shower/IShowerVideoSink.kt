@@ -10,7 +10,7 @@ import android.os.IInterface
  */
 interface IShowerVideoSink : IInterface {
 
-    fun onVideoFrame(data: ByteArray?)
+    fun onVideoFrame(data: ByteArray)
 
     abstract class Stub : Binder(), IShowerVideoSink {
 
