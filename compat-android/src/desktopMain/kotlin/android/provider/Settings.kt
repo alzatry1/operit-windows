@@ -9,6 +9,8 @@ class Settings private constructor() {
 
     object System {
         @JvmField val CONTENT_URI: Uri = Uri.parse("content://settings/system")
+        /** Settings.System.canWrite（是否允许写系统设置，桌面恒 true）。——Nova 注 */
+        @JvmStatic fun canWrite(context: android.content.Context?): Boolean = true
         @JvmField val DEFAULT_NOTIFICATION_URI: Uri = Uri.parse("content://settings/system/notification_sound")
         @JvmField val DEFAULT_RINGTONE_URI: Uri = Uri.parse("content://settings/system/ringtone")
         @JvmField val DEFAULT_ALARM_ALERT_URI: Uri = Uri.parse("content://settings/system/alarm_alert")

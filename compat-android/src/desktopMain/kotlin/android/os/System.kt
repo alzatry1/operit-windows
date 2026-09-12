@@ -148,7 +148,8 @@ class StatFs {
     fun reStat(path: String) { file = File(path) }
 
     fun getBlockSize(): Int = 4096
-    fun getBlockSizeLong(): Long = 4096L
+    /** StatFs.blockSizeLong（块大小，桌面恒 4096；Kotlin 类需真属性才能被 statFs.blockSizeLong 访问）。——Nova 注 */
+    val blockSizeLong: Long get() = 4096L
     fun getBlockCount(): Int = (getBlockCountLong() / 1).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
     fun getBlockCountLong(): Long = totalSpace() / 4096
     fun getFreeBlocks(): Int = (getFreeBlocksLong()).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()

@@ -58,6 +58,8 @@ interface Player {
     val playbackState: Int
     val currentPosition: Long
     val duration: Long
+    /** Player.bufferedPosition（缓冲到的位置 ms，桌面恒 0）。——Nova 注 */
+    val bufferedPosition: Long
     val currentMediaItemIndex: Int
     val currentMediaItem: MediaItem?
 
