@@ -101,6 +101,22 @@ fun TimePickerDialog(
 }
 
 @Composable
+fun WideNavigationRailItem(
+    selected: Boolean,
+    onClick: () -> Unit,
+    icon: (@Composable () -> Unit)? = null,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    label: (@Composable () -> Unit)? = null,
+    railExpanded: Boolean = false,
+) {
+    Column(modifier = modifier) {
+        if (icon != null) icon()
+        if (label != null) label()
+    }
+}
+
+@Composable
 fun VerticalDragHandle(
     modifier: Modifier = Modifier,
     contentColor: Color? = null,

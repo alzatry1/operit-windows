@@ -49,6 +49,7 @@ object AppGlobals {
     val notificationManager: NotificationManager by lazy { NotificationManager() }
     val activityManager: ActivityManager by lazy { ActivityManager() }
     val audioManager: AudioManager by lazy { AudioManager() }
+    val telephonyManager: android.telephony.TelephonyManager by lazy { android.telephony.TelephonyManager() }
     val display: Display by lazy { Display() }
 
     /** 全局 View 单例：androidx.compose.ui.platform.LocalView 的默认值（桌面无真实 View 树）。 */
@@ -69,6 +70,7 @@ object AppGlobals {
             Context.AUDIO_SERVICE -> audioManager
             Context.WINDOW_SERVICE -> null // B1b: WindowManager
             Context.INPUT_METHOD_SERVICE -> null // B1b: InputMethodManager
+            Context.TELEPHONY_SERVICE -> telephonyManager
             else -> {
                 if (warnedServices.add(name)) {
                     org.slf4j.LoggerFactory.getLogger("AppGlobals")

@@ -383,6 +383,8 @@ open class AudioTrack(
     open fun flush() {}
     open fun release() {}
     open fun write(audioData: ByteArray, offsetInBytes: Int, sizeInBytes: Int): Int = sizeInBytes
+    /** AudioTrack.write(data, offset, size, writeMode)：WRITE_NON_BLOCKING 等写入模式。——Nova 注 */
+    open fun write(audioData: ByteArray, offsetInBytes: Int, sizeInBytes: Int, writeMode: Int): Int = sizeInBytes
     open fun write(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int): Int = sizeInShorts
     open fun getPlayState(): Int = PLAYSTATE_STOPPED
     open fun getState(): Int = STATE_INITIALIZED
@@ -393,6 +395,9 @@ open class AudioTrack(
         const val STATE_UNINITIALIZED = 0
         const val STATE_INITIALIZED = 1
         const val STATE_NO_STATIC_BUFFER = 2
+        /** AudioTrack 写入模式：非阻塞。——Nova 注 */
+        const val WRITE_BLOCKING = 0
+        const val WRITE_NON_BLOCKING = 1
         const val PLAYSTATE_STOPPED = 1
         const val PLAYSTATE_PAUSED = 2
         const val PLAYSTATE_PLAYING = 3

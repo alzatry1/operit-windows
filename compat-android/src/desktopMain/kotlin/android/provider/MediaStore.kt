@@ -54,6 +54,10 @@ object MediaStore {
     @JvmStatic
     fun getMediaScannerUri(): Uri = Uri.parse("content://media/none/media_scanner")
 
+    /** MediaStore.getPickImagesMaxLimit：Photo Picker 多选上限。桌面给个合理默认。——Nova 注 */
+    @JvmStatic
+    fun getPickImagesMaxLimit(): Int = 100
+
     @JvmStatic
     fun getVolumeName(uri: Uri): String = uri.pathSegments.firstOrNull() ?: VOLUME_EXTERNAL
 
