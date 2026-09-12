@@ -546,7 +546,8 @@ open class Display {
     open fun getRotation(): Int = 0
     open fun getDisplayId(): Int = 0
     open fun getName(): String = "Built-in Display"
-    open fun getRefreshRate(): Float = 60.0f
+    /** Display.refreshRate（刷新率；Kotlin 类需真属性才能被 display.refreshRate 访问）。——Nova 注 */
+    open val refreshRate: Float get() = 60.0f
     open fun getState(): Int = STATE_ON
     open fun isValid(): Boolean = true
     open fun getMode(): Mode = Mode(0, metrics.widthPixels, metrics.heightPixels, 60.0f)

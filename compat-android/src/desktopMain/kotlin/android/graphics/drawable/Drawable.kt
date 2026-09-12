@@ -423,8 +423,8 @@ open class AnimatedImageDrawable : Drawable(), Animatable2 {
     override fun unregisterAnimationCallback(callback: Animatable2.AnimationCallback): Boolean = callbacks.remove(callback)
     override fun clearAnimationCallbacks() { callbacks.clear() }
 
-    open fun getRepeatCount(): Int = 0
-    open fun setRepeatCount(repeatCount: Int) {}
+    /** AnimatedImageDrawable.repeatCount（真实 Android 是属性语义；Kotlin 类需真属性才能被 drawable.repeatCount 访问）。——Nova 注 */
+    open var repeatCount: Int = REPEAT_UNDEFINED
 
     companion object {
         const val REPEAT_INFINITE = -1
