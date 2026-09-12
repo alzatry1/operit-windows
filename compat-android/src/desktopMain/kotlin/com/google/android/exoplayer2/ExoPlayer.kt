@@ -50,6 +50,8 @@ internal class StubExoPlayer(@Suppress("unused") private val context: Context) :
     override var playbackState: Int = Player.STATE_IDLE
         private set
     override var currentPosition: Long = 0L
+    /** StubExoPlayer.bufferedPosition override（桌面存值，恒 0）。——Nova 注 */
+    override val bufferedPosition: Long = 0L
         private set
     override val duration: Long
         get() = C.TIME_UNSET
