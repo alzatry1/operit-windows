@@ -180,6 +180,8 @@ class Settings private constructor() {
         /** Settings.ACTION_VOICE_INPUT_SETTINGS（语音输入设置，桌面占位）。——Nova 注 */
         const val ACTION_VOICE_INPUT_SETTINGS = "android.settings.VOICE_INPUT_SETTINGS"
         const val ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION = "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION"
+        /** Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION（单应用全文件访问管理，桌面占位）。——Nova 注 */
+        const val ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION = "android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION"
         const val ACTION_DISPLAY_SETTINGS = "android.settings.DISPLAY_SETTINGS"
         const val ACTION_SOUND_SETTINGS = "android.settings.SOUND_SETTINGS"
         const val ACTION_WIFI_SETTINGS = "android.settings.WIFI_SETTINGS"
