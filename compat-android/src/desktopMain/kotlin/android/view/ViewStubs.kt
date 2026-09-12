@@ -586,16 +586,11 @@ open class Display {
     open fun isWideColorGamut(): Boolean = false
 
     class Mode(
-        private val modeId: Int,
-        private val width: Int,
-        private val height: Int,
-        private val refreshRate: Float,
-    ) {
-        fun getModeId(): Int = modeId
-        fun getPhysicalWidth(): Int = width
-        fun getPhysicalHeight(): Int = height
-        fun getRefreshRate(): Float = this.refreshRate
-    }
+        val modeId: Int,
+        val width: Int,
+        val height: Int,
+        val refreshRate: Float,
+    )
 
     companion object {
         const val DEFAULT_DISPLAY = 0
