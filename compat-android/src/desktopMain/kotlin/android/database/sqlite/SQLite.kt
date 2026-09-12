@@ -47,7 +47,6 @@ open class SQLiteDatabase : AutoCloseable {
     private var version = 0
     private var inTransaction = false
 
-    open fun getPath(): String? = path
     open fun isOpen(): Boolean = open
     open fun isReadOnly(): Boolean = false
     open fun isDbLockedByCurrentThread(): Boolean = false
