@@ -19,8 +19,9 @@ class ComponentName : Parcelable, Cloneable, Comparable<ComponentName> {
     constructor(context: Context, cls: Class<*>) : this(context.packageName, cls.name)
     constructor(context: Context, cls: String) : this(context.packageName, cls)
 
-    fun getPackageName(): String = pkg
-    fun getClassName(): String = cls
+    /** ComponentName.packageName（Kotlin 类需真属性才能被 component.packageName 访问；同时保留方法式兼容）。——Nova 注 */
+    val packageName: String get() = pkg
+    val className: String get() = cls
     fun getShortClassName(): String {
         val prefix = "$pkg."
         return if (cls.startsWith(prefix)) cls.substring(prefix.length) else cls

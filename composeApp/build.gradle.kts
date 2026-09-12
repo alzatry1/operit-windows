@@ -45,6 +45,7 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.okhttp)
             implementation(libs.okhttp.sse)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.gson)
             implementation(libs.hjson)
             implementation(libs.jsoup)

@@ -644,7 +644,7 @@ open class PackageManager {
 
     @Throws(NameNotFoundException::class)
     open fun getPackageInfo(versionedPackage: VersionedPackage, flags: Int): PackageInfo =
-        getPackageInfo(versionedPackage.getPackageName(), flags)
+        getPackageInfo(versionedPackage.packageName, flags)
 
     open fun getInstalledPackages(flags: Int): List<PackageInfo> = emptyList()
     open fun getInstalledPackages(flags: PackageInfoFlags): List<PackageInfo> = emptyList()
@@ -689,8 +689,8 @@ open class PackageManager {
     @Throws(NameNotFoundException::class)
     open fun getActivityInfo(component: ComponentName, flags: Int): ActivityInfo =
         ActivityInfo().apply {
-            name = component.getClassName()
-            packageName = component.getPackageName()
+            name = component.className
+            packageName = component.packageName
             applicationInfo = selfPackageInfo().applicationInfo
         }
 
@@ -705,16 +705,16 @@ open class PackageManager {
     @Throws(NameNotFoundException::class)
     open fun getServiceInfo(component: ComponentName, flags: Int): ServiceInfo =
         ServiceInfo().apply {
-            name = component.getClassName()
-            packageName = component.getPackageName()
+            name = component.className
+            packageName = component.packageName
             applicationInfo = selfPackageInfo().applicationInfo
         }
 
     @Throws(NameNotFoundException::class)
     open fun getProviderInfo(component: ComponentName, flags: Int): ProviderInfo =
         ProviderInfo().apply {
-            name = component.getClassName()
-            packageName = component.getPackageName()
+            name = component.className
+            packageName = component.packageName
             applicationInfo = selfPackageInfo().applicationInfo
         }
 
