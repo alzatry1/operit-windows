@@ -69,7 +69,7 @@ fun ShortNavigationBar(
 }
 
 @Composable
-fun RowScope.ShortNavigationBarItem(
+fun ShortNavigationBarItem(
     selected: Boolean,
     onClick: () -> Unit,
     icon: (@Composable () -> Unit)? = null,
