@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -38,6 +39,12 @@ class LiquidScope internal constructor(internal val state: LiquidState) {
     var refractionAmount: Float
         get() = state.refractionAmount
         set(v) { state.refractionAmount = v }
+    /** 新版 liquid 库的附加属性（app WaterGlass 用；桌面 shim 仅存值）。——Nova 注 */
+    var refraction: Float = 0f
+    var dispersion: Float = 0f
+    var saturation: Float = 0f
+    var contrast: Float = 0f
+    var tint: Color = Color.Unspecified
 }
 
 @Composable
