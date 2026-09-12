@@ -262,7 +262,7 @@ open class Geocoder {
     }
 
     fun interface GeocodeListener {
-        fun onGeocode(addresses: List<Address>)
+        fun onGeocode(addresses: MutableList<Address>)
         fun onError(errorMessage: String?) {}
     }
 

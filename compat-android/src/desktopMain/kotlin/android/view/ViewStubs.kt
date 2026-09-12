@@ -194,7 +194,7 @@ open class View(open val context: Context) {
     open fun onTouchEvent(event: MotionEvent): Boolean = false
     /** View.dispatchTouchEvent：分发触摸事件，委托 onTouchEvent。——Nova 注 */
     open fun dispatchTouchEvent(event: MotionEvent): Boolean = onTouchEvent(event)
-    open fun onDraw(canvas: android.graphics.Canvas?) {}
+    open fun onDraw(canvas: android.graphics.Canvas) {}
     open fun draw(canvas: android.graphics.Canvas?) {}
     open fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {}
     open fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {}
