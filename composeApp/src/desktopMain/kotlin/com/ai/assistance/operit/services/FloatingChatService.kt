@@ -534,7 +534,7 @@ class FloatingChatService : Service(), FloatingWindowCallback {
         }
     }
 
-    override fun onTaskRemoved(rootIntent: Intent) {
+    override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
         AppLogger.d(TAG, "onTaskRemoved")
         val restartServiceIntent =

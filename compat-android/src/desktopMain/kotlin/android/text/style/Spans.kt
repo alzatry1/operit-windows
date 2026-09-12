@@ -76,14 +76,14 @@ interface AlignmentSpan : ParagraphStyle {
 
 /** android.text.style.CharacterStyle：updateDrawState 基类。 */
 abstract class CharacterStyle {
-    abstract fun updateDrawState(tp: TextPaint?)
+    abstract fun updateDrawState(tp: TextPaint)
 
     open fun updateMeasureState(tp: TextPaint) {}
 
     companion object {
         @JvmStatic
         fun wrap(cs: CharacterStyle?): CharacterStyle = cs ?: object : CharacterStyle() {
-            override fun updateDrawState(tp: TextPaint?) {}
+            override fun updateDrawState(tp: TextPaint) {}
         }
     }
 }
@@ -92,8 +92,8 @@ abstract class CharacterStyle {
 abstract class MetricAffectingSpan : CharacterStyle() {
     abstract override fun updateMeasureState(tp: TextPaint)
 
-    override fun updateDrawState(tp: TextPaint?) {
-        if (tp != null) updateMeasureState(tp)
+    override fun updateDrawState(tp: TextPaint) {
+        updateMeasureState(tp)
     }
 }
 

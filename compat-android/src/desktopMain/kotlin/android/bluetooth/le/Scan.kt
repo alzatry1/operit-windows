@@ -37,7 +37,7 @@ open class ScanRecord {
 /** android.bluetooth.le.ScanCallback。 */
 open class ScanCallback {
     open fun onScanResult(callbackType: Int, result: ScanResult) {}
-    open fun onBatchScanResults(results: List<ScanResult>) {}
+    open fun onBatchScanResults(results: MutableList<ScanResult>) {}
     open fun onScanFailed(errorCode: Int) {}
 
     companion object {

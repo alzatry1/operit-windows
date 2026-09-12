@@ -50,7 +50,7 @@ class FloatingWindowDelegate(
 
     private val serviceLifecycleReceiver =
         object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
+            override fun onReceive(context: Context, intent: Intent) {
                 when (intent?.action) {
                     FloatingChatService.ACTION_FLOATING_CHAT_SERVICE_STARTED -> {
                         tryBindToRunningService()
