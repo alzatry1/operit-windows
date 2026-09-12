@@ -122,6 +122,8 @@ open class View(open val context: Context) {
 
     open fun hasFocus(): Boolean = false
     open fun requestFocus(): Boolean = false
+    /** View.requestFocusFromTouch（触摸焦点，桌面返回 false）。——Nova 注 */
+    open fun requestFocusFromTouch(): Boolean = false
     open fun clearFocus() {}
 
     open fun invalidate() {}
@@ -229,7 +231,8 @@ open class View(open val context: Context) {
     open fun setBackgroundResource(resid: Int) {}
     @Deprecated("deprecated")
     open fun setSystemUiVisibility(visibility: Int) {}
-    open fun getWindowVisibility(): Int = VISIBLE
+    /** View.windowVisibility（所在窗口可见性，桌面恒 VISIBLE；Kotlin 类需真正的属性才能被 view.windowVisibility 访问）。——Nova 注 */
+    open val windowVisibility: Int get() = VISIBLE
     open fun setWillNotDraw(willNotDraw: Boolean) {}
     open fun isInEditMode(): Boolean = false
     open fun setLayoutParams(params: ViewGroup.LayoutParams?, @Suppress("UNUSED_PARAMETER") ignored: Unit = Unit) {
