@@ -558,7 +558,8 @@ open class Display {
     @Deprecated("deprecated") open fun getHeight(): Int = metrics.heightPixels
 
     open fun getRotation(): Int = 0
-    open fun getDisplayId(): Int = 0
+    /** Display.displayId（Kotlin 类需真属性才能被 display.displayId 访问）。——Nova 注 */
+    open val displayId: Int get() = 0
     open fun getName(): String = "Built-in Display"
     /** Display.refreshRate（刷新率；Kotlin 类需真属性才能被 display.refreshRate 访问）。——Nova 注 */
     open val refreshRate: Float get() = 60.0f
