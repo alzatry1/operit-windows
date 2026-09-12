@@ -4435,8 +4435,7 @@ internal fun dialogPropertiesFromValue(value: Any?): androidx.compose.ui.window.
     return androidx.compose.ui.window.DialogProperties(
         dismissOnBackPress = (map["dismissOnBackPress"] as? Boolean) ?: true,
         dismissOnClickOutside = (map["dismissOnClickOutside"] as? Boolean) ?: true,
-        usePlatformDefaultWidth = (map["usePlatformDefaultWidth"] as? Boolean) ?: true,
-        decorFitsSystemWindows = (map["decorFitsSystemWindows"] as? Boolean) ?: true
+        usePlatformDefaultWidth = (map["usePlatformDefaultWidth"] as? Boolean) ?: true
     )
 }
 
