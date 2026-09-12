@@ -58,11 +58,10 @@ abstract class ActivityResultLauncher<I> {
 
     abstract fun launch(input: I, options: androidx.core.app.ActivityOptionsCompat?)
 
+    /** activity-ktx 风格：launch(input) 便捷调用（无 options）。——Nova 注 */
+    fun launch(input: I) = launch(input, null)
+
     abstract fun unregister()
 
     abstract val contract: androidx.activity.result.contract.ActivityResultContract<I, *>
 }
-
-/** activity-ktx 风格：launch(input) 便捷扩展。 */
-fun <I> ActivityResultLauncher<I>.launch(input: I, options: androidx.core.app.ActivityOptionsCompat? = null) =
-    launch(input, options)

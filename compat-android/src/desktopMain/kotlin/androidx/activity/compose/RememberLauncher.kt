@@ -39,13 +39,13 @@ private val fallbackRegistryOwner = object : ActivityResultRegistryOwner {
  */
 class ManagedActivityResultLauncher<I, O>(
     private val launcher: ActivityResultLauncher<I>,
-    val contract: ActivityResultContract<I, O>,
-) {
-    fun launch(input: I, options: androidx.core.app.ActivityOptionsCompat? = null) {
+    override val contract: ActivityResultContract<I, O>,
+) : ActivityResultLauncher<I>() {
+    override fun launch(input: I, options: androidx.core.app.ActivityOptionsCompat?) {
         launcher.launch(input, options)
     }
 
-    fun unregister() {
+    override fun unregister() {
         launcher.unregister()
     }
 }
