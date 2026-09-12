@@ -19,7 +19,7 @@ abstract class Layout protected constructor(
     enum class Alignment { ALIGN_NORMAL, ALIGN_OPPOSITE, ALIGN_CENTER }
 
     // ---- 抽象行信息 ----
-    abstract fun getLineCount(): Int
+    abstract val lineCount: Int
     abstract fun getLineTop(line: Int): Int
     abstract fun getLineStart(line: Int): Int
     abstract fun getParagraphDirection(line: Int): Int
@@ -28,7 +28,7 @@ abstract class Layout protected constructor(
     abstract fun getBottomPadding(): Int
 
     // ---- 派生几何 ----
-    open val height: Int get() = getLineTop(getLineCount())
+    open val height: Int get() = getLineTop(lineCount)
     open val widthCompat: Int get() = width
 
     open fun getLineDescent(line: Int): Int {
@@ -44,13 +44,13 @@ abstract class Layout protected constructor(
     }
 
     open fun getLineEnd(line: Int): Int =
-        if (line + 1 < getLineCount()) getLineStart(line + 1) else text.length
+        if (line + 1 < lineCount) getLineStart(line + 1) else text.length
 
     open fun getLineVisibleEnd(line: Int): Int = getLineEnd(line)
 
     open fun getLineForVertical(vertical: Int): Int {
         var line = 0
-        val count = getLineCount()
+        val count = lineCount
         while (line < count) {
             if (getLineTop(line + 1) > vertical) break
             line++
@@ -60,7 +60,7 @@ abstract class Layout protected constructor(
 
     open fun getLineForOffset(offset: Int): Int {
         var line = 0
-        val count = getLineCount()
+        val count = lineCount
         while (line < count - 1 && getLineStart(line + 1) <= offset) line++
         return line
     }
@@ -123,7 +123,7 @@ abstract class Layout protected constructor(
     // ---- 绘制 ----
     open fun draw(c: Canvas?) {
         if (c == null) return
-        val count = getLineCount()
+        val count = lineCount
         for (line in 0 until count) {
             val start = getLineStart(line)
             val end = getLineEnd(line)
@@ -254,7 +254,7 @@ open class StaticLayout : Layout {
         ellipsize: TextUtils.TruncateAt?, ellipsizedWidth: Int,
     ) : this(source, paint, width, align, spacingmult, spacingadd, includepad, ellipsize, ellipsizedWidth, Int.MAX_VALUE)
 
-    override fun getLineCount(): Int = mLineCount
+    override val lineCount: Int get() = mLineCount
     override fun getLineTop(line: Int): Int = topPad + line * lineHeightPx
     override fun getLineStart(line: Int): Int = if (line in lineStarts.indices) lineStarts[line] else text.length
     override fun getParagraphDirection(line: Int): Int = DIR_LEFT_TO_RIGHT
