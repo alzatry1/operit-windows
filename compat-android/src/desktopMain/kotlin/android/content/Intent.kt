@@ -302,6 +302,8 @@ open class Intent() : Parcelable, Cloneable {
         const val ACTION_SET_WALLPAPER = "android.intent.action.SET_WALLPAPER"
         const val ACTION_AIRPLANE_MODE_CHANGED = "android.intent.action.AIRPLANE_MODE"
         const val ACTION_BATTERY_LOW = "android.intent.action.BATTERY_LOW"
+        /** Intent.ACTION_BATTERY_CHANGED（电量变化广播，桌面占位）。——Nova 注 */
+        const val ACTION_BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED"
         const val ACTION_BATTERY_OKAY = "android.intent.action.BATTERY_OKAY"
         const val ACTION_HEADSET_PLUG = "android.intent.action.HEADSET_PLUG"
         const val ACTION_MEDIA_BUTTON = "android.intent.action.MEDIA_BUTTON"
