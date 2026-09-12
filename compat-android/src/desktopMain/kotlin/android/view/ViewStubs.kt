@@ -31,7 +31,8 @@ open class View(open val context: Context) {
         )
     }
 
-    open var visibility: Int = VISIBLE
+    /** View.handler（所在线程的 Handler，桌面返回 null）。——Nova 注 */
+    open val handler: android.os.Handler? get() = null
     open var alpha: Float = 1f
     open var isEnabled: Boolean = true
     open var isClickable: Boolean = false
