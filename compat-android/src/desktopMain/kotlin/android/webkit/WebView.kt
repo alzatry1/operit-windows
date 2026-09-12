@@ -123,6 +123,8 @@ open class WebView : android.widget.FrameLayout {
     }
 
     open fun loadUrl(url: String) {}
+    /** WebView.loadUrl(url, headers) 重载。——Nova 注 */
+    open fun loadUrl(url: String, additionalHttpHeaders: Map<String, String>) {}
     open fun loadData(data: String, mimeType: String?, encoding: String?) {}
     open fun loadDataWithBaseURL(baseUrl: String?, data: String, mimeType: String?, encoding: String?, historyUrl: String?) {}
     open fun evaluateJavascript(script: String, resultCallback: ValueCallback<String>?) {}
