@@ -8,6 +8,8 @@ import android.util.Log
  * 真实 AOSP 为 interface；桌面无窗口系统桥接，做成 open class 便于直接实例化。
  */
 open class WindowManager {
+    /** WindowManager.isCrossWindowBlurEnabled（跨窗口模糊，桌面恒 false）。——Nova 注 */
+    open val isCrossWindowBlurEnabled: Boolean get() = false
 
     open class LayoutParams {
         var width: Int = WRAP_CONTENT

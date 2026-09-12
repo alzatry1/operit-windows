@@ -383,6 +383,10 @@ abstract class WorkManager {
                 instance ?: DesktopWorkManager(context.applicationContext).also { instance = it }
             }
 
+        /** WorkManager.initialize（app 启动初始化，桌面 no-op）。——Nova 注 */
+        @JvmStatic
+        fun initialize(context: Context, configuration: Any?) {}
+
         @JvmStatic
         fun isInitialized(): Boolean = instance != null
 

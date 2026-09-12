@@ -245,6 +245,8 @@ interface MenuItem {
 interface ActionMode {
     fun finish() {}
     fun invalidate() {}
+    /** ActionMode.invalidateContentRect（内容矩形变化，桌面 no-op）。——Nova 注 */
+    fun invalidateContentRect() {}
     fun setTitle(title: CharSequence?) {}
     fun setSubtitle(subtitle: CharSequence?) {}
     fun getMenu(): Menu? = null
