@@ -335,8 +335,8 @@ object MessageImageGenerator {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 
-                // 添加到根视图（视图在屏幕外，用户看不到）
-                rootView.addView(scrollView)
+                // 添加到根视图（视图在屏幕外，用户看不到）；desktop 无视图树时 rootView 为 null，graceful 跳过。——Nova 注
+                rootView?.addView(scrollView)
                 
                 // 手动触发测量和布局，确保内容完全展开
                 // 使用 EXACTLY 模式指定宽度，UNSPECIFIED 模式让高度自由扩展
@@ -394,7 +394,7 @@ object MessageImageGenerator {
                 } finally {
                     AppLogger.d(TAG, "从窗口移除 ScrollView")
                     // 确保无论成功还是失败，都将视图移除
-                    rootView.removeView(scrollView)
+                    rootView?.removeView(scrollView)
                 }
                 capturedBitmap
             }
