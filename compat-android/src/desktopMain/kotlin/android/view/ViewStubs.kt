@@ -36,6 +36,8 @@ open class View(open val context: Context) {
         )
     }
 
+    /** View.handler（非 open：子类声明 private val handler 只是遮蔽它、不需 override；webView.handler 仍可读）。——Nova 注 */
+    val handler: android.os.Handler? get() = null
     open var visibility: Int = VISIBLE
     open var alpha: Float = 1f
     open var isEnabled: Boolean = true
