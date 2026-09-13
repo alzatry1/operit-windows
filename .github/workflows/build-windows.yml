@@ -21,11 +21,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build Windows MSI/EXE
+      # 纯编译普查（先跑，compile-log 在此生成）——Nova 注
+      - name: Compile census
         shell: bash
         run: |
           set -o pipefail
-          ./gradlew :composeApp:packageReleaseDistributionForCurrentOS --no-daemon --stacktrace 2>&1 | tee composeApp-compile.log
+          ./gradlew :composeApp:compileKotlinDesktop --no-daemon --stacktrace 2>&1 | tee composeApp-compile.log
 
       # 编译日志走 artifact 存储（绕开 GitHub Actions 日志 blob 的 BlobNotFound 故障）。——Nova 注
       - name: Upload compile log
@@ -35,6 +36,12 @@ jobs:
           name: compile-log
           path: composeApp-compile.log
           if-no-files-found: warn
+
+      # 打包单独一步（若卡住不挡上面的编译普查）。——Nova 注
+      - name: Build Windows MSI/EXE
+        shell: bash
+        run: |
+          ./gradlew :composeApp:packageReleaseDistributionForCurrentOS --no-daemon --stacktrace
 
       - name: Upload installer artifacts
         uses: actions/upload-artifact@v4
