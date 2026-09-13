@@ -1,11 +1,15 @@
 package com.ai.assistance.operit.util.streamnative
 
 import com.ai.assistance.operit.util.markdown.MarkdownProcessorType
+import com.ai.assistance.operit.util.markdown.NestedMarkdownProcessor
 import com.ai.assistance.operit.util.stream.Stream
 import com.ai.assistance.operit.util.stream.StreamCollector
 import com.ai.assistance.operit.util.stream.StreamGroup
 import com.ai.assistance.operit.util.stream.StreamLogger
+import com.ai.assistance.operit.util.stream.StreamPlugin
 import com.ai.assistance.operit.util.stream.asStream
+import com.ai.assistance.operit.util.stream.map
+import com.ai.assistance.operit.util.stream.splitBy
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
@@ -416,88 +420,126 @@ private fun Stream<String>.nativeMarkdownSplitBySessionString(
     }
 }
 
+// ─── 纯 Kotlin 兜底：native streamnative 本地库不可用时用插件式 splitBy。——Nova 注 ───
+private fun Stream<StreamGroup<StreamPlugin?>>.mapPluginGroupsToMarkdownType(): Stream<StreamGroup<MarkdownProcessorType?>> =
+    this.map { group ->
+        StreamGroup<MarkdownProcessorType?>(
+            NestedMarkdownProcessor.getTypeForPlugin(group.tag),
+            group.stream,
+            group.processor,
+            group.children
+        )
+    }
+
+private fun Stream<Char>.pureKotlinBlockSplit(): Stream<StreamGroup<MarkdownProcessorType?>> =
+    this.splitBy(NestedMarkdownProcessor.getBlockPlugins()).mapPluginGroupsToMarkdownType()
+
+private fun Stream<Char>.pureKotlinInlineSplit(): Stream<StreamGroup<MarkdownProcessorType?>> =
+    this.splitBy(NestedMarkdownProcessor.getInlinePlugins()).mapPluginGroupsToMarkdownType()
+
+private fun Stream<String>.pureKotlinBlockSplitString(): Stream<StreamGroup<MarkdownProcessorType?>> =
+    this.splitBy(NestedMarkdownProcessor.getBlockPlugins()).mapPluginGroupsToMarkdownType()
+
+private fun Stream<String>.pureKotlinInlineSplitString(): Stream<StreamGroup<MarkdownProcessorType?>> =
+    this.splitBy(NestedMarkdownProcessor.getInlinePlugins()).mapPluginGroupsToMarkdownType()
+
 fun Stream<Char>.nativeMarkdownSplitByBlock(
     flushIntervalMs: Long? = null,
     maxDeltaChars: Int? = null,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySession(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    // native 不可用则回退纯 Kotlin。——Nova 注
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinBlockSplit()
+    return nativeMarkdownSplitBySession(
         sessionFactory = { NativeMarkdownSplitter.createBlockSession() },
         debugTag = "NativeMarkdownBlockSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
     )
+}
 
 internal fun Stream<Char>.nativeMarkdownSplitByBlock(
     flushIntervalMs: Long?,
     maxDeltaChars: Int?,
     initialContent: String,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySession(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinBlockSplit()
+    return nativeMarkdownSplitBySession(
         sessionFactory = { NativeMarkdownSplitter.createBlockSession() },
         debugTag = "NativeMarkdownBlockSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
         initialContent = initialContent,
     )
+}
 
 fun Stream<Char>.nativeMarkdownSplitByInline(
     flushIntervalMs: Long? = null,
     maxDeltaChars: Int? = null,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySession(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinInlineSplit()
+    return nativeMarkdownSplitBySession(
         sessionFactory = { NativeMarkdownSplitter.createInlineSession() },
         debugTag = "NativeMarkdownInlineSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
     )
+}
 
 internal fun Stream<Char>.nativeMarkdownSplitByInline(
     flushIntervalMs: Long?,
     maxDeltaChars: Int?,
     initialContent: String,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySession(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinInlineSplit()
+    return nativeMarkdownSplitBySession(
         sessionFactory = { NativeMarkdownSplitter.createInlineSession() },
         debugTag = "NativeMarkdownInlineSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
         initialContent = initialContent,
     )
+}
 
 @JvmName("nativeMarkdownSplitByBlockString")
 fun Stream<String>.nativeMarkdownSplitByBlock(
     flushIntervalMs: Long? = null,
     maxDeltaChars: Int? = null,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySessionString(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinBlockSplitString()
+    return nativeMarkdownSplitBySessionString(
         sessionFactory = { NativeMarkdownSplitter.createBlockSession() },
         debugTag = "NativeMarkdownBlockSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
     )
+}
 
 @JvmName("nativeMarkdownSplitByInlineString")
 fun Stream<String>.nativeMarkdownSplitByInline(
     flushIntervalMs: Long? = null,
     maxDeltaChars: Int? = null,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySessionString(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinInlineSplitString()
+    return nativeMarkdownSplitBySessionString(
         sessionFactory = { NativeMarkdownSplitter.createInlineSession() },
         debugTag = "NativeMarkdownInlineSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
     )
+}
 
 @JvmName("nativeMarkdownSplitByInlineStringWithInitialContent")
 internal fun Stream<String>.nativeMarkdownSplitByInline(
     flushIntervalMs: Long?,
     maxDeltaChars: Int?,
     initialContent: String,
-): Stream<StreamGroup<MarkdownProcessorType?>> =
-    nativeMarkdownSplitBySessionString(
+): Stream<StreamGroup<MarkdownProcessorType?>> {
+    if (!NativeMarkdownSplitter.nativeAvailable) return this.pureKotlinInlineSplitString()
+    return nativeMarkdownSplitBySessionString(
         sessionFactory = { NativeMarkdownSplitter.createInlineSession() },
         debugTag = "NativeMarkdownInlineSplitBy",
         flushIntervalMs = flushIntervalMs,
         maxDeltaChars = maxDeltaChars,
         initialContent = initialContent,
     )
+}
