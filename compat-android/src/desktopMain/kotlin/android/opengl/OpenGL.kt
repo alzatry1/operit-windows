@@ -630,11 +630,10 @@ open class GLSurfaceView : android.view.SurfaceView {
     }
 
     private var renderer: Renderer? = null
-    private var renderMode = RENDERMODE_CONTINUOUSLY
+    /** renderMode 改公开 var（真实 Android getRenderMode/setRenderMode 映射属性，app 用 renderMode = x；自动生成同名访问器）。——Nova 注 */
+    open var renderMode: Int = RENDERMODE_CONTINUOUSLY
 
     open fun setRenderer(renderer: Renderer?) { this.renderer = renderer }
-    open fun setRenderMode(mode: Int) { renderMode = mode }
-    open fun getRenderMode(): Int = renderMode
     open fun requestRender() {}
     open fun queueEvent(r: Runnable?) { r?.run() }
     open fun onPause() {}
