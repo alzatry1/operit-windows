@@ -127,13 +127,12 @@ compose.desktop {
             }
         }
 
-        // release 打包跑 ProGuard：接入 dontwarn 规则文件，抑制可选依赖类（servlet/conscrypt/asm/spring 等）
-        // 在桌面 classpath 上的未解析引用警告，避免 ProGuard 警告即错误导致打包失败。——Nova 注
+        // 移植阶段禁用 release ProGuard：工程带一堆 Android 库引用桌面 classpath 没有的可选类，
+        // ProGuard 警告即错误 + shrinking 有删反射类的风险。先求能跑的安装包（全类不压缩），混淆/体积优化后谈。——Nova 注
         buildTypes {
             release {
                 proguard {
-                    // Compose Desktop 1.9.0 DSL：配置文件属性是 configurationFiles（ConfigurableFileCollection）。——Nova 注
-                    configurationFiles.from("proguard-rules-desktop.pro")
+                    isEnabled.set(false)
                 }
             }
         }
