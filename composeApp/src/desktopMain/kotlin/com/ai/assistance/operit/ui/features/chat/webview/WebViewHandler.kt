@@ -736,7 +736,8 @@ class WebViewHandler(private val context: Context) {
                     when {
                         data.clipData != null -> {
                             val clipData = data.clipData!!
-                            Array(clipData.itemCount) { i -> clipData.getItemAt(i).uri }
+                            // 文件选择器结果的 URI 必然非空；compat ClipData.Item.uri 可空，断言非空使数组为 Array<Uri>。——Nova 注
+                            Array(clipData.itemCount) { i -> clipData.getItemAt(i).uri!! }
                         }
                         data.data != null -> arrayOf(data.data!!)
                         else -> arrayOf()
