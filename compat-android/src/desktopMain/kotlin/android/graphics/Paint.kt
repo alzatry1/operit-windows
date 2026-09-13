@@ -367,7 +367,8 @@ open class Paint {
     var strokeWidth: Float = 0f
     var style: Style = Style.FILL
     var textSize: Float = 12f
-    var typeface: Typeface? = null
+    /** typeface 改非空（真实 Android Paint.getTypeface() 非空，默认 Typeface.DEFAULT；app 非空用）。——Nova 注 */
+    var typeface: Typeface = Typeface.DEFAULT
     var isAntiAlias: Boolean = false
     var isDither: Boolean = false
     var isFilterBitmap: Boolean = false
