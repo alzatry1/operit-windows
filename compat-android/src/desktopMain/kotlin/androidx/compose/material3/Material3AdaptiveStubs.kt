@@ -94,10 +94,11 @@ fun TimePickerDialog(
     containerColor: Color = Color.Unspecified,
     title: (@Composable () -> Unit)? = null,
     modeToggleButton: (@Composable () -> Unit)? = null,
-    content: (@Composable () -> Unit)? = null,
+    /** content 带 ColumnScope receiver（app 在 content lambda 里调 ColumnScope 扩展如 columnComposeDslModifierResolver）。——Nova 注 */
+    content: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     // 桌面端时间选择对话框占位：仅渲染内容槽，不弹真实系统对话框
-    if (content != null) content()
+    if (content != null) Column { content() }
 }
 
 @Composable
