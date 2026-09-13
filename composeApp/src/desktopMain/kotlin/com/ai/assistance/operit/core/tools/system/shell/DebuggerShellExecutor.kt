@@ -463,7 +463,7 @@ class DebuggerShellExecutor(private val context: Context) : ShellExecutor {
             if (cached != null) {
                 val isCachedAlive =
                         try {
-                            cached.asBinder().pingBinder()
+                            cached.asBinder()?.pingBinder() ?: false
                         } catch (e: Exception) {
                             AppLogger.e(TAG, "Error pinging cached binder", e)
                             false

@@ -151,7 +151,7 @@ class VirtualDisplayManager private constructor(private val context: Context) {
             )
             virtualDisplay = vd
 
-            val display = vd.display
+            val display = vd?.display
             val id = display?.displayId
             displayId = id
 
