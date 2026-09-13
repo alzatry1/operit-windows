@@ -13,7 +13,12 @@ import com.ai.assistance.operit.data.preferences.ThemePreferenceValues
 
 val LocalThemePreferenceSnapshot =
     compositionLocalOf<ThemePreferenceSnapshot> {
-        error("LocalThemePreferenceSnapshot is not provided.")
+        // 桌面端 provider 生效前的安全默认快照（原来是 error("not provided")，导致组合一读就崩）。——Nova 注
+        ThemePreferenceSnapshot(
+            source = "character_card",
+            sourceId = CharacterCardManager.DEFAULT_CHARACTER_CARD_ID,
+            values = ThemePreferenceValues.defaultVisual(),
+        )
     }
 
 @Composable
