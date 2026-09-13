@@ -16,7 +16,7 @@ class Uri private constructor(
     val path: String?,
     val encodedQuery: String?,
     val encodedFragment: String?,
-) : Parcelable, Comparable<Uri>, java.io.Serializable {
+) : Parcelable, Comparable<Uri> {
 
     private val stringForm: String by lazy { buildString() }
 
