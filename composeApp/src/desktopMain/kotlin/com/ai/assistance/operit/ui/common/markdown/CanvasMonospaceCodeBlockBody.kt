@@ -591,7 +591,7 @@ internal fun CanvasMonospaceCodeBlockBody(
                                 return@rowLoop
                             }
                             drawCodeBlockRow(
-                                canvas = nativeCanvas,
+                                canvas = AndroidCanvas(nativeCanvas),
                                 text = line.text,
                                 row = row,
                                 colorRanges = line.colorRanges,
