@@ -77,29 +77,41 @@ jobs:
         shell: bash
         run: sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=768m/' gradle.properties
 
-      - name: Install Xvfb + 图形依赖
+      - name: Install Xvfb + 图形依赖 + 截图工具
         shell: bash
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq xvfb libxrender1 libxtst6 libxi6 libxext6 libx11-6 libfontconfig1 libgl1 > /dev/null
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq xvfb libxrender1 libxtst6 libxi6 libxext6 libx11-6 libfontconfig1 libgl1 imagemagick x11-apps > /dev/null
 
       # 先编译出可分发的 app（这步不限制时间，编译要 ~7min）——Nova 注
       - name: Build distributable (compile)
         shell: bash
         run: ./gradlew :composeApp:createDistributable --no-daemon --stacktrace
 
-      # 再单独跑二进制（timeout 只覆盖运行阶段，不覆盖编译）。启动日志全量抓。——Nova 注
-      - name: Run app headless (smoke test)
+      # 无头跑 app 并截图：Xvfb 虚拟显示跑起来，等渲染后抓屏，看真实 UI 是否渲出。——Nova 注
+      - name: Run app headless + capture screenshot
         shell: bash
         run: |
           set -o pipefail
           BIN=$(ls composeApp/build/compose/binaries/main/app/*/bin/* 2>/dev/null | grep -v '\.bat$' | head -1)
           echo "运行二进制: $BIN"
           chmod +x "$BIN" 2>/dev/null || true
-          timeout 90 xvfb-run -a -s "-screen 0 1280x800x24" "$BIN" 2>&1 | tee smoke.log || true
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1280x800x24 > /dev/null 2>&1 &
+          sleep 2
+          "$BIN" > smoke.log 2>&1 &
+          APP_PID=$!
+          sleep 30
+          # 抓屏（ImageMagick import 优先，退到 xwd）——Nova 注
+          (import -window root smoke.png 2>/dev/null && echo "截图成功(import)") || (xwd -root -display :99 -silent 2>/dev/null | convert xwd:- smoke.png 2>/dev/null && echo "截图成功(xwd)") || echo "截图失败"
+          kill $APP_PID 2>/dev/null || true
+          echo "═══ app 启动日志 ═══"
+          cat smoke.log
 
-      - name: Upload smoke log
+      - name: Upload smoke log + screenshot
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-log
-          path: smoke.log
+          path: |
+            smoke.log
+            smoke.png
           if-no-files-found: warn
