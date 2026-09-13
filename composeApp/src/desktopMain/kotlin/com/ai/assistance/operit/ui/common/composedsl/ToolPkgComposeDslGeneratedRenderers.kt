@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.ai.assistance.operit.ui.common.composedsl
 
 import androidx.compose.foundation.clickable
