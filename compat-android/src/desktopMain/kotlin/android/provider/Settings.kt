@@ -123,7 +123,8 @@ class Settings private constructor() {
 
         private val table = ConcurrentHashMap<String, String>()
 
-        @JvmStatic fun getString(resolver: ContentResolver?, name: String): String? = table[name]
+        /** Secure.getString：真实 Android 声明非空（app 非空用），未设置时兑底空串。——Nova 注 */
+        @JvmStatic fun getString(resolver: ContentResolver?, name: String): String = table[name] ?: ""
         @JvmStatic fun putString(resolver: ContentResolver?, name: String, value: String?): Boolean {
             if (value == null) table.remove(name) else table[name] = value
             return true

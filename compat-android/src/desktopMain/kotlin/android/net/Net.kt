@@ -120,7 +120,8 @@ open class ConnectivityManager {
     open fun getAllNetworkInfo(): Array<NetworkInfo> = arrayOf(defaultNetworkInfo)
     open fun getNetworkInfo(network: Network): NetworkInfo = defaultNetworkInfo
     open fun isActiveNetworkMetered(): Boolean = false
-    open fun getNetworkCapabilities(network: Network): NetworkCapabilities = NetworkCapabilities()
+    /** getNetworkCapabilities：真实 Android activeNetwork 是 @Nullable Network，app 直接传。——Nova 注 */
+    open fun getNetworkCapabilities(network: Network?): NetworkCapabilities = NetworkCapabilities()
     open fun getLinkProperties(network: Network?): Any? = null
     open fun getRestrictBackgroundStatus(): Int = RESTRICT_BACKGROUND_STATUS_DISABLED
     open fun registerNetworkCallback(request: Any?, callback: NetworkCallback) {}
