@@ -1060,7 +1060,7 @@ fun MCPConfigScreen(
                                             cursor?.use {
                                                 if (it.moveToFirst()) {
                                                     val displayName = it.getString(it.getColumnIndexOrThrow(android.provider.OpenableColumns.DISPLAY_NAME))
-                                                    zipFilePath = displayName
+                                                    zipFilePath = displayName ?: ""
                                                     
                                                     // 保存URI以便后续处理
                                                     viewModel.setSelectedZipUri(uri)
