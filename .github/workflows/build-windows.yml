@@ -95,6 +95,8 @@ jobs:
           echo "运行二进制: $BIN"
           chmod +x "$BIN" 2>/dev/null || true
           export DISPLAY=:99
+          # 强制 Skia 软件渲染：无头 Xvfb 无 GPU，默认 OpenGL 失败会黑屏。——Nova 注
+          export JAVA_TOOL_OPTIONS="-Dskiko.renderApi=SOFTWARE"
           Xvfb :99 -screen 0 1280x800x24 > /dev/null 2>&1 &
           sleep 2
           "$BIN" > smoke.log 2>&1 &
