@@ -100,9 +100,10 @@ object DocumentsContract {
     @JvmStatic fun buildDocumentUri(authority: String, documentId: String): Uri =
         Uri.parse("content://$authority/document/${Uri.encode(documentId)}")
 
-    @JvmStatic fun buildDocumentUriUsingTree(treeUri: Uri, documentId: String): Uri {
+    /** documentId 改可空：app 传 cursor.getString() 可空结果（真实 Android 平台类型）。——Nova 注 */
+    @JvmStatic fun buildDocumentUriUsingTree(treeUri: Uri, documentId: String?): Uri {
         val base = treeUri.toString().substringAfter("/tree/").substringBefore("/document/")
-        return Uri.parse("${treeUri.toString().substringBefore("/tree/")}/tree/$base/document/${Uri.encode(documentId)}")
+        return Uri.parse("${treeUri.toString().substringBefore("/tree/")}/tree/$base/document/${Uri.encode(documentId ?: "")}")
     }
 
     @JvmStatic fun buildChildDocumentsUri(authority: String, parentDocumentId: String): Uri =
