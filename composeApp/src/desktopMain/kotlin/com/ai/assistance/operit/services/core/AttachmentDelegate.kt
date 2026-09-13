@@ -875,7 +875,7 @@ $foldersText
                             val displayNameIndex =
                                     cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
                             if (displayNameIndex != -1) {
-                                fileName = cursor.getString(displayNameIndex)
+                                fileName = cursor.getString(displayNameIndex) ?: fileName
                             }
                         }
                     }

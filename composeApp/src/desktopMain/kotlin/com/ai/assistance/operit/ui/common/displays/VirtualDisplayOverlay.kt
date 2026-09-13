@@ -897,7 +897,7 @@ class VirtualDisplayOverlay private constructor(private val context: Context, pr
                                 withContext(Dispatchers.IO) {
                                     try {
                                         val drawable = context.packageManager.getApplicationIcon(pkg)
-                                        drawable.toBitmap(iconSizePx, iconSizePx).asImageBitmap()
+                                        drawable?.toBitmap(iconSizePx, iconSizePx)?.asImageBitmap()
                                     } catch (_: Exception) {
                                         null
                                     }
