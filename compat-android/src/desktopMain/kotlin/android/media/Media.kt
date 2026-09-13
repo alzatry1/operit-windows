@@ -391,6 +391,8 @@ open class AudioTrack(
     /** AudioTrack.write(data, offset, size, writeMode)：WRITE_NON_BLOCKING 等写入模式。——Nova 注 */
     open fun write(audioData: ByteArray, offsetInBytes: Int, sizeInBytes: Int, writeMode: Int): Int = sizeInBytes
     open fun write(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int): Int = sizeInShorts
+    /** AudioTrack.write(ShortArray, offset, size, writeMode)：WRITE_NON_BLOCKING 等写入模式。——Nova 注 */
+    open fun write(audioData: ShortArray, offsetInShorts: Int, sizeInShorts: Int, writeMode: Int): Int = sizeInShorts
     open fun getPlayState(): Int = PLAYSTATE_STOPPED
     /** AudioTrack.playbackHeadPosition（播放头帧位置；Kotlin 类需真属性才能被 track.playbackHeadPosition 访问）。——Nova 注 */
     open val playbackHeadPosition: Int get() = 0
