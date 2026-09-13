@@ -483,7 +483,8 @@ constructor(
     override val lastScrolledBackward: Boolean
         get() = scrollableState.lastScrolledBackward
 
-    override val scrollIndicatorState: ScrollIndicatorState?
+    /** scrollIndicatorState：CMP 1.9.0 desktop 的 ScrollableState 没这个属性，去 override。——Nova 注 */
+    val scrollIndicatorState: ScrollIndicatorState?
         get() = _scrollIndicatorState
 
     internal val placementScopeInvalidator = ObservableScopeInvalidator()
