@@ -120,6 +120,10 @@ compose.desktop {
             vendor = "Operit"
             copyright = "© 2026 Operit"
 
+            // jlink 运行时镜像额外打包的模块。jdk.unsupported 提供 sun.misc.Unsafe（DataStore protobuf 需要，
+            // jlink 默认不打包它导致 NoClassDefFoundError）；java.sql/jdk.crypto.ec 等保险加上。——Nova 注
+            modules("jdk.unsupported", "jdk.unsupported.desktop", "java.sql", "java.naming", "jdk.crypto.ec", "java.desktop", "java.management", "java.prefs")
+
             windows {
                 menu = true
                 upgradeUuid = "7c9e2a54-3f1b-4d8e-9a6c-2b5f0e1d8c3a"
