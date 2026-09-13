@@ -366,6 +366,9 @@ abstract class WorkManager {
 
     abstract fun enqueue(requests: List<WorkRequest>): Operation
     abstract fun enqueueUniqueWork(uniqueWorkName: String, existingWorkPolicy: ExistingWorkPolicy, requests: List<WorkRequest>): Operation
+    /** enqueueUniqueWork 单请求重载（真实 Android 有，app 传单个 OneTimeWorkRequest；委托给 List 版）。——Nova 注 */
+    fun enqueueUniqueWork(uniqueWorkName: String, existingWorkPolicy: ExistingWorkPolicy, workRequest: OneTimeWorkRequest): Operation =
+        enqueueUniqueWork(uniqueWorkName, existingWorkPolicy, listOf(workRequest))
     abstract fun enqueueUniquePeriodicWork(uniqueWorkName: String, existingPeriodicWorkPolicy: ExistingPeriodicWorkPolicy, request: PeriodicWorkRequest): Operation
     abstract fun cancelAllWork(): Operation
     abstract fun cancelAllWorkByTag(tag: String): Operation
