@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)  // Room 编译器靠 KSP 编译期生成 _Impl。——Nova 注
 }
 
 kotlin {
@@ -107,6 +108,12 @@ if (portScope != null) {
     kotlin.sourceSets.getByName("desktopMain").kotlin.setExcludes(
         portExclude.map { "com/ai/assistance/operit/$it/**" }
     )
+}
+
+// Room 编译器（KSP 处理器）——针对 desktop target（jvm("desktop") → KSP 配置名 kspDesktop）。
+// 编译期生成 AppDatabase_Impl，缺了运行时会抛 "Cannot find implementation for AppDatabase"。——Nova 注
+dependencies {
+    add("kspDesktop", libs.room.compiler)
 }
 
 compose.desktop {

@@ -60,6 +60,8 @@ lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name
 lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+# Room 编译器（KSP 处理器），编译期生成 _Impl。——Nova 注
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite" }
 collection = { group = "androidx.collection", name = "collection", version.ref = "collection" }
@@ -103,3 +105,5 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+# KSP：Room 编译器在桌面（KMP JVM target）靠它编译期生成 AppDatabase_Impl。版本需与 Kotlin 2.2.21 严格匹配。——Nova 注
+ksp = { id = "com.google.devtools.ksp", version = "2.2.21-2.0.5" }
