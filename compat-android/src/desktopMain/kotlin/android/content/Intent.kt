@@ -110,7 +110,7 @@ open class Intent() : Parcelable, Cloneable {
     fun putExtra(name: String?, value: FloatArray?): Intent = apply { x().putFloatArray(name, value) }
     fun putExtra(name: String?, value: DoubleArray?): Intent = apply { x().putDoubleArray(name, value) }
     fun putExtra(name: String?, value: Array<String>?): Intent = apply { x().putStringArray(name, value) }
-    fun putExtra(name: String?, value: Array<CharSequence>?): Intent = apply { x().putCharSequenceArray(name, value) }
+    // Array<CharSequence>? 重载已删：无调用点用它，且它是 putExtra(name, arrayOf<String>) 的歧义源（Kotlin arrayOf 多态推断）。——Nova 注
     fun putExtra(name: String?, value: Array<Parcelable>?): Intent = apply { x().putParcelableArray(name, value) }
 
     fun putStringArrayListExtra(name: String?, value: ArrayList<String>?): Intent =

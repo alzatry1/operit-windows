@@ -145,7 +145,7 @@ fun AssistantConfigScreen() {
                 type = "*/*"
                 putExtra(
                     Intent.EXTRA_MIME_TYPES,
-                    arrayOf(
+                    arrayOf<String>(
                         "application/zip",
                         "application/x-zip-compressed",
                         "model/vnd.autodesk.fbx",

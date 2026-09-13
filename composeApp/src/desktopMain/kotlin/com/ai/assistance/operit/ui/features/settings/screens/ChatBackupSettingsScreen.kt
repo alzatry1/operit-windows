@@ -570,7 +570,7 @@ fun ChatBackupSettingsScreen() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                         addCategory(Intent.CATEGORY_OPENABLE)
                         type = "*/*"  // 接受所有类型
-                        putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(
+                        putExtra(Intent.EXTRA_MIME_TYPES, arrayOf<String>(
                             "application/json",
                             "text/markdown",
                             "text/plain",
@@ -855,7 +855,7 @@ fun ChatBackupSettingsScreen() {
                                     addCategory(Intent.CATEGORY_OPENABLE)
                                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                     type = "*/*"
-                                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/zip"))
+                                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf<String>("application/zip"))
                                 }
                                 roomDbRestoreFilePickerLauncher.launch(intent)
                             },
@@ -1041,7 +1041,7 @@ fun ChatBackupSettingsScreen() {
                                     addCategory(Intent.CATEGORY_OPENABLE)
                                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                     type = "*/*"
-                                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/zip"))
+                                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf<String>("application/zip"))
                                 }
                                 rawSnapshotRestoreFilePickerLauncher.launch(intent)
                             },
