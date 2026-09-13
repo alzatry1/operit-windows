@@ -21,6 +21,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      # CI 专用：48 万行干净全量编译（0 错误时编译器不早停、吃内存更大）需要大堆；本地 2 GiB 只编 compat 不动。——Nova 注
+      - name: Bump heap for CI full compile
+        shell: bash
+        run: sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=768m/' gradle.properties
+
       # 纯编译普查（先跑，compile-log 在此生成）——Nova 注
       - name: Compile census
         shell: bash
