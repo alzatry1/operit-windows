@@ -1614,7 +1614,9 @@ class StandardWebVisitTool(private val context: Context) : ToolExecutor {
         """.trimIndent()
 
         try {
-            webView.evaluateJavascript(extractionScript) { resultContent ->
+            webView.evaluateJavascript(extractionScript) { resultContentNullable ->
+                // resultContent 可空（compat ValueCallback<String>.onReceiveValue(T?)），兑底空串。——Nova 注
+                val resultContent = resultContentNullable ?: ""
                 try {
                     AppLogger.d(
                             TAG,
