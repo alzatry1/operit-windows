@@ -39,7 +39,7 @@ fun FullscreenInputDialog(
 
     Dialog(
         onDismissRequest = { finishEditing() },
-        properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
+        properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
