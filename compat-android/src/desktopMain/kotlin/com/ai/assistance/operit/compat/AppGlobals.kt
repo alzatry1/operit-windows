@@ -36,7 +36,14 @@ object AppGlobals {
 
     const val PACKAGE_NAME = "com.ai.assistance.operit"
 
-    val applicationContext: Context by lazy { Application() }
+    /** app 侧 OperitApplication 实例（在 Main 入口最早注册）。注册后 applicationContext 返回它，保证 LocalContext 与 OperitApplication.instance 指向同一对象。——Nova 注 */
+    @Volatile
+    var registeredApplication: Application? = null
+
+    private val fallbackApplication: Application by lazy { Application() }
+
+    val applicationContext: Context
+        get() = registeredApplication ?: fallbackApplication
 
     val assets: AssetManager by lazy { AssetManager() }
     val resources: Resources by lazy { Resources() }

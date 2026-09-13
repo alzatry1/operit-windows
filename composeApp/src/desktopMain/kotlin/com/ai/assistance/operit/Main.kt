@@ -5,14 +5,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.ai.assistance.operit.compat.AppGlobals
+import com.ai.assistance.operit.core.application.OperitApplication
+import com.ai.assistance.operit.ui.main.OperitApp
 
-fun main() = application {
-    val windowState = rememberWindowState(size = DpSize(1280.dp, 800.dp))
-    Window(
-        onCloseRequest = ::exitApplication,
-        state = windowState,
-        title = "Operit AI",
-    ) {
-        App()
+/**
+ * Windows 桌面入口。
+ * 桌面端没有 Android 系统按 manifest 自动实例化 Application 的机制，这里手动完成：
+ * 实例化 OperitApplication → 注册为全局 applicationContext → 跑 onCreate/initializeMainApplication
+ * 初始化链 → 渲染真实 UI 根 OperitApp()（替换原占位 App()）。——Nova 注
+ */
+fun main() {
+    val app = OperitApplication()
+    // 先注册为全局 applicationContext，保证 LocalContext 与 OperitApplication.instance 一致
+    AppGlobals.registeredApplication = app
+    // Application.onCreate：设 instance、AppLogger、JSON、ImageLoader、权限偏好等
+    app.onCreate()
+    // 主初始化链：AppLogger、偏好管理器、语言、ActivityLifecycleManager、AIMessageManager、
+    // 插件注册、WorkManager、记忆自动保存等
+    app.initializeMainApplication()
+
+    application {
+        val windowState = rememberWindowState(size = DpSize(1280.dp, 800.dp))
+        Window(
+            onCloseRequest = ::exitApplication,
+            state = windowState,
+            title = "Operit AI",
+        ) {
+            OperitApp()
+        }
     }
 }
