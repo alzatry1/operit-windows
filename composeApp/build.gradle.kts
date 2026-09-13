@@ -126,5 +126,15 @@ compose.desktop {
                 // iconFile.set(project.file("icon.ico")) // TODO: 迁移应用图标
             }
         }
+
+        // release 打包跑 ProGuard：接入 dontwarn 规则文件，抑制可选依赖类（servlet/conscrypt/asm/spring 等）
+        // 在桌面 classpath 上的未解析引用警告，避免 ProGuard 警告即错误导致打包失败。——Nova 注
+        buildTypes {
+            release {
+                proguard {
+                    configuration.files.from("proguard-rules-desktop.pro")
+                }
+            }
+        }
     }
 }
