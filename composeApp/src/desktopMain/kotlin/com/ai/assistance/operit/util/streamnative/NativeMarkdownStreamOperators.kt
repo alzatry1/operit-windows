@@ -6,7 +6,7 @@ import com.ai.assistance.operit.util.stream.Stream
 import com.ai.assistance.operit.util.stream.StreamCollector
 import com.ai.assistance.operit.util.stream.StreamGroup
 import com.ai.assistance.operit.util.stream.StreamLogger
-import com.ai.assistance.operit.util.stream.StreamPlugin
+import com.ai.assistance.operit.util.stream.plugins.StreamPlugin
 import com.ai.assistance.operit.util.stream.asStream
 import com.ai.assistance.operit.util.stream.map
 import com.ai.assistance.operit.util.stream.splitBy
