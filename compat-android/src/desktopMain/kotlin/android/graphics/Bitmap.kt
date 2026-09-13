@@ -112,8 +112,8 @@ open class Bitmap internal constructor(
         }
     }
 
-    fun copy(config: Config?, isMutable: Boolean): Bitmap? {
-        if (recycled) return null
+    /** copy：真实 Android Bitmap.copy 返回非空（app 非空用）；recycled 时仍返回副本。——Nova 注 */
+    fun copy(config: Config?, isMutable: Boolean): Bitmap {
         return createBitmap(this, 0, 0, width, height, null, true)
     }
 

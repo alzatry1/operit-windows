@@ -84,7 +84,8 @@ private constructor(
      * @return 当前EXE编辑器实例
      */
     fun changeIcon(iconInputStream: InputStream): ExeEditor {
-        val bitmap = BitmapFactory.decodeStream(iconInputStream)
+        // decodeStream 返回 Bitmap?（decode 失败为 null），changeIcon 要非空，失败降级返回 this。——Nova 注
+        val bitmap = BitmapFactory.decodeStream(iconInputStream) ?: return this
         return changeIcon(bitmap)
     }
 
