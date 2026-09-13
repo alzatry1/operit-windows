@@ -194,7 +194,7 @@ fun MemoryScreen() {
                                         val displayNameIndex =
                                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
                                         if (displayNameIndex != -1) {
-                                            extractedFileName = cursor.getString(displayNameIndex)
+                                            extractedFileName = cursor.getString(displayNameIndex) ?: "Untitled"
                                         }
                                     }
                                 }
