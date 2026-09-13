@@ -252,7 +252,8 @@ open class Activity : ContextWrapper(null), ComponentCallbacks2 {
 
     open fun onWindowFocusChanged(hasFocus: Boolean) {}
 
-    open fun isChangingConfigurations(): Boolean = false
+    /** isChangingConfigurations：is 前缀 Java 方法映射为属性（app 用属性语法）。——Nova 注 */
+    open val isChangingConfigurations: Boolean get() = false
 
     open fun isInMultiWindowMode(): Boolean = false
 
