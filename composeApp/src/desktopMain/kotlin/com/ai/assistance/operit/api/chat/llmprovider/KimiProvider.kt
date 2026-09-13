@@ -221,7 +221,7 @@ open class KimiProvider(
                     if (!queuedAssistantToolText.isNullOrBlank()) {
                         put("content", buildContentField(context, queuedAssistantToolText!!, role = "assistant"))
                     } else {
-                        put("content", null)
+                        put("content", JSONObject.NULL)
                     }
                     put("tool_calls", queuedToolCalls)
                 }
