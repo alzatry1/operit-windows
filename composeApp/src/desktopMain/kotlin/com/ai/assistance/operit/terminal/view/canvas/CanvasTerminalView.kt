@@ -341,7 +341,7 @@ class CanvasTerminalView @JvmOverloads constructor(
         }
 
         if (autoScrollDirection == 0) {
-            autoScrollRunnable?.let { handler.removeCallbacks(it) }
+            autoScrollRunnable?.let { keyHandler.removeCallbacks(it) }
             autoScrollRunnable = null
             return
         }
@@ -566,7 +566,7 @@ class CanvasTerminalView @JvmOverloads constructor(
     private var isFullscreenMode = true
     
     // 方向键长按处理
-    private val handler = Handler(Looper.getMainLooper())
+    private val keyHandler = Handler(Looper.getMainLooper())
     private var currentArrowKey: Int? = null
     private var arrowKeyRepeatRunnable: Runnable? = null
     private var isArrowKeyPressed = false
@@ -1292,7 +1292,7 @@ class CanvasTerminalView @JvmOverloads constructor(
     fun release() {
         stopRenderThread()
         handleArrowKeyUp()
-        autoScrollRunnable?.let { handler.removeCallbacks(it) }
+        autoScrollRunnable?.let { keyHandler.removeCallbacks(it) }
         autoScrollRunnable = null
         removeCallbacks(newOutputDispatchRunnable)
         synchronized(newOutputDispatchLock) {
@@ -2350,7 +2350,7 @@ class CanvasTerminalView @JvmOverloads constructor(
             activeDragHandle = DragHandle.NONE
             isSelectionDragging = false
             autoScrollDirection = 0
-            autoScrollRunnable?.let { handler.removeCallbacks(it) }
+            autoScrollRunnable?.let { keyHandler.removeCallbacks(it) }
             autoScrollRunnable = null
             hasMovedBeyondTouchSlop = false
             hadMultiTouch = false
@@ -2360,7 +2360,7 @@ class CanvasTerminalView @JvmOverloads constructor(
             activeDragHandle = DragHandle.NONE
             isSelectionDragging = false
             autoScrollDirection = 0
-            autoScrollRunnable?.let { handler.removeCallbacks(it) }
+            autoScrollRunnable?.let { keyHandler.removeCallbacks(it) }
             autoScrollRunnable = null
             hasMovedBeyondTouchSlop = false
             hadMultiTouch = false
@@ -2653,11 +2653,11 @@ class CanvasTerminalView @JvmOverloads constructor(
             override fun run() {
                 if (isArrowKeyPressed && currentArrowKey == keyCode) {
                     sendArrowKey(keyCode)
-                    handler.postDelayed(this, repeatInterval)
+                    keyHandler.postDelayed(this, repeatInterval)
                 }
             }
         }
-        handler.postDelayed(arrowKeyRepeatRunnable!!, longPressDelay)
+        keyHandler.postDelayed(arrowKeyRepeatRunnable!!, longPressDelay)
     }
     
     /**
@@ -2667,7 +2667,7 @@ class CanvasTerminalView @JvmOverloads constructor(
         isArrowKeyPressed = false
         currentArrowKey = null
         arrowKeyRepeatRunnable?.let {
-            handler.removeCallbacks(it)
+            keyHandler.removeCallbacks(it)
             arrowKeyRepeatRunnable = null
         }
     }
