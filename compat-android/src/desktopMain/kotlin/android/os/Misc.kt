@@ -375,7 +375,8 @@ open class Binder : IBinder {
 /** android.os.LocaleList：包装 Locale 列表。 */
 class LocaleList(vararg localeArgs: Locale) : Iterable<Locale>, Parcelable {
     private val locales: Array<Locale> = arrayOf(*localeArgs)
-    fun get(index: Int): Locale = locales[index]
+    /** get 标 operator（app 用 localeList[index] 语法）。——Nova 注 */
+    operator fun get(index: Int): Locale = locales[index]
     fun size(): Int = locales.size
     fun isEmpty(): Boolean = locales.isEmpty()
     fun indexOf(locale: Locale?): Int = locales.indexOf(locale)
