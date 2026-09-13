@@ -4419,6 +4419,7 @@ internal fun Map<String, Any?>.dp(key: String, defaultValue: Dp = 0.dp): Dp {
     return (floatOrNull(key) ?: defaultValue.value).dp
 }
 
+@OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 internal fun popupPropertiesFromValue(value: Any?): PopupProperties {
     val map = value as? Map<*, *> ?: return PopupProperties()
     return PopupProperties(
