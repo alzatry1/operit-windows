@@ -8,6 +8,8 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    permissions:
+      contents: write  # 需要上传 release 资产。——Nova 注
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,6 +58,20 @@ jobs:
             composeApp/build/compose/binaries/main*/msi/*.msi
             composeApp/build/compose/binaries/main*/exe/*.exe
           if-no-files-found: warn
+
+      # 打包成功后直接把安装包传到 GitHub Release（runner 上有 gh + GITHUB_TOKEN，不经本地）。——Nova 注
+      - name: Upload installer to Release
+        if: success()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="v1.0.0-windows"
+          # 建 release（已存在则跳过），再把 MSI/EXE 传上去（--clobber 覆盖旧的）
+          gh release create "$TAG" --title "Operit AI v1.0.0 for Windows (移植版)" --notes "Operit AI 的 Windows 桌面移植版（Compose Multiplatform Desktop JVM）。真实 UI 已接入，编译 0 错误。" --latest=false 2>/dev/null || true
+          for f in composeApp/build/compose/binaries/main*/msi/*.msi composeApp/build/compose/binaries/main*/exe/*.exe; do
+            [ -f "$f" ] && gh release upload "$TAG" --clobber "$f" && echo "已上传: $f"
+          done
 
   # Linux 无头冒烟测试：验证接上真实 UI 后 app 能真正启动（初始化链不崩）。——Nova 注
   smoke-linux:
