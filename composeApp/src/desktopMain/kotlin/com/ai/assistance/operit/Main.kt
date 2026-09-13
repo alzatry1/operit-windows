@@ -32,7 +32,17 @@ fun main() {
             state = windowState,
             title = "Operit AI",
         ) {
-            OperitApp()
+            // 渲染对照实验：亮红测试块（Compose 能跑就一定渲得出）。红了=渲染管线 OK、问题在 OperitApp；黑了=渲染管线问题。——Nova 注
+            androidx.compose.foundation.layout.Box(
+                modifier = androidx.compose.ui.Modifier.fillMaxSize()
+                    .background(androidx.compose.ui.graphics.Color(0xFFE53935))
+            ) {
+                androidx.compose.material3.Text(
+                    "RENDER-TEST-OK 渲染正常",
+                    color = androidx.compose.ui.graphics.Color.White,
+                    modifier = androidx.compose.ui.Modifier.align(androidx.compose.ui.Alignment.Center)
+                )
+            }
         }
     }
 }
