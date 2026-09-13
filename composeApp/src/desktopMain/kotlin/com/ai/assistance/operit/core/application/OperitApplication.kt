@@ -296,46 +296,51 @@ class OperitApplication : Application(), SingletonImageLoader.Factory, WorkConfi
             AppLogger.d(TAG, "【启动计时】数据库预加载完成（异步） - ${System.currentTimeMillis() - dbStartTime}ms")
         }
 
-        // 初始化全局图片加载器，设置强大的缓存策略
-        // 创建自定义 OkHttp 客户端，增加超时时间以支持慢速图片服务器
-        val imageOkHttpClient = OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS) // 连接超时：30秒（默认10秒）
-                .readTimeout(60, TimeUnit.SECONDS)    // 读取超时：60秒（默认10秒）
-                .writeTimeout(30, TimeUnit.SECONDS)   // 写入超时：30秒（默认10秒）
-                .retryOnConnectionFailure(true)       // 连接失败时自动重试
-                .build()
-        
-        globalImageLoader =
-                ImageLoader.Builder(PlatformContext.INSTANCE)
-                        .components {
-                // coil3: OkHttp 网络层改经 FetcherFactory 注入
-                add(OkHttpNetworkFetcherFactory(callFactory = { imageOkHttpClient }))
-                        }
-                        .crossfade(true)
-                        .memoryCachePolicy(CachePolicy.ENABLED)
-                        .diskCachePolicy(CachePolicy.ENABLED)
-                        .diskCache {
-                            DiskCache.Builder()
-                                    .directory(filesDir.resolve("image_cache").toOkioPath())
-                                    .maxSizeBytes(50 * 1024 * 1024) // 50MB磁盘缓存上限，比百分比更精确
-                                    .build()
-                        }
-                        .memoryCache {
-                            // 设置内存缓存最大大小为应用可用内存的15%
-                            coil3.memory.MemoryCache.Builder().maxSizePercent(PlatformContext.INSTANCE, 0.15).build()
-                        }
+        // 全局图片加载器的完整版（OkHttp+缓存）改成异步构建，不阻塞初始化链——桌面端这步曾卡死
+        // （onCreate 里已设简单版 globalImageLoader 保底，这里后台升级为完整版）。——Nova 注
+        applicationScope.launch {
+            try {
+                val imageOkHttpClient = OkHttpClient.Builder()
+                        .connectTimeout(30, TimeUnit.SECONDS)
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(30, TimeUnit.SECONDS)
+                        .retryOnConnectionFailure(true)
                         .build()
-        AppLogger.d(TAG, "【启动计时】全局图片加载器初始化完成（超时配置：连接30s/读取60s） - ${System.currentTimeMillis() - startTime}ms")
+                globalImageLoader =
+                        ImageLoader.Builder(PlatformContext.INSTANCE)
+                                .components {
+                                    add(OkHttpNetworkFetcherFactory(callFactory = { imageOkHttpClient }))
+                                }
+                                .crossfade(true)
+                                .memoryCachePolicy(CachePolicy.ENABLED)
+                                .diskCachePolicy(CachePolicy.ENABLED)
+                                .diskCache {
+                                    DiskCache.Builder()
+                                            .directory(filesDir.resolve("image_cache").toOkioPath())
+                                            .maxSizeBytes(50 * 1024 * 1024)
+                                            .build()
+                                }
+                                .memoryCache {
+                                    coil3.memory.MemoryCache.Builder().maxSizePercent(PlatformContext.INSTANCE, 0.15).build()
+                                }
+                                .build()
+                AppLogger.d(TAG, "【启动计时】全局图片加载器初始化完成（异步）")
+            } catch (e: Exception) {
+                AppLogger.e(TAG, "全局图片加载器完整版初始化失败，沿用 onCreate 简单版", e)
+            }
+        }
         
-        // 初始化图片池管理器，支持本地持久化缓存
-        ImagePoolManager.initialize(filesDir, preloadNow = false)
-        AppLogger.d(TAG, "【启动计时】图片池管理器初始化完成 - ${System.currentTimeMillis() - startTime}ms")
-
-        // 初始化媒体池管理器（音频/视频），支持本地持久化缓存
-        MediaPoolManager.initialize(filesDir, preloadNow = false)
-        AppLogger.d(TAG, "【启动计时】媒体池管理器初始化完成 - ${System.currentTimeMillis() - startTime}ms")
-
-        SkillRepoZipPoolManager.initialize(filesDir)
+        // 图片池/媒体池/SkillRepo 池管理器初始化也改成异步——都是缓存类、UI 懒用，桌面端同步初始化可能阻塞。——Nova 注
+        applicationScope.launch {
+            try {
+                ImagePoolManager.initialize(filesDir, preloadNow = false)
+                MediaPoolManager.initialize(filesDir, preloadNow = false)
+                SkillRepoZipPoolManager.initialize(filesDir)
+                AppLogger.d(TAG, "【启动计时】图片池/媒体池/SkillRepo 池管理器初始化完成（异步）")
+            } catch (e: Exception) {
+                AppLogger.e(TAG, "图片池/媒体池管理器初始化失败", e)
+            }
+        }
 
         // 启动后重任务统一后台串行执行，避免多个大任务同时跑导致首屏掉帧
         applicationScope.launch(Dispatchers.Default) {
