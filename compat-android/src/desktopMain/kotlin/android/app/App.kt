@@ -542,7 +542,8 @@ class NotificationChannel(
     private var lightsEnabled = false
     private var lightColor = 0
     private var vibrationEnabled = false
-    private var vibrationPattern: LongArray? = null
+    /** vibrationPattern 改公开 var（app 用属性语法 channel.vibrationPattern = x；自动生成 get/setVibrationPattern 访问器，不用再手写方法）。——Nova 注 */
+    var vibrationPattern: LongArray? = null
     private var sound: android.net.Uri? = null
     private var lockscreenVisibility = 0
     private var canBypassDnd = false
@@ -564,8 +565,6 @@ class NotificationChannel(
     fun setLightColor(argb: Int) { this.lightColor = argb }
     fun shouldVibrate(): Boolean = vibrationEnabled
     fun enableVibration(vibration: Boolean) { this.vibrationEnabled = vibration }
-    fun getVibrationPattern(): LongArray? = vibrationPattern
-    fun setVibrationPattern(vibrationPattern: LongArray?) { this.vibrationPattern = vibrationPattern }
     fun getSound(): android.net.Uri? = sound
     fun setSound(sound: android.net.Uri?, audioAttributes: android.media.AudioAttributes?) { this.sound = sound }
     fun getLockscreenVisibility(): Int = lockscreenVisibility
