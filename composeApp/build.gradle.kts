@@ -134,8 +134,6 @@ compose.desktop {
                 proguard {
                     // Compose Desktop 1.9.0 DSL：配置文件属性是 configurationFiles（ConfigurableFileCollection）。——Nova 注
                     configurationFiles.from("proguard-rules-desktop.pro")
-                    // ProGuard 本身也可能 OOM，给大堆。——Nova 注
-                    maxHeapSize.set("5g")
                 }
             }
         }
