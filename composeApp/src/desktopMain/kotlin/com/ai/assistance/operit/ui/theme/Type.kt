@@ -68,10 +68,10 @@ fun loadCustomFontFamily(context: Context, fontPath: String): FontFamily? {
             return null
         }
         
-        // CMP desktop 的 Font 只收资源 ID(Int)，不收 File；用 Skia FontMgr 从文件加载 Typeface，再 FontFamily(Typeface)。——Nova 注
-        val typeface = org.jetbrains.skia.FontMgr.default.makeFromFile(file.absolutePath)
-            ?: return null
-        FontFamily(typeface)
+        // CMP desktop 的 Font 只收资源 ID(Int)，不收 File；用桌面专用的 androidx.compose.ui.text.platform.FileFont(File) 从文件加载。——Nova 注
+        FontFamily(
+            androidx.compose.ui.text.platform.FileFont(file)
+        )
     } catch (e: Exception) {
         AppLogger.e("TypeKt", "Error loading custom font from $fontPath", e)
         null
