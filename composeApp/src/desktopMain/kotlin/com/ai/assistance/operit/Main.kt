@@ -1,5 +1,12 @@
 package com.ai.assistance.operit
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -33,14 +40,13 @@ fun main() {
             title = "Operit AI",
         ) {
             // 渲染对照实验：亮红测试块（Compose 能跑就一定渲得出）。红了=渲染管线 OK、问题在 OperitApp；黑了=渲染管线问题。——Nova 注
-            androidx.compose.foundation.layout.Box(
-                modifier = androidx.compose.ui.Modifier.fillMaxSize()
-                    .background(androidx.compose.ui.graphics.Color(0xFFE53935))
+            Box(
+                modifier = Modifier.fillMaxSize().background(Color(0xFFE53935))
             ) {
-                androidx.compose.material3.Text(
+                Text(
                     "RENDER-TEST-OK 渲染正常",
-                    color = androidx.compose.ui.graphics.Color.White,
-                    modifier = androidx.compose.ui.Modifier.align(androidx.compose.ui.Alignment.Center)
+                    color = Color.White,
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
         }
