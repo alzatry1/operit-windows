@@ -182,8 +182,10 @@ open class Context {
         delegate?.getSystemService(name) ?: AppGlobals.systemService(name)
 
     @Suppress("UNCHECKED_CAST")
-    open fun <T : Any> getSystemService(serviceClass: Class<T>): T? =
-        delegate?.getSystemService(serviceClass) ?: AppGlobals.systemService(serviceClass)
+    /** getSystemService(Class) 返回非空 T：app 全部调用点都非空用（NotificationManager/ClipboardManager 等常用服务在 AppGlobals 均注册为非空实例）；未注册服务抛异常。——Nova 注 */
+    open fun <T : Any> getSystemService(serviceClass: Class<T>): T =
+        (delegate?.getSystemService(serviceClass) ?: AppGlobals.systemService(serviceClass))
+            ?: throw IllegalStateException("System service not available: ${serviceClass.simpleName}")
 
     open fun getSystemServiceName(serviceClass: Class<*>): String? =
         delegate?.getSystemServiceName(serviceClass) ?: when (serviceClass) {
