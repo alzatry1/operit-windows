@@ -56,3 +56,42 @@ jobs:
             composeApp/build/compose/binaries/main*/msi/*.msi
             composeApp/build/compose/binaries/main*/exe/*.exe
           if-no-files-found: warn
+
+  # Linux 无头冒烟测试：验证接上真实 UI 后 app 能真正启动（初始化链不崩）。——Nova 注
+  smoke-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Bump heap for full compile
+        shell: bash
+        run: sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=768m/' gradle.properties
+
+      - name: Install Xvfb + 图形依赖
+        shell: bash
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq xvfb libxrender1 libxtst6 libxi6 libxext6 libx11-6 libfontconfig1 libgl1 > /dev/null
+
+      # xvfb-run 虚拟显示跑 app，timeout 120s 后杀掉；启动日志全量抓。——Nova 注
+      - name: Run app headless (smoke test)
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 150 xvfb-run -a -s "-screen 0 1280x800x24" ./gradlew :composeApp:run --no-daemon 2>&1 | tee smoke.log || true
+
+      - name: Upload smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-log
+          path: smoke.log
+          if-no-files-found: warn
