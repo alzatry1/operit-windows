@@ -1216,6 +1216,9 @@ class EnhancedAIService private constructor(private val context: Context) {
                                 execContext.roundManager.appendChunk(content)
 
                                 // 发射当前内容片段
+                                // 诊断：抓到并发出内容块（Nova-RESP，用户反馈 AI 回复空白用）。——Nova 注
+                                AppLogger.i(TAG, "Nova-RESP: 抓到内容块 len=${content.length} preview=${content.take(80).replace("\n","⏎")}")
+                                println("Nova-RESP: 抓到内容块 len=${content.length} preview=${content.take(80).replace("\n","⏎")}")
                                 emit(content)
                             }
                         } finally {

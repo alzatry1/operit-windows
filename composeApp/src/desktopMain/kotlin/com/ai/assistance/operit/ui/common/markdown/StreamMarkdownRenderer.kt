@@ -490,6 +490,9 @@ fun StreamMarkdownRenderer(
                 )
                 .collect { blockGroup ->
                 val blockType = blockGroup.tag ?: MarkdownProcessorType.PLAIN_TEXT
+                // 诊断：渲染器收到的 block group（Nova-RENDER，用户反馈 AI 回复空白用）。——Nova 注
+                AppLogger.i(TAG, "Nova-RENDER: block group type=$blockType")
+                println("Nova-RENDER: block group type=$blockType")
 
                 if (blockType == MarkdownProcessorType.HTML_BREAK) {
                     if (canMergeWithHtmlBreak(nodes.lastOrNull())) {
